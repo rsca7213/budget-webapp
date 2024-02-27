@@ -1,0 +1,25 @@
+<nav>
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="toggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a mat-button routerLink="/" class="brand">
+      <mat-icon class="mr-2">savings</mat-icon>
+      <span>{{ APP_PROPERTIES.title }}</span>
+    </a>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button [mat-menu-trigger-for]="menu">
+      <mat-icon> account_circle </mat-icon>
+    </button>
+    <mat-menu #menu>
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        Settings
+      </button>
+      <button mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+</nav>
