@@ -1,0 +1,13 @@
+mat-toolbar {
+  padding-left: 4px;
+  padding-right: 4px;
+  height: 64px;
+}
+
+a.brand {
+  font-size: 1.25rem;
+
+  mat-icon {
+    transform: scale(1.25);
+  }
+}

@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { HomeView } from './home/home.component'
+import { APP_ROUTES } from './app.routes'
 
 const routes: Routes = [
-  {
-    path: 'home',
-    component: HomeView
-  },
+  ...APP_ROUTES.map(route => {
+    return {
+      path: route.path,
+      component: route.component
+    }
+  }),
   {
     path: '',
     redirectTo: '/home',

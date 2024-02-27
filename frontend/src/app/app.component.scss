@@ -4,27 +4,10 @@ mat-sidenav-container {
   height: calc(100vh - 64px);
 }
 
-a.brand {
-  font-size: 1.25rem;
-
-  mat-icon {
-    transform: scale(1.25);
-  }
-}
-
-mat-sidenav,
-mat-sidenav-content {
-  padding: 16px;
-}
-
 mat-sidenav {
   width: 480px;
 
   @media (width >= var.$screen-sm) {
     width: 300px;
   }
-}
-
-mat-toolbar {
-  height: 64px;
 }
