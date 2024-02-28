@@ -2,8 +2,8 @@ import { Injectable, Logger } from '@nestjs/common'
 import { DomainValidatorService } from 'src/domain/services/validator.service'
 
 @Injectable()
-export class BootstrapServer {
-  private readonly logger = new Logger(BootstrapServer.name)
+export class BootstrapServerService {
+  private readonly logger = new Logger(BootstrapServerService.name)
 
   public startDomainValidationService(): void {
     DomainValidatorService.generateInstance()

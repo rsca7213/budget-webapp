@@ -1,12 +1,12 @@
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
-import { BootstrapServer } from './infrastructure/shared/bootstrap-server.service'
+import { BootstrapServerService } from './infrastructure/shared/services/bootstrap-server.service'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
-  const bootstrapServer = new BootstrapServer()
-  bootstrapServer.startDomainValidationService()
+  const bootstrapServerService = new BootstrapServerService()
+  bootstrapServerService.startDomainValidationService()
 
   await app.listen(3000)
 }
