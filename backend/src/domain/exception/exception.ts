@@ -1,4 +1,4 @@
-export class DomainException {
+export class Exception {
   private message: string
   private reason: 'Validation' | 'Verification' | 'Not Found' | 'Generic'
   private origin: string
@@ -29,17 +29,17 @@ export class DomainException {
     const reasons = ['Validation', 'Verification', 'Not Found', 'Generic']
 
     if (!message) {
-      throw new Error('DomainException was not created succesfully, message is required')
+      throw new Error('Exception was not created succesfully, message is required')
     }
 
     if (!origin) {
-      throw new Error('DomainException was not created succesfully, origin is required')
+      throw new Error('Exception was not created succesfully, origin is required')
     }
 
     if (!reasons.includes(reason)) {
-      throw new Error('DomainException was not created succesfully, reason is invalid')
+      throw new Error('Exception was not created succesfully, reason is invalid')
     }
 
-    throw new DomainException(message, 'Validation', origin)
+    throw new Exception(message, reason, origin)
   }
 }

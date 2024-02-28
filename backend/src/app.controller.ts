@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common'
 import { CategoryService } from './app/services/category.service'
-import { UuidService } from './infrastructure/shared/services/uuid.service'
+import { UuidService } from './infrastructure/services/uuid.service'
 
 @Controller()
 export class AppController {

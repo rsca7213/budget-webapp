@@ -1,6 +1,5 @@
 import { Entity } from '../interface/entity.abstract'
-import { DomainException } from '../exception/exception'
-import { DomainValidatorService } from '../services/validator.service'
+import { Exception } from '../exception/exception'
 import { CategoryType, CategoryTypes } from '../types/category.types'
 
 export class Category extends Entity {
@@ -21,22 +20,22 @@ export class Category extends Entity {
 
   public setName(name: string): void {
     this.validatorService.stringValidator.validate_required(name) ||
-      DomainException.throw('Name is required', 'Category.name', 'Validation')
+      Exception.throw('Name is required', 'DomainEntity.Category.name', 'Validation')
     this.validatorService.stringValidator.validate_type(name) ||
-      DomainException.throw('Name is invalid', 'Category.name', 'Validation')
+      Exception.throw('Name is invalid', 'DomainEntity.Category.name', 'Validation')
     this.validatorService.stringValidator.validate_min_length(name, 3) ||
-      DomainException.throw('Name must have at least 3 characters', 'Category.name', 'Validation')
+      Exception.throw('Name must have at least 3 characters', 'DomainEntity.Category.name', 'Validation')
     this.validatorService.stringValidator.validate_max_length(name, 100) ||
-      DomainException.throw('Name must have at most 100 characters', 'Category.name', 'Validation')
+      Exception.throw('Name must have at most 100 characters', 'DomainEntity.Category.name', 'Validation')
 
     this.name = name
   }
 
   public setType(type: CategoryType): void {
     this.validatorService.fixedValueValidator.validate_required(type) ||
-      DomainException.throw('Type is required', 'Category.type', 'Validation')
+      Exception.throw('Type is required', 'DomainEntity.Category.type', 'Validation')
     this.validatorService.fixedValueValidator.validate_exists(type, CategoryTypes) ||
-      DomainException.throw('Type is invalid', 'Category.type', 'Validation')
+      Exception.throw('Type is invalid', 'DomainEntity.Category.type', 'Validation')
 
     this.type = type
   }

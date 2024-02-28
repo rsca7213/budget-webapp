@@ -1,18 +1,57 @@
 import { CategoryService } from '../../src/app/services/category.service'
 import { Category } from '../../src/domain/entities/category.entity'
-import { DomainException } from '../../src/domain/exception/exception'
-import { BootstrapServerService } from '../../src/infrastructure/shared/services/bootstrap-server.service'
-import { UuidService } from '../../src/infrastructure/shared/services/uuid.service'
+import { Exception } from '../../src/domain/exception/exception'
+import { CategoryRepository } from '../../src/infrastructure/database/category.repository'
+import { BootstrapServerService } from '../../src/infrastructure/services/bootstrap-server.service'
+import { UuidService } from '../../src/infrastructure/services/uuid.service'
 
-jest.mock('../../src/infrastructure/shared/services/uuid.service.ts')
+jest.mock('../../src/infrastructure/services/uuid.service.ts')
+jest.mock('../../src/infrastructure/database/category.repository.ts')
 
 let uuidService: UuidService
 let categoryService: CategoryService
+let categoryRepository: CategoryRepository
 
 beforeAll(() => {
   new BootstrapServerService().startDomainValidationService(false)
   uuidService = new UuidService()
-  categoryService = new CategoryService(uuidService)
+  categoryRepository = new CategoryRepository()
+  categoryService = new CategoryService(uuidService, categoryRepository)
+})
+
+describe('[Unit - CategoryService] Find a category', () => {
+  it('Should find a category by uuid', () => {
+    const uuid = 'cde4d425-c343-4a3d-bb0e-266f9331f165'
+
+    const category = categoryService.find(uuid) as Category
+
+    expect(category instanceof Category).toBe(true)
+    expect(category.getUuid()).toBe(uuid)
+    expect(category.getCreatedAt()).toBeInstanceOf(Date)
+    expect(category.getUpdatedAt()).toBeInstanceOf(Date)
+    expect(category.getName()).toBe('Category 1')
+    expect(category.getType()).toBe('Income')
+  })
+
+  it('Should throw an error when category was not found', () => {
+    try {
+      categoryService.find('invalid-uuid')
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Not Found')
+      expect(error.origin).toBe('ApplicationService.Category.find')
+      expect(error.message).toBe('Category was not found')
+    }
+  })
+})
+
+describe('[Unit - CategoryService] Find all categories', () => {
+  it('Should find all categories', () => {
+    const categories = categoryService.findAll()
+
+    expect(categories.length).toBe(6)
+    expect(categories.map(category => category instanceof Category).every(instance => instance)).toBe(true)
+  })
 })
 
 describe('[Unit - CategoryService] Create a new category', () => {
@@ -31,9 +70,9 @@ describe('[Unit - CategoryService] Create a new category', () => {
     try {
       categoryService.create('', 'Income')
     } catch (error) {
-      expect(error instanceof DomainException).toBe(true)
+      expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
-      expect(error.origin).toBe('Category.name')
+      expect(error.origin).toBe('DomainEntity.Category.name')
       expect(error.message).toBe('Name is required')
     }
   })
@@ -42,9 +81,9 @@ describe('[Unit - CategoryService] Create a new category', () => {
     try {
       categoryService.create('Ca', 'Income')
     } catch (error) {
-      expect(error instanceof DomainException).toBe(true)
+      expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
-      expect(error.origin).toBe('Category.name')
+      expect(error.origin).toBe('DomainEntity.Category.name')
       expect(error.message).toBe('Name must have at least 3 characters')
     }
   })
@@ -56,9 +95,9 @@ describe('[Unit - CategoryService] Create a new category', () => {
         'Income'
       )
     } catch (error) {
-      expect(error instanceof DomainException).toBe(true)
+      expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
-      expect(error.origin).toBe('Category.name')
+      expect(error.origin).toBe('DomainEntity.Category.name')
       expect(error.message).toBe('Name must have at most 100 characters')
     }
   })
@@ -67,9 +106,9 @@ describe('[Unit - CategoryService] Create a new category', () => {
     try {
       categoryService.create('Groceries', '' as any)
     } catch (error) {
-      expect(error instanceof DomainException).toBe(true)
+      expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
-      expect(error.origin).toBe('Category.type')
+      expect(error.origin).toBe('DomainEntity.Category.type')
       expect(error.message).toBe('Type is required')
     }
   })
@@ -78,9 +117,9 @@ describe('[Unit - CategoryService] Create a new category', () => {
     try {
       categoryService.create('Groceries', 'InvalidType' as any)
     } catch (error) {
-      expect(error instanceof DomainException).toBe(true)
+      expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
-      expect(error.origin).toBe('Category.type')
+      expect(error.origin).toBe('DomainEntity.Category.type')
       expect(error.message).toBe('Type is invalid')
     }
   })

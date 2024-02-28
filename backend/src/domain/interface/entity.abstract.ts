@@ -1,4 +1,4 @@
-import { DomainException } from '../exception/exception'
+import { Exception } from '../exception/exception'
 import { DomainValidatorService } from '../services/validator.service'
 
 export abstract class Entity {
@@ -18,9 +18,9 @@ export abstract class Entity {
 
   public setUuid(uuid: string): void {
     this.validatorService.uuidValidator.validate_required(uuid) ||
-      DomainException.throw('Uuid is required', `${this.constructor.name}.uuid`, 'Validation')
+      Exception.throw('Uuid is required', `DomainEntity.${this.constructor.name}.uuid`, 'Validation')
     this.validatorService.uuidValidator.validate(uuid) ||
-      DomainException.throw('Uuid is invalid', `${this.constructor.name}.uuid`, 'Validation')
+      Exception.throw('Uuid is invalid', `DomainEntity.${this.constructor.name}.uuid`, 'Validation')
 
     this.uuid = uuid
   }
@@ -31,7 +31,7 @@ export abstract class Entity {
 
   public setCreatedAt(createdAt: Date): void {
     this.validatorService.dateValidator.validate_required(createdAt) ||
-      DomainException.throw('CreatedAt is required', `${this.constructor.name}.createdAt`, 'Validation')
+      Exception.throw('CreatedAt is required', `DomainEntity.${this.constructor.name}.createdAt`, 'Validation')
 
     this.createdAt = createdAt
   }
@@ -42,8 +42,12 @@ export abstract class Entity {
 
   public setUpdatedAt(updatedAt: Date): void {
     this.validatorService.dateValidator.validate_required(updatedAt) ||
-      DomainException.throw('UpdatedAt is required', `${this.constructor.name}.updatedAt`, 'Validation')
+      Exception.throw('UpdatedAt is required', `DomainEntity.${this.constructor.name}.updatedAt`, 'Validation')
 
     this.updatedAt = updatedAt
+  }
+
+  public equals(entity: Entity): boolean {
+    return this.uuid === entity.getUuid()
   }
 }

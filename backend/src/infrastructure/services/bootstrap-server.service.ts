@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { DomainValidatorService } from '../../../domain/services/validator.service'
+import { DomainValidatorService } from '../../domain/services/validator.service'
 
 @Injectable()
 export class BootstrapServerService {
