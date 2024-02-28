@@ -40,7 +40,19 @@ export class DomainValidatorService {
       validateRequired,
       validateType: (value: string): boolean => typeof value === 'string',
       validateMinLength: (value: string, minLength: number): boolean => value.length >= minLength,
-      validateMaxLength: (value: string, maxLength: number): boolean => value.length <= maxLength
+      validateMaxLength: (value: string, maxLength: number): boolean => value.length <= maxLength,
+      validateRegex: (value: string, regex: 'email'): boolean => {
+        switch (regex) {
+          case 'email':
+            return value.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/) !== null
+          default:
+            return false
+        }
+      },
+      validateHasLowercase: (value: string): boolean => value.match(/[a-z]/) !== null,
+      validateHasUppercase: (value: string): boolean => value.match(/[A-Z]/) !== null,
+      validateHasNumber: (value: string): boolean => value.match(/[0-9]/) !== null,
+      validateHasSpecialCharacter: (value: string): boolean => value.match(/[^a-zA-Z0-9]/) !== null
     }
 
     const numberValidator: INumberValidator = {
