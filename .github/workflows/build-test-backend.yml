@@ -8,13 +8,13 @@ defaults:
 
 jobs:
   build:
-    working-directory: ./backend
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: npm install
       - run: npm run build
   unit-tests:
-    working-directory: ./backend
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: npm install
