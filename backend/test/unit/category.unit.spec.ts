@@ -20,6 +20,8 @@ describe('[Unit - CategoryService] Create a new category', () => {
     const category = categoryService.create('Groceries', 'Income')
 
     expect(category.getUuid()).toBe('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742')
+    expect(category.getCreatedAt()).toBeInstanceOf(Date)
+    expect(category.getUpdatedAt()).toBeInstanceOf(Date)
     expect(category.getName()).toBe('Groceries')
     expect(category.getType()).toBe('Income')
     expect(category instanceof Category).toBe(true)
