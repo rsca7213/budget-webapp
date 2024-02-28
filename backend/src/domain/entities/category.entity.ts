@@ -19,22 +19,22 @@ export class Category extends Entity {
   }
 
   public setName(name: string): void {
-    this.validatorService.stringValidator.validate_required(name) ||
+    this.validatorService.stringValidator.validateRequired(name) ||
       Exception.throw('Name is required', 'DomainEntity.Category.name', 'Validation')
-    this.validatorService.stringValidator.validate_type(name) ||
+    this.validatorService.stringValidator.validateType(name) ||
       Exception.throw('Name is invalid', 'DomainEntity.Category.name', 'Validation')
-    this.validatorService.stringValidator.validate_min_length(name, 3) ||
+    this.validatorService.stringValidator.validateMinLength(name, 3) ||
       Exception.throw('Name must have at least 3 characters', 'DomainEntity.Category.name', 'Validation')
-    this.validatorService.stringValidator.validate_max_length(name, 100) ||
+    this.validatorService.stringValidator.validateMaxLength(name, 100) ||
       Exception.throw('Name must have at most 100 characters', 'DomainEntity.Category.name', 'Validation')
 
     this.name = name
   }
 
   public setType(type: CategoryType): void {
-    this.validatorService.fixedValueValidator.validate_required(type) ||
+    this.validatorService.fixedValueValidator.validateRequired(type) ||
       Exception.throw('Type is required', 'DomainEntity.Category.type', 'Validation')
-    this.validatorService.fixedValueValidator.validate_exists(type, CategoryTypes) ||
+    this.validatorService.fixedValueValidator.validateExists(type, CategoryTypes) ||
       Exception.throw('Type is invalid', 'DomainEntity.Category.type', 'Validation')
 
     this.type = type

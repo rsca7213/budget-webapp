@@ -1,9 +1,9 @@
 import { IValidator } from '../interface/validator.interface'
 
 export interface IDateValidator extends IValidator<Date> {
-  validate_type(date: Date): boolean
+  validateType(date: Date): boolean
 
-  validate_non_future(date: Date): boolean
+  validateNonFuture(date: Date): boolean
 
-  validate_non_past(date: Date): boolean
+  validateNonPast(date: Date): boolean
 }

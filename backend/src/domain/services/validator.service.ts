@@ -18,48 +18,48 @@ export class DomainValidatorService {
   ) {}
 
   public static generateInstance(): void {
-    const validate_required = <T>(value: T): boolean => {
+    const validateRequired = <T>(value: T): boolean => {
       if (value === undefined || value === null || value === '') return false
       return true
     }
 
     const booleanValidator: IBooleanValidator = {
-      validate_required,
-      validate_type: (value: boolean): boolean => {
+      validateRequired,
+      validateType: (value: boolean): boolean => {
         return typeof value === 'boolean'
       }
     }
 
     const uuidValidator: IUuidValidator = {
-      validate_required,
+      validateRequired,
       validate: (value: string): boolean =>
         value.match(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/) !== null
     }
 
     const stringValidator: IStringValidator = {
-      validate_required,
-      validate_type: (value: string): boolean => typeof value === 'string',
-      validate_min_length: (value: string, min_length: number): boolean => value.length >= min_length,
-      validate_max_length: (value: string, max_length: number): boolean => value.length <= max_length
+      validateRequired,
+      validateType: (value: string): boolean => typeof value === 'string',
+      validateMinLength: (value: string, minLength: number): boolean => value.length >= minLength,
+      validateMaxLength: (value: string, maxLength: number): boolean => value.length <= maxLength
     }
 
     const numberValidator: INumberValidator = {
-      validate_required,
-      validate_type: (value: number): boolean => typeof value === 'number' && !isNaN(value),
-      validate_min: (value: number, min: number): boolean => value >= min,
-      validate_max: (value: number, max: number): boolean => value <= max
+      validateRequired,
+      validateType: (value: number): boolean => typeof value === 'number' && !isNaN(value),
+      validateMin: (value: number, min: number): boolean => value >= min,
+      validateMax: (value: number, max: number): boolean => value <= max
     }
 
     const dateValidator: IDateValidator = {
-      validate_required,
-      validate_type: (value: Date): boolean => value instanceof Date,
-      validate_non_future: (value: Date): boolean => value.getTime() <= new Date().getTime(),
-      validate_non_past: (value: Date): boolean => value.getTime() >= new Date().getTime()
+      validateRequired,
+      validateType: (value: Date): boolean => value instanceof Date,
+      validateNonFuture: (value: Date): boolean => value.getTime() <= new Date().getTime(),
+      validateNonPast: (value: Date): boolean => value.getTime() >= new Date().getTime()
     }
 
     const fixedValueValidator: IFixedValuesValidator = {
-      validate_required,
-      validate_exists: (value: string, fixed_values: string[]): boolean => fixed_values.includes(value)
+      validateRequired,
+      validateExists: (value: string, fixedValues: string[]): boolean => fixedValues.includes(value)
     }
 
     DomainValidatorService.instance = new DomainValidatorService(
