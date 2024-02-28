@@ -3,15 +3,17 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    shell: bash
+    working-directory: ./backend
     steps:
       - uses: actions/checkout@v2
-      - run: cd backend
       - run: npm install
       - run: npm run build
   unit-tests:
     runs-on: ubuntu-latest
+    shell: bash
+    working-directory: ./backend
     steps:
       - uses: actions/checkout@v2
-      - run: cd backend
       - run: npm install
       - run: npm run test:unit
