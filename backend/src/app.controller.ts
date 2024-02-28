@@ -1,12 +1,17 @@
 import { Controller, Get } from '@nestjs/common'
-import { AppService } from './app.service'
+import { CategoryService } from './app/services/category.service'
+import { UuidService } from './infrastructure/shared/services/uuid.service'
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  private readonly categoryService: CategoryService
+
+  public constructor(private readonly uuidService: UuidService) {
+    this.categoryService = new CategoryService(uuidService)
+  }
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello()
+  test(): string {
+    return 'Hello World!'
   }
 }

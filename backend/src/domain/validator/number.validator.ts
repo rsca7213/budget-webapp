@@ -1,4 +1,4 @@
-import { IValidator } from '../abstract/validator.interface'
+import { IValidator } from '../interface/validator.interface'
 
 export interface INumberValidator extends IValidator<number> {
   validate_type(value: number): boolean

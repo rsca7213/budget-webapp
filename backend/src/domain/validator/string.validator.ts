@@ -1,4 +1,4 @@
-import { IValidator } from '../abstract/validator.interface'
+import { IValidator } from '../interface/validator.interface'
 
 export interface IStringValidator extends IValidator<string> {
   validate_type(value: string): boolean

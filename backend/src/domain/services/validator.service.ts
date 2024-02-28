@@ -19,7 +19,7 @@ export class DomainValidatorService {
 
   public static generateInstance(): void {
     const validate_required = <T>(value: T): boolean => {
-      if (value === undefined || value === null) return false
+      if (value === undefined || value === null || value === '') return false
       return true
     }
 

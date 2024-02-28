@@ -3,7 +3,7 @@
   "moduleDirectories": ["node_modules", "src"],
   "rootDir": ".",
   "testEnvironment": "node",
-  "testRegex": ".e2e.spec.ts$",
+  "testRegex": ".unit.spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   }

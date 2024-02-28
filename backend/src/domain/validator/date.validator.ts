@@ -1,4 +1,4 @@
-import { IValidator } from '../abstract/validator.interface'
+import { IValidator } from '../interface/validator.interface'
 
 export interface IDateValidator extends IValidator<Date> {
   validate_type(date: Date): boolean

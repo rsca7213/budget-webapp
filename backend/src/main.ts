@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
   const bootstrapServerService = new BootstrapServerService()
-  bootstrapServerService.startDomainValidationService()
+  bootstrapServerService.startDomainValidationService(true)
 
   await app.listen(3000)
 }
