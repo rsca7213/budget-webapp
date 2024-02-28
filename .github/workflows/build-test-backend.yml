@@ -4,8 +4,7 @@ on: [push, pull_request]
 
 defaults:
   run:
-    working-directory: ./backend
-    shell: bash
+    working-directory: backend
 
 jobs:
   build:
