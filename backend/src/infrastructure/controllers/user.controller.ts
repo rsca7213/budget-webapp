@@ -5,15 +5,7 @@ import { UuidService } from '../services/uuid.service'
 import { UserRepository } from '../database/user.repository'
 import { HashService } from '../services/hash.service'
 import { ExceptionMapper } from '../mappers/exception.mapper'
-import {
-  ApiBasicAuth,
-  ApiConflictResponse,
-  ApiCookieAuth,
-  ApiCreatedResponse,
-  ApiInternalServerErrorResponse,
-  ApiTags,
-  ApiUnprocessableEntityResponse
-} from '@nestjs/swagger'
+import { ApiTags } from '@nestjs/swagger'
 
 @Controller('api/user')
 export class UserController {
@@ -28,8 +20,8 @@ export class UserController {
     this.userService = new UserService(uuidService, hashService, userRepository)
   }
 
-  @Post()
-  @ApiTags('User')
+  @Post('register')
+  @ApiTags('Authentication')
   public async create(@Body() data: CreateUserDto): Promise<void> {
     try {
       await this.userService.create(data.name, data.email, data.password)

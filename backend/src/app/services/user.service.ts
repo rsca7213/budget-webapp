@@ -20,7 +20,7 @@ export class UserService {
 
     const userBySameEmail = await this.userRepository.findByEmail(email)
 
-    if (userBySameEmail && userBySameEmail.equals(user))
+    if (userBySameEmail)
       Exception.throw('User with email already exists', 'ApplicationService.UserService.create', 'Verification')
 
     this.userRepository.save(user)

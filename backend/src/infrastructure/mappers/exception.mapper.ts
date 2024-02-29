@@ -14,9 +14,18 @@ export class ExceptionMapper {
 
   public map(error: Exception | Error): void {
     if (error instanceof Exception) {
-      throw new HttpException(error.getDetails(), this.enum[error.getReason()])
+      throw new HttpException(
+        { message: error.getMessage(), details: error.getDetails() },
+        this.enum[error.getReason()]
+      )
     } else {
-      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR)
+      throw new HttpException(
+        {
+          message: error.message,
+          details: 'An unexpected error occurred, please try again later.'
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR
+      )
     }
   }
 }
