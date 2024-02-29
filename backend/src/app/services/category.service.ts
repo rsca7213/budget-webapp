@@ -23,7 +23,7 @@ export class CategoryService {
   public async find(uuid: string): Promise<Category | undefined> {
     const category = await this.categoryRepository.find(uuid)
 
-    if (!category) Exception.throw('Category was not found', 'ApplicationService.Category.find', 'Not Found')
+    if (!category) Exception.throw('Category was not found', 'ApplicationService.Category.find', 'NotFound')
 
     return category
   }

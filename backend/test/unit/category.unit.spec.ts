@@ -38,7 +38,7 @@ describe('[Unit - CategoryService] Find a category', () => {
       await categoryService.find('invalid-uuid')
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
-      expect(error.reason).toBe('Not Found')
+      expect(error.reason).toBe('NotFound')
       expect(error.origin).toBe('ApplicationService.Category.find')
       expect(error.message).toBe('Category was not found')
     }

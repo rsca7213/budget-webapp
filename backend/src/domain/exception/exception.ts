@@ -1,13 +1,11 @@
+import { ExceptionReason, ExceptionReasons } from '../types/exception-reason.types'
+
 export class Exception {
   private message: string
-  private reason: 'Validation' | 'Verification' | 'Not Found' | 'Generic'
+  private reason: ExceptionReason
   private origin: string
 
-  private constructor(
-    message: string,
-    reason: 'Validation' | 'Verification' | 'Not Found' | 'Generic',
-    origin: string
-  ) {
+  private constructor(message: string, reason: ExceptionReason, origin: string) {
     this.message = message
     this.reason = reason
     this.origin = origin
@@ -21,12 +19,12 @@ export class Exception {
     return `[${this.reason} / ${this.origin}] ${this.message}`
   }
 
-  public static throw(
-    message: string,
-    origin: string,
-    reason: 'Validation' | 'Verification' | 'Not Found' | 'Generic'
-  ): void {
-    const reasons = ['Validation', 'Verification', 'Not Found', 'Generic']
+  public getReason(): ExceptionReason {
+    return this.reason
+  }
+
+  public static throw(message: string, origin: string, reason: ExceptionReason): void {
+    const reasons = ExceptionReasons
 
     if (!message) {
       throw new Error('Exception was not created succesfully, message is required')
