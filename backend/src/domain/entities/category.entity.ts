@@ -40,6 +40,18 @@ export class Category extends Entity {
     this.type = type
   }
 
+  public static restore(uuid: string, name: string, type: CategoryType, createdAt: Date, updatedAt: Date): Category {
+    const category = new Category()
+
+    category.setUuid(uuid)
+    category.setName(name)
+    category.setType(type)
+    category.setCreatedAt(createdAt)
+    category.setUpdatedAt(updatedAt)
+
+    return category
+  }
+
   public static create(uuid: string, name: string, type: CategoryType): Category {
     const category = new Category()
 
