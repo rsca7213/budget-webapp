@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core'
-import { AppModule } from './app.module'
+import { AppModule } from './infrastructure/app.module'
 import { BootstrapServerService } from './infrastructure/services/bootstrap-server.service'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
@@ -15,6 +15,10 @@ async function bootstrap() {
     .setLicense('MIT', 'https://opensource.org/licenses/MIT')
     .setVersion('0.0.1')
     .build()
+
+  app.enableCors({
+    origin: process.env.CLIENT_ROUTE
+  })
 
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('', app, document)
