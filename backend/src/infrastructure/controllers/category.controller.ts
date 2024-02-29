@@ -9,7 +9,7 @@ import { Category } from '../../domain/entities/category.entity'
 import { CreateCategoryDto } from '../dto/create-category.dto'
 import { UpdateCategoryDto } from '../dto/update-category.dto'
 
-@Controller('api/category')
+@Controller('api/categories')
 export class CategoryController {
   private readonly categoryService: CategoryService
 

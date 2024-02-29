@@ -7,7 +7,7 @@ import { HashService } from '../services/hash.service'
 import { ExceptionMapper } from '../mappers/exception.mapper'
 import { ApiTags } from '@nestjs/swagger'
 
-@Controller('api/user')
+@Controller('api/users')
 export class UserController {
   private readonly userService: UserService
 
