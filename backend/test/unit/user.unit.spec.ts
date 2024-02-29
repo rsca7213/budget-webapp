@@ -1,3 +1,4 @@
+import { Repository } from 'typeorm'
 import { UserService } from '../../src/app/services/user.service'
 import { User } from '../../src/domain/entities/user.entity'
 import { Exception } from '../../src/domain/exception/exception'
@@ -5,6 +6,7 @@ import { UserRepository } from '../../src/infrastructure/database/user.repositor
 import { BootstrapServerService } from '../../src/infrastructure/services/bootstrap-server.service'
 import { HashService } from '../../src/infrastructure/services/hash.service'
 import { UuidService } from '../../src/infrastructure/services/uuid.service'
+import { UserDatabaseEntity } from '../../src/infrastructure/database/models/user.orm.entity'
 
 jest.mock('../../src/infrastructure/services/uuid.service.ts')
 jest.mock('../../src/infrastructure/services/hash.service.ts')
@@ -19,7 +21,7 @@ beforeAll(() => {
   new BootstrapServerService().startDomainValidationService(false)
   uuidService = new UuidService()
   hashService = new HashService()
-  userRepository = new UserRepository()
+  userRepository = new UserRepository({} as Repository<UserDatabaseEntity>)
   userService = new UserService(uuidService, hashService, userRepository)
 })
 
