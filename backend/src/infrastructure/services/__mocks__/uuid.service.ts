@@ -15,7 +15,10 @@ export class UuidService implements IUuidService {
     '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd752',
     '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd753',
     '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd754',
-    '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd755'
+    '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd755',
+    '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd756',
+    '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd757',
+    '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd758'
   ]
 
   public generate(): string {

@@ -55,8 +55,8 @@ export class User extends Entity {
       Exception.throw('Password is invalid', 'DomainEntity.User.password', 'Validation')
     this.validatorService.stringValidator.validateMinLength(password, 10) ||
       Exception.throw('Password must have at least 10 characters', 'DomainEntity.User.password', 'Validation')
-    this.validatorService.stringValidator.validateMaxLength(password, 320) ||
-      Exception.throw('Password must have at most 320 characters', 'DomainEntity.User.password', 'Validation')
+    this.validatorService.stringValidator.validateMaxLength(password, 100) ||
+      Exception.throw('Password must have at most 100 characters', 'DomainEntity.User.password', 'Validation')
     this.validatorService.stringValidator.validateHasLowercase(password) ||
       Exception.throw('Password must have at least 1 lowercase character', 'DomainEntity.User.password', 'Validation')
     this.validatorService.stringValidator.validateHasUppercase(password) ||
