@@ -1,3 +1,4 @@
+import { CategoriesView } from './categories/categories.component'
 import { HomeView } from './home/home.component'
 
 export const APP_ROUTES = [
@@ -6,5 +7,11 @@ export const APP_ROUTES = [
     component: HomeView,
     icon: 'home',
     title: 'Home'
+  },
+  {
+    path: 'categories',
+    component: CategoriesView,
+    icon: 'label',
+    title: 'Categories'
   }
 ]

@@ -11,6 +11,7 @@ const PRODUCTION_APP_PROPERTIES = {
 
 interface _APP_PROPERTIES {
   title: string
+  api: string
 }
 
 export const APP_PROPERTIES: _APP_PROPERTIES =
