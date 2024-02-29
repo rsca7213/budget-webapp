@@ -25,19 +25,23 @@ export class UserRepository implements IUserRepository {
     )
   ]
 
-  public save(user: User): void {
+  public async save(user: User): Promise<void> {
     this.users.push(user)
   }
 
-  public find(uuid: string): User | undefined {
+  public async find(uuid: string): Promise<User | undefined> {
     return this.users.find(user => user.getUuid() === uuid)
   }
 
-  public findAll(): User[] {
+  public async findAll(): Promise<User[]> {
     return this.users
   }
 
-  public delete(uuid: string): void {
+  public async delete(uuid: string): Promise<void> {
     this.users = this.users.filter(user => user.getUuid() !== uuid)
+  }
+
+  public async findByEmail(email: string): Promise<User | undefined> {
+    return this.users.find(user => user.getEmail() === email)
   }
 }

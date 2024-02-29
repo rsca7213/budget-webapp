@@ -4,19 +4,23 @@ import { User } from '../../domain/entities/user.entity'
 
 @Injectable()
 export class UserRepository implements IUserRepository {
-  public save(user: User): void {
+  public async save(user: User): Promise<void> {
     throw new Error('Method not implemented.')
   }
 
-  public find(uuid: string): User | undefined {
+  public async find(uuid: string): Promise<User | undefined> {
     throw new Error('Method not implemented.')
   }
 
-  public findAll(): User[] {
+  public async findAll(): Promise<User[]> {
     throw new Error('Method not implemented.')
   }
 
-  public delete(uuid: string): void {
+  public async delete(uuid: string): Promise<void> {
+    throw new Error('Method not implemented.')
+  }
+
+  public async findByEmail(email: string): Promise<User | undefined> {
     throw new Error('Method not implemented.')
   }
 }

@@ -36,6 +36,17 @@ describe('[Unit - UserService] Create a new user', () => {
     expect(user instanceof User).toBe(true)
   })
 
+  it('Should throw an error when user with email already exists', async () => {
+    try {
+      await userService.create('New User', 'user1@email.com', 'Password123*')
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Verification')
+      expect(error.origin).toBe('ApplicationService.UserService.create')
+      expect(error.message).toBe('User with email already exists')
+    }
+  })
+
   it('Should throw an error when name is empty', async () => {
     try {
       await userService.create('', 'newuser@email.com', 'Password123*')

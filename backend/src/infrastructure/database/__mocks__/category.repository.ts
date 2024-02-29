@@ -16,19 +16,19 @@ export class CategoryRepository implements ICategoryRepository {
 
   public constructor(private readonly uuidService: UuidService) {}
 
-  public save(category: Category): void {
+  public async save(category: Category): Promise<void> {
     this.categories.push(category)
   }
 
-  public find(uuid: string): Category | undefined {
+  public async find(uuid: string): Promise<Category | undefined> {
     return this.categories.find(category => category.getUuid() === uuid)
   }
 
-  public findAll(): Category[] {
+  public async findAll(): Promise<Category[]> {
     return this.categories
   }
 
-  public delete(uuid: string): void {
+  public async delete(uuid: string): Promise<void> {
     this.categories = this.categories.filter(category => category.getUuid() !== uuid)
   }
 }

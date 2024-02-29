@@ -6,19 +6,19 @@ import { Category } from '../../domain/entities/category.entity'
 export class CategoryRepository implements ICategoryRepository {
   public constructor() {}
 
-  public save(category: Category): void {
+  public async save(category: Category): Promise<void> {
     throw new Error('Method not implemented.')
   }
 
-  public find(uuid: string): Category {
+  public async find(uuid: string): Promise<Category> {
     throw new Error('Method not implemented.')
   }
 
-  public findAll(): Category[] {
+  public async findAll(): Promise<Category[]> {
     throw new Error('Method not implemented.')
   }
 
-  public delete(uuid: string): void {
+  public async delete(uuid: string): Promise<void> {
     throw new Error('Method not implemented.')
   }
 }

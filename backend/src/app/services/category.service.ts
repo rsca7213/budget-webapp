@@ -10,25 +10,25 @@ export class CategoryService {
     private readonly categoryRepository: ICategoryRepository
   ) {}
 
-  public create(name: string, type: CategoryType): Category {
+  public async create(name: string, type: CategoryType): Promise<Category> {
     const uuid = this.uuidService.generate()
 
     const category = Category.create(uuid, name, type)
 
-    this.categoryRepository.save(category)
+    await this.categoryRepository.save(category)
 
     return category
   }
 
-  public find(uuid: string): Category | undefined {
-    const category = this.categoryRepository.find(uuid)
+  public async find(uuid: string): Promise<Category | undefined> {
+    const category = await this.categoryRepository.find(uuid)
 
     if (!category) Exception.throw('Category was not found', 'ApplicationService.Category.find', 'Not Found')
 
     return category
   }
 
-  public findAll(): Category[] {
-    return this.categoryRepository.findAll()
+  public async findAll(): Promise<Category[]> {
+    return await this.categoryRepository.findAll()
   }
 }

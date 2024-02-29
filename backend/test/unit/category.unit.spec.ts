@@ -20,10 +20,10 @@ beforeAll(() => {
 })
 
 describe('[Unit - CategoryService] Find a category', () => {
-  it('Should find a category by uuid', () => {
+  it('Should find a category by uuid', async () => {
     const uuid = 'cde4d425-c343-4a3d-bb0e-266f9331f165'
 
-    const category = categoryService.find(uuid) as Category
+    const category = (await categoryService.find(uuid)) as Category
 
     expect(category instanceof Category).toBe(true)
     expect(category.getUuid()).toBe(uuid)
@@ -33,9 +33,9 @@ describe('[Unit - CategoryService] Find a category', () => {
     expect(category.getType()).toBe('Income')
   })
 
-  it('Should throw an error when category was not found', () => {
+  it('Should throw an error when category was not found', async () => {
     try {
-      categoryService.find('invalid-uuid')
+      await categoryService.find('invalid-uuid')
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Not Found')
@@ -46,8 +46,8 @@ describe('[Unit - CategoryService] Find a category', () => {
 })
 
 describe('[Unit - CategoryService] Find all categories', () => {
-  it('Should find all categories', () => {
-    const categories = categoryService.findAll()
+  it('Should find all categories', async () => {
+    const categories = await categoryService.findAll()
 
     expect(categories.length).toBe(6)
     expect(categories.map(category => category instanceof Category).every(instance => instance)).toBe(true)
@@ -55,8 +55,8 @@ describe('[Unit - CategoryService] Find all categories', () => {
 })
 
 describe('[Unit - CategoryService] Create a new category', () => {
-  it('Should create a valid category', () => {
-    const category = categoryService.create('Groceries', 'Income')
+  it('Should create a valid category', async () => {
+    const category = await categoryService.create('Groceries', 'Income')
 
     expect(category.getUuid()).toBe('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742')
     expect(category.getCreatedAt()).toBeInstanceOf(Date)
@@ -66,9 +66,9 @@ describe('[Unit - CategoryService] Create a new category', () => {
     expect(category instanceof Category).toBe(true)
   })
 
-  it('Should throw an error when name is empty', () => {
+  it('Should throw an error when name is empty', async () => {
     try {
-      categoryService.create('', 'Income')
+      await categoryService.create('', 'Income')
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
@@ -77,9 +77,9 @@ describe('[Unit - CategoryService] Create a new category', () => {
     }
   })
 
-  it('Should throw an error when name is less than 3 characters', () => {
+  it('Should throw an error when name is less than 3 characters', async () => {
     try {
-      categoryService.create('Ca', 'Income')
+      await categoryService.create('Ca', 'Income')
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
@@ -88,9 +88,9 @@ describe('[Unit - CategoryService] Create a new category', () => {
     }
   })
 
-  it('Should throw an error when name is more than 100 characters', () => {
+  it('Should throw an error when name is more than 100 characters', async () => {
     try {
-      categoryService.create(
+      await categoryService.create(
         'CategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategory',
         'Income'
       )
@@ -102,9 +102,9 @@ describe('[Unit - CategoryService] Create a new category', () => {
     }
   })
 
-  it('Should throw an error when type is empty', () => {
+  it('Should throw an error when type is empty', async () => {
     try {
-      categoryService.create('Groceries', '' as any)
+      await categoryService.create('Groceries', '' as any)
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
@@ -113,9 +113,9 @@ describe('[Unit - CategoryService] Create a new category', () => {
     }
   })
 
-  it('Should throw an error when type is invalid', () => {
+  it('Should throw an error when type is invalid', async () => {
     try {
-      categoryService.create('Groceries', 'InvalidType' as any)
+      await categoryService.create('Groceries', 'InvalidType' as any)
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')

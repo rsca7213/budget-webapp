@@ -1,9 +1,9 @@
 export interface IRepository<T> {
-  save(entity: T): void
+  save(entity: T): Promise<void>
 
-  find(uuid: string): T | undefined
+  find(uuid: string): Promise<T | undefined>
 
-  findAll(): T[]
+  findAll(): Promise<T[]>
 
-  delete(uuid: string): void
+  delete(uuid: string): Promise<void>
 }
