@@ -1,1 +1,5 @@
-{{ categories }}
+<div class="content ma-3">
+  @for (category of categories; track category.uuid) {
+  <categories-components-category-card [category]="category"> </categories-components-category-card>
+  } @empty { }
+</div>

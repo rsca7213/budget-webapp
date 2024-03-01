@@ -1,0 +1,18 @@
+@use '../../variables.scss' as var;
+
+.content {
+  display: grid;
+  gap: var.$spacing-4;
+
+  @media (width > var.$screen-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (width > var.$screen-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (width > var.$screen-xl) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

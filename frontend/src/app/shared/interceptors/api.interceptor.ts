@@ -6,7 +6,7 @@ import { APP_PROPERTIES } from '../../../properties'
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const modifiedReq = req.clone({ url: `${APP_PROPERTIES.api}/${req.url}` })
+    const modifiedReq = req.clone({ url: `${APP_PROPERTIES.api}${req.url}` })
     return next.handle(modifiedReq)
   }
 }

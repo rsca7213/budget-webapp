@@ -1,10 +1,15 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@include mat.core();
+
+// Colors
+
 // Media queries breakpoints for responsive design
 $screen-xs: 320px;
 $screen-sm: 480px;
 $screen-md: 640px;
 $screen-lg: 960px;
-$screen-xl: 1024px;
-$screen-xxl: 1280px;
+$screen-xl: 1280px;
 
 // Spacing
 $spacing-1: 4px;

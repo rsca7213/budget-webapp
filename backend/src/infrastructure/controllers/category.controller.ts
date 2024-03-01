@@ -31,7 +31,9 @@ export class CategoryController {
         return {
           uuid: category.getUuid(),
           name: category.getName(),
-          type: category.getType()
+          type: category.getType(),
+          createdAt: category.getCreatedAt().toISOString(),
+          updatedAt: category.getUpdatedAt().toISOString()
         }
       })
     } catch (error) {
@@ -51,7 +53,9 @@ export class CategoryController {
       return {
         uuid: category.getUuid(),
         name: category.getName(),
-        type: category.getType()
+        type: category.getType(),
+        createdAt: category.getCreatedAt().toISOString(),
+        updatedAt: category.getUpdatedAt().toISOString()
       }
     } catch (error) {
       this.exceptionMapper.map(error)

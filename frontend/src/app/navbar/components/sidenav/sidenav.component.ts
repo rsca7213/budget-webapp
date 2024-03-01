@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { APP_ROUTES } from '../../../app.routes'
+import { APP_ROUTES } from '../../../app-routing.module'
 
 @Component({
   selector: 'navbar-components-sidenav',
