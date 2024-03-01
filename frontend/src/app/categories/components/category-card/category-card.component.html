@@ -1,25 +1,25 @@
 <mat-card>
   <mat-card-header>
     <button mat-mini-fab mat-card-avatar [color]="color">
-      <mat-icon>label</mat-icon>
+      <mat-icon svgIcon="shape"></mat-icon>
     </button>
     <mat-card-title class="wrap"> {{ category.name }} </mat-card-title>
     <mat-card-subtitle class="inline-flex-aligned">
       <div class="flex-spacer"></div>
-      <mat-icon class="mr-1"> history </mat-icon>
+      <mat-icon class="mr-1" svgIcon="history"> </mat-icon>
       Updated on
       {{ category.updatedAt | date : 'MM/dd/yyyy' }}
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-actions align="end">
-    <mat-icon class="ml-2 mr-1"> monetization_on </mat-icon>
+    <mat-icon class="ml-2 mr-1" [svgIcon]="icon"> monetization_on </mat-icon>
     {{ category.type }}
     <div class="flex-spacer"></div>
     <button mat-icon-button>
-      <mat-icon>edit</mat-icon>
+      <mat-icon svgIcon="pencil"></mat-icon>
     </button>
     <button mat-icon-button>
-      <mat-icon>delete</mat-icon>
+      <mat-icon svgIcon="delete"></mat-icon>
     </button>
   </mat-card-actions>
 </mat-card>

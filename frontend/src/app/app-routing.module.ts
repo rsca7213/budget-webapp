@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { Route, RouterModule, Routes } from '@angular/router'
+import { Route, RouterModule } from '@angular/router'
 
 export const APP_ROUTES: (Route & { title: string; icon: string })[] = [
   {
@@ -12,7 +12,7 @@ export const APP_ROUTES: (Route & { title: string; icon: string })[] = [
     path: 'categories',
     loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule),
     title: 'Categories',
-    icon: 'category'
+    icon: 'shape'
   }
 ]
 

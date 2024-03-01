@@ -169,8 +169,34 @@ body {
   margin-bottom: var.$spacing-5;
 }
 
-.icon-sm {
-  transform: scale(0.75);
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mt-0 {
+  margin-top: 0 !important;
+}
+
+.ml-0 {
+  margin-left: 0 !important;
+}
+
+.mr-0 {
+  margin-right: 0 !important;
+}
+
+.my-0 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.mx-0 {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.ma-0 {
+  margin: 0 !important;
 }
 
 .inline-flex-aligned {

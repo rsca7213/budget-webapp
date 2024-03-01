@@ -1,5 +1,20 @@
-<div class="content ma-3">
-  @for (category of categories; track category.uuid) {
+<h2 class="inline-flex-aligned mb-0">
+  <mat-icon svgIcon="trending-up" class="mr-2"></mat-icon>
+  Income
+</h2>
+<hr />
+<div class="content my-3">
+  @for (category of incomeCategories; track category.uuid) {
+  <categories-components-category-card [category]="category"> </categories-components-category-card>
+  } @empty { }
+</div>
+<h2 class="inline-flex-aligned mb-0">
+  <mat-icon svgIcon="trending-down" class="mr-2"></mat-icon>
+  Expense
+</h2>
+<hr />
+<div class="content my-3">
+  @for (category of expenseCategories; track category.uuid) {
   <categories-components-category-card [category]="category"> </categories-components-category-card>
   } @empty { }
 </div>
