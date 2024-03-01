@@ -25,8 +25,8 @@ export class Category extends Entity {
       Exception.throw('Name is invalid', 'DomainEntity.Category.name', 'Validation')
     this.validatorService.stringValidator.validateMinLength(name, 3) ||
       Exception.throw('Name must have at least 3 characters', 'DomainEntity.Category.name', 'Validation')
-    this.validatorService.stringValidator.validateMaxLength(name, 100) ||
-      Exception.throw('Name must have at most 100 characters', 'DomainEntity.Category.name', 'Validation')
+    this.validatorService.stringValidator.validateMaxLength(name, 50) ||
+      Exception.throw('Name must have at most 50 characters', 'DomainEntity.Category.name', 'Validation')
 
     this.name = name
   }

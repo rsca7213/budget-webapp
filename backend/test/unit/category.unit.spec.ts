@@ -90,17 +90,14 @@ describe('[Unit - CategoryService] Create a new category', () => {
     }
   })
 
-  it('Should throw an error when name is more than 100 characters', async () => {
+  it('Should throw an error when name is more than 50 characters', async () => {
     try {
-      await categoryService.create(
-        'CategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategory',
-        'Income'
-      )
+      await categoryService.create('CategoryCategoryCategoryCategoryCategoryCategoryCategoryCategory', 'Income')
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
       expect(error.origin).toBe('DomainEntity.Category.name')
-      expect(error.message).toBe('Name must have at most 100 characters')
+      expect(error.message).toBe('Name must have at most 50 characters')
     }
   })
 
@@ -174,18 +171,18 @@ describe('[Unit - CategoryService] Update a category', () => {
     }
   })
 
-  it('Should throw an error when name is more than 100 characters', async () => {
+  it('Should throw an error when name is more than 50 characters', async () => {
     try {
       await categoryService.update(
         'cde4d425-c343-4a3d-bb0e-266f9331f165',
-        'CategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategory',
+        'CategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategory',
         'Income'
       )
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
       expect(error.origin).toBe('DomainEntity.Category.name')
-      expect(error.message).toBe('Name must have at most 100 characters')
+      expect(error.message).toBe('Name must have at most 50 characters')
     }
   })
 
