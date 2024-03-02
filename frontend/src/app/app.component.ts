@@ -29,6 +29,10 @@ export class AppComponent {
     this.sidenav.toggle()
   }
 
+  public closeSidenav(): void {
+    this.sidenav.close()
+  }
+
   private toggleSidenavMode(width: number): void {
     this.sidenavProperties.mode = width > 768 ? 'side' : 'over'
   }

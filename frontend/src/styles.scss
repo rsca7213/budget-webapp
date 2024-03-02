@@ -45,6 +45,10 @@ main {
   padding: 0 var.$spacing-3 var.$spacing-2 var.$spacing-3 !important;
 }
 
+.success-notification {
+  background-color: red !important;
+}
+
 .mr-5 {
   margin-right: var.$spacing-5 !important;
 }
@@ -417,4 +421,16 @@ main {
 
 .wrap {
   overflow-wrap: anywhere;
+}
+
+.icon-lg {
+  transform: scale(1.5);
+}
+
+.icon-2x {
+  transform: scale(2);
+}
+
+.icon-3x {
+  transform: scale(3);
 }

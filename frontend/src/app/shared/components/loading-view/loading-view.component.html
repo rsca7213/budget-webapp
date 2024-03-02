@@ -1,0 +1,28 @@
+@if (state !== 'ready' && state) {
+<div class="loading-view">
+  <mat-card>
+    <mat-card-content>
+      @if (state === 'loading') {
+      <div class="spinner-container">
+        <mat-spinner color="accent" mode="indeterminate"> </mat-spinner>
+      </div>
+      <p>Loading {{ view }}, please wait...</p>
+      } @if (state === 'error') {
+      <mat-icon svgIcon="alert" color="warn" class="icon-2x py-3"> </mat-icon>
+      <p>An error has ocurred while loading {{ view }}, please try again.</p>
+      @if (router.url !== '/') {
+      <button mat-flat-button class="mr-2" (click)="navigateToHome()">
+        <mat-icon svgIcon="home"> </mat-icon>
+        Home
+      </button>
+      }
+      <button mat-raised-button color="primary" (click)="reload()">
+        <mat-icon svgIcon="reload"> </mat-icon>
+        Reload
+      </button>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
+
+}

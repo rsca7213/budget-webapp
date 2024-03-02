@@ -1,3 +1,6 @@
+@if (viewState !== 'ready') {
+<shared-components-loading-view view="categories" [state]="viewState"></shared-components-loading-view>
+} @else {
 <main>
   <h2 class="inline-flex-aligned mb-0">
     <mat-icon svgIcon="trending-up" class="mr-2"></mat-icon>
@@ -20,9 +23,13 @@
     } @empty { }
   </div>
 </main>
+}
 
 <div class="bottom-actions">
   <button mat-fab class="mr-3" (click)="openCreateCategoryDialog()">
     <mat-icon svgIcon="plus"> </mat-icon>
   </button>
 </div>
+
+<shared-components-notification></shared-components-notification>
+<shared-components-error-dialog></shared-components-error-dialog>

@@ -6,9 +6,10 @@ import { CategoryCardComponent } from './components/category-card/category-card.
 import { CategoriesRoutingModule } from './categories-routing.module'
 import { CreateCategoryDialogComponent } from './components/create-category-dialog/create-category-dialog.component'
 import { ReactiveFormsModule } from '@angular/forms'
+import { SharedModule } from '../shared/shared.module'
 
 @NgModule({
   declarations: [CategoriesView, CategoryCardComponent, CreateCategoryDialogComponent],
-  imports: [CommonModule, AngularMaterialModule, CategoriesRoutingModule, ReactiveFormsModule]
+  imports: [CommonModule, AngularMaterialModule, CategoriesRoutingModule, ReactiveFormsModule, SharedModule]
 })
 export class CategoriesModule {}

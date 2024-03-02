@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, EventEmitter, Output } from '@angular/core'
 import { APP_ROUTES } from '../../../app-routing.module'
 
 @Component({
@@ -7,5 +7,7 @@ import { APP_ROUTES } from '../../../app-routing.module'
   styleUrl: './sidenav.component.scss'
 })
 export class SidenavComponent {
+  @Output() public close = new EventEmitter<void>()
+
   public routes = APP_ROUTES
 }

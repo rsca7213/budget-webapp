@@ -2,7 +2,7 @@
 
 <mat-sidenav-container>
   <mat-sidenav [mode]="sidenavProperties.mode" [(opened)]="sidenavProperties.opened">
-    <navbar-components-sidenav></navbar-components-sidenav>
+    <navbar-components-sidenav (close)="closeSidenav()"></navbar-components-sidenav>
   </mat-sidenav>
   <mat-sidenav-content class="pa-3">
     <router-outlet></router-outlet>

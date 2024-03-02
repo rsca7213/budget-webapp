@@ -1,6 +1,6 @@
 <mat-nav-list>
   @for (route of routes; track route.path) {
-  <a mat-list-item [routerLink]="route.path">
+  <a mat-list-item [routerLink]="route.path" (click)="close.emit()">
     <mat-icon class="v-align-middle mr-2" [svgIcon]="route.icon"></mat-icon>
     <span matLine class="v-align-middle">{{ route.title }}</span>
   </a>
