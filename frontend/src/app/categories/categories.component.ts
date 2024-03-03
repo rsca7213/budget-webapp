@@ -8,6 +8,7 @@ import { CreateCategoryDto } from '../shared/dto/create-category.dto'
 import { LoadingState } from '../shared/types/loading-state.types'
 import { NotificationComponent } from '../shared/components/notification/notification.component'
 import { ErrorDialogComponent } from '../shared/components/error-dialog/error-dialog.component'
+import { LoadingDialogComponent } from '../shared/components/loading-dialog/loading-dialog.component'
 
 @Component({
   selector: 'categories-view',
@@ -17,6 +18,7 @@ import { ErrorDialogComponent } from '../shared/components/error-dialog/error-di
 export class CategoriesView implements OnInit {
   @ViewChild(NotificationComponent) public notification: NotificationComponent
   @ViewChild(ErrorDialogComponent) public errorDialog: ErrorDialogComponent
+  @ViewChild(LoadingDialogComponent) public loadingDialog: LoadingDialogComponent
 
   public categories: Category[] = []
   public incomeCategories: Category[] = []
@@ -49,19 +51,23 @@ export class CategoriesView implements OnInit {
       width: APP_DIALOG_SIZES.md
     })
 
-    ref.afterClosed().subscribe((data: CreateCategoryDto) => {
-      if (!data) return
+    ref
+      .afterClosed()
+      .subscribe((data: CreateCategoryDto) => {
+        if (!data) return
 
-      this.categoriesService.create(data).subscribe({
-        next: () => {
-          this.notification.notify('Category created successfully', 'Close')
-          this.loadView()
-        },
-        error: err => {
-          this.errorDialog.open('Failed to create category', err.message)
-        }
+        this.loadingDialog.open()
+        this.categoriesService.create(data).subscribe({
+          next: () => {
+            this.notification.notify('Category created successfully', 'Close')
+            this.loadView()
+          },
+          error: err => {
+            this.errorDialog.open('Failed to create category', err.message)
+          }
+        })
       })
-    })
+      .add(() => this.loadingDialog.close())
   }
 
   public divideCategories(): void {

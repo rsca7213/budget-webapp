@@ -6,10 +6,26 @@ import { RouterModule } from '@angular/router'
 import { NotificationComponent } from './components/notification/notification.component'
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component'
 import { ErrorDialogContentComponent } from './components/error-dialog/content/error-dialog-content.component'
+import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component'
+import { LoadingDialogContentComponent } from './components/loading-dialog/content/loading-dialog-content.component'
 
 @NgModule({
-  declarations: [LoadingViewComponent, NotificationComponent, ErrorDialogComponent, ErrorDialogContentComponent],
+  declarations: [
+    LoadingViewComponent,
+    NotificationComponent,
+    ErrorDialogComponent,
+    ErrorDialogContentComponent,
+    LoadingDialogComponent,
+    LoadingDialogContentComponent
+  ],
   imports: [CommonModule, AngularMaterialModule, RouterModule],
-  exports: [LoadingViewComponent, NotificationComponent, ErrorDialogComponent, ErrorDialogContentComponent]
+  exports: [
+    LoadingViewComponent,
+    LoadingDialogComponent,
+    LoadingDialogContentComponent,
+    NotificationComponent,
+    ErrorDialogComponent,
+    ErrorDialogContentComponent
+  ]
 })
 export class SharedModule {}

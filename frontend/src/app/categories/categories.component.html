@@ -10,7 +10,9 @@
   <div class="categories my-3">
     @for (category of incomeCategories; track category.uuid) {
     <categories-components-category-card [category]="category"> </categories-components-category-card>
-    } @empty { }
+    } @empty {
+    <h3 class="text-center empty-set">There are no categories currently created.</h3>
+    }
   </div>
   <h2 class="inline-flex-aligned mb-0">
     <mat-icon svgIcon="trending-down" class="mr-2"></mat-icon>
@@ -20,7 +22,9 @@
   <div class="categories my-3">
     @for (category of expenseCategories; track category.uuid) {
     <categories-components-category-card [category]="category"> </categories-components-category-card>
-    } @empty { }
+    } @empty {
+    <h3 class="text-center empty-set">There are no categories currently created.</h3>
+    }
   </div>
 </main>
 }
@@ -33,3 +37,4 @@
 
 <shared-components-notification></shared-components-notification>
 <shared-components-error-dialog></shared-components-error-dialog>
+<shared-components-loading-dialog></shared-components-loading-dialog>
