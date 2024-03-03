@@ -45,8 +45,9 @@ main {
   padding: var.$spacing-2 var.$spacing-1 var.$spacing-2 var.$spacing-3 !important;
 }
 
-.mat-dialog-actions {
-  padding: 0 var.$spacing-3 var.$spacing-2 var.$spacing-3 !important;
+.mat-dialog-actions,
+.mat-card-actions {
+  padding: 0 var.$spacing-4 var.$spacing-2 var.$spacing-3 !important;
 }
 
 .success-notification {
@@ -411,6 +412,10 @@ main {
 
 .pa-0 {
   padding: 0 !important;
+}
+
+.justify-center {
+  justify-content: center;
 }
 
 .inline-flex-aligned {

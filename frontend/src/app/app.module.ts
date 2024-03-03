@@ -13,7 +13,14 @@ import { ErrorInterceptor } from './shared/interceptors/error.interceptor'
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, RouterModule, AngularMaterialModule, NavbarModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    RouterModule,
+    AngularMaterialModule,
+    NavbarModule
+  ],
   providers: [
     provideAnimationsAsync(),
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },

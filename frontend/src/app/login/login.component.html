@@ -1,0 +1,48 @@
+<main>
+  <mat-card>
+    <mat-card-header class="justify-center">
+      <mat-card-title class="inline-flex-aligned">
+        <mat-icon svgIcon="login" class="mr-2"> </mat-icon>
+        Login
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" class="mt-5">
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label> Email </mat-label>
+          <input matInput type="text" placeholder="Email..." formControlName="email" />
+          <mat-icon matPrefix svgIcon="email"> </mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label> Password </mat-label>
+          <input
+            matInput
+            [type]="passwordInputType"
+            placeholder="Password..."
+            formControlName="password"
+          />
+          <mat-icon matPrefix svgIcon="lock"> </mat-icon>
+          <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+            <mat-icon [svgIcon]="passwordInputType === 'password' ? 'eye' : 'eye-off'"> </mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button color="primary" (click)="login()">
+        <mat-icon svgIcon="login"> </mat-icon>
+        Login
+      </button>
+      <div class="flex-aligned justify-center">
+        <button mat-button routerLink="/register">
+          <mat-icon svgIcon="lock-question"> </mat-icon>
+          Forgot password?
+        </button>
+        <button mat-button class="ml-2" routerLink="/forgot-password">
+          <mat-icon svgIcon="account-plus"> </mat-icon>
+          Don't have an account?
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</main>
