@@ -24,7 +24,7 @@ export class CategoriesService {
     return this.httpClient.post<void>('/categories', category)
   }
 
-  public update(uuid: string, category: Category): Observable<void> {
+  public update(uuid: string, category: UpdateCategoryDto): Observable<void> {
     const data: UpdateCategoryDto = category
     return this.httpClient.put<void>(`/categories/${uuid}`, data)
   }

@@ -9,6 +9,9 @@ import { LoadingState } from '../shared/types/loading-state.types'
 import { NotificationComponent } from '../shared/components/notification/notification.component'
 import { ErrorDialogComponent } from '../shared/components/error-dialog/error-dialog.component'
 import { LoadingDialogComponent } from '../shared/components/loading-dialog/loading-dialog.component'
+import { EditCategoryDialogComponent } from './components/edit-category-dialog/edit-category-dialog.component'
+import { UpdateCategoryDto } from '../shared/dto/update-category.dto'
+import { DeleteCategoryDialogComponent } from './components/delete-category-dialog/delete-category-dialog.component'
 
 @Component({
   selector: 'categories-view',
@@ -44,6 +47,59 @@ export class CategoriesView implements OnInit {
 
   public ngOnInit(): void {
     this.loadView()
+  }
+
+  public openEditCategoryDialog(category: Category): void {
+    const ref = this.dialog.open(EditCategoryDialogComponent, {
+      width: APP_DIALOG_SIZES.md,
+      data: {
+        name: category.name,
+        type: category.type
+      }
+    })
+
+    ref
+      .afterClosed()
+      .subscribe((data: UpdateCategoryDto) => {
+        if (!data) return
+
+        this.loadingDialog.open()
+        this.categoriesService.update(category.uuid, data).subscribe({
+          next: () => {
+            this.notification.notify('Category updated successfully', 'Close')
+            this.loadView()
+          },
+          error: err => {
+            this.errorDialog.open('Failed to update category', err.message)
+          }
+        })
+      })
+      .add(() => this.loadingDialog.close())
+  }
+
+  public openDeleteCategoryDialog(category: Category): void {
+    const ref = this.dialog.open(DeleteCategoryDialogComponent, {
+      width: APP_DIALOG_SIZES.md,
+      data: category.uuid
+    })
+
+    ref
+      .afterClosed()
+      .subscribe((uuid: string) => {
+        if (!uuid) return
+
+        this.loadingDialog.open()
+        this.categoriesService.delete(uuid).subscribe({
+          next: () => {
+            this.notification.notify('Category deleted successfully', 'Close')
+            this.loadView()
+          },
+          error: err => {
+            this.errorDialog.open('Failed to delete category', err.message)
+          }
+        })
+      })
+      .add(() => this.loadingDialog.close())
   }
 
   public openCreateCategoryDialog(): void {

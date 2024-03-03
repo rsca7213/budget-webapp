@@ -6,10 +6,12 @@ import { CategoryCardComponent } from './components/category-card/category-card.
 import { CategoriesRoutingModule } from './categories-routing.module'
 import { CreateCategoryDialogComponent } from './components/create-category-dialog/create-category-dialog.component'
 import { ReactiveFormsModule } from '@angular/forms'
-import { SharedModule } from '../shared/shared.module'
+import { SharedModule } from '../shared/shared.module';
+import { EditCategoryDialogComponent } from './components/edit-category-dialog/edit-category-dialog.component';
+import { DeleteCategoryDialogComponent } from './components/delete-category-dialog/delete-category-dialog.component'
 
 @NgModule({
-  declarations: [CategoriesView, CategoryCardComponent, CreateCategoryDialogComponent],
+  declarations: [CategoriesView, CategoryCardComponent, CreateCategoryDialogComponent, EditCategoryDialogComponent, DeleteCategoryDialogComponent],
   imports: [CommonModule, AngularMaterialModule, CategoriesRoutingModule, ReactiveFormsModule, SharedModule]
 })
 export class CategoriesModule {}

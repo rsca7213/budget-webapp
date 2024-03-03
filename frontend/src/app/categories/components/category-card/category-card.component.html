@@ -15,10 +15,10 @@
     <mat-icon class="ml-2 mr-1" [svgIcon]="icon"> monetization_on </mat-icon>
     {{ category.type }}
     <div class="flex-spacer"></div>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="edit.emit(category)">
       <mat-icon svgIcon="pencil"></mat-icon>
     </button>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="delete.emit(category)">
       <mat-icon svgIcon="delete"></mat-icon>
     </button>
   </mat-card-actions>

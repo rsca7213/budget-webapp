@@ -9,7 +9,12 @@
   <hr />
   <div class="categories my-3">
     @for (category of incomeCategories; track category.uuid) {
-    <categories-components-category-card [category]="category"> </categories-components-category-card>
+    <categories-components-category-card
+      [category]="category"
+      (edit)="openEditCategoryDialog($event)"
+      (delete)="openDeleteCategoryDialog($event)"
+    >
+    </categories-components-category-card>
     } @empty {
     <h3 class="text-center empty-set">There are no categories currently created.</h3>
     }
@@ -21,7 +26,12 @@
   <hr />
   <div class="categories my-3">
     @for (category of expenseCategories; track category.uuid) {
-    <categories-components-category-card [category]="category"> </categories-components-category-card>
+    <categories-components-category-card
+      [category]="category"
+      (edit)="openEditCategoryDialog($event)"
+      (delete)="openDeleteCategoryDialog($event)"
+    >
+    </categories-components-category-card>
     } @empty {
     <h3 class="text-center empty-set">There are no categories currently created.</h3>
     }

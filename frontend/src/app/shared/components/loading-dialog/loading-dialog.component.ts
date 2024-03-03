@@ -18,8 +18,6 @@ export class LoadingDialogComponent {
       width: APP_DIALOG_SIZES.md,
       disableClose: true
     })
-
-    console.log('LoadingDialogComponent.open()')
   }
 
   public close(): void {

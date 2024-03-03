@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Category } from '../../../shared/models/category.model'
 
 @Component({
@@ -8,6 +8,9 @@ import { Category } from '../../../shared/models/category.model'
 })
 export class CategoryCardComponent implements OnInit {
   @Input() category: Category
+  @Output() edit = new EventEmitter<Category>()
+  @Output() delete = new EventEmitter<Category>()
+
   public color: 'accent' | 'warn'
   public icon: 'trending-up' | 'trending-down'
 
