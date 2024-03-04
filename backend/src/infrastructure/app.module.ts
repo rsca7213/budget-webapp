@@ -3,7 +3,6 @@ import { UserController } from './controllers/user.controller'
 import { UuidService } from './services/uuid.service'
 import { HashService } from './services/hash.service'
 import { UserRepository } from './database/user.repository'
-import { ExceptionMapper } from './mappers/exception.mapper'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { UserDatabaseEntity } from './database/models/user.orm.entity'
 import { CategoryDatabaseEntity } from './database/models/category.orm.entity'
@@ -11,6 +10,8 @@ import { CategoryRepository } from './database/category.repository'
 import { CategoryController } from './controllers/category.controller'
 import { ConfigModule } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
+import { APP_FILTER } from '@nestjs/core'
+import { CatchExceptionsService } from './services/exceptions.service'
 
 @Module({
   imports: [
@@ -33,10 +34,14 @@ import { JwtModule } from '@nestjs/jwt'
     // Common services
     UuidService,
     HashService,
-    ExceptionMapper,
     // Repositories
     UserRepository,
-    CategoryRepository
+    CategoryRepository,
+    // Exceptions
+    {
+      provide: APP_FILTER,
+      useClass: CatchExceptionsService
+    }
   ]
 })
 export class AppModule {}
