@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { CategoryType } from '../../domain/types/category.types'
+import { CategoryType } from '../../../domain/types/category.types'
 
-export class UpdateCategoryDto {
+export class CreateCategoryDto {
   @ApiProperty({ example: 'Groceries' })
   name: string
 

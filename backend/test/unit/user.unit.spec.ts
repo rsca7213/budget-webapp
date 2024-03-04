@@ -215,3 +215,38 @@ describe('[Unit - UserService] Create a new user', () => {
     }
   })
 })
+
+describe('[Unit - UserService] Verify user credentials', () => {
+  it('Should verify correct user credentials', async () => {
+    const user = (await userService.verifyCredentials('user1@email.com', 'Password123*')) as User
+
+    expect(user.getUuid()).toBe('cde4d425-c343-4a3d-bb0e-266f9331f165')
+    expect(user.getCreatedAt()).toBeInstanceOf(Date)
+    expect(user.getUpdatedAt()).toBeInstanceOf(Date)
+    expect(user.getName()).toBe('User 1')
+    expect(user.getEmail()).toBe('user1@email.com')
+    expect(user instanceof User).toBe(true)
+  })
+
+  it('Should throw an error when user is not found', async () => {
+    try {
+      await userService.verifyCredentials('notfound@email.com', 'Password123*')
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('NotFound')
+      expect(error.origin).toBe('ApplicationService.UserService.verifyCredentials')
+      expect(error.message).toBe('User not found')
+    }
+  })
+
+  it('Should throw an error when password is invalid', async () => {
+    try {
+      await userService.verifyCredentials('user1@email.com', 'PasswordInvalid123*')
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Verification')
+      expect(error.origin).toBe('ApplicationService.UserService.verifyCredentials')
+      expect(error.message).toBe('Password is incorrect')
+    }
+  })
+})

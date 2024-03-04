@@ -14,6 +14,8 @@ export class UserService {
   public async create(name: string, email: string, password: string): Promise<User> {
     const uuid = this.uuidService.generate()
 
+    email = email.toLowerCase()
+
     const hash = await this.hashService.hash(password)
     const user = User.create(uuid, name, email, hash)
     user.validatePasswordValue(password)
@@ -21,9 +23,37 @@ export class UserService {
     const userBySameEmail = await this.userRepository.findByEmail(email)
 
     if (userBySameEmail)
-      Exception.throw('User with email already exists', 'ApplicationService.UserService.create', 'Verification')
+      Exception.throw(
+        'User with email already exists',
+        'ApplicationService.UserService.create',
+        'Verification'
+      )
 
     this.userRepository.save(user)
+
+    return user
+  }
+
+  public async verifyCredentials(email: string, password: string): Promise<User | void> {
+    const user = await this.userRepository.findByEmail(email)
+
+    email = email.toLowerCase()
+
+    if (!user)
+      return Exception.throw(
+        'User not found',
+        'ApplicationService.UserService.verifyCredentials',
+        'NotFound'
+      )
+
+    const isPasswordValid = await this.hashService.compare(password, user.getHash())
+
+    if (!isPasswordValid)
+      Exception.throw(
+        'Password is incorrect',
+        'ApplicationService.UserService.verifyCredentials',
+        'Verification'
+      )
 
     return user
   }

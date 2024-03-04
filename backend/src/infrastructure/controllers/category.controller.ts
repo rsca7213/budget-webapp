@@ -4,10 +4,10 @@ import { UuidService } from '../services/uuid.service'
 import { CategoryRepository } from '../database/category.repository'
 import { ExceptionMapper } from '../mappers/exception.mapper'
 import { ApiTags } from '@nestjs/swagger'
-import { GetCategoryDto } from '../dto/get-category.dto'
+import { GetCategoryDto } from '../dto/categories/get-category.dto'
 import { Category } from '../../domain/entities/category.entity'
-import { CreateCategoryDto } from '../dto/create-category.dto'
-import { UpdateCategoryDto } from '../dto/update-category.dto'
+import { CreateCategoryDto } from '../dto/categories/create-category.dto'
+import { UpdateCategoryDto } from '../dto/categories/update-category.dto'
 
 @Controller('api/categories')
 export class CategoryController {
