@@ -12,4 +12,48 @@ export class CustomValidators {
       }
     }
   }
+
+  static hasNumber(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value
+      if (/\d/.test(value)) {
+        return null
+      } else {
+        return { hasNumber: true }
+      }
+    }
+  }
+
+  static hasUppercase(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value
+      if (/[A-Z]/.test(value)) {
+        return null
+      } else {
+        return { hasCapitalCase: true }
+      }
+    }
+  }
+
+  static hasLowercase(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value
+      if (/[a-z]/.test(value)) {
+        return null
+      } else {
+        return { hasLowerCase: true }
+      }
+    }
+  }
+
+  static hasSpecialCharacter(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value
+      if (!/[0-9a-zA-Z]/.test(value)) {
+        return null
+      } else {
+        return { hasSpecialCharacter: true }
+      }
+    }
+  }
 }

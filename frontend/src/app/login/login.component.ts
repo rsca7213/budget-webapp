@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { CustomValidators } from '../shared/validators/validations.class'
 
 @Component({
   selector: 'login-view',
@@ -8,8 +9,20 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class LoginView {
   public form: FormGroup = new FormGroup({
-    email: new FormControl<string>('', [Validators.required, Validators.email]),
-    password: new FormControl<string>('', [Validators.required, Validators.minLength(10), Validators.maxLength(128)])
+    email: new FormControl<string>('', [
+      Validators.required,
+      Validators.email,
+      Validators.maxLength(320)
+    ]),
+    password: new FormControl<string>('', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(100),
+      CustomValidators.hasLowercase,
+      CustomValidators.hasUppercase,
+      CustomValidators.hasNumber,
+      CustomValidators.hasSpecialCharacter
+    ])
   })
 
   public passwordInputType: string = 'password'
