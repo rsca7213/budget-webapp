@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { CustomValidators } from '../shared/validators/validations.class'
+import { APP_PROPERTIES } from '../../properties'
 
 @Component({
   selector: 'login-view',
@@ -25,6 +26,7 @@ export class LoginView {
     ])
   })
 
+  public APP_PROPERTIES = APP_PROPERTIES
   public passwordInputType: string = 'password'
 
   public togglePasswordVisibility(): void {

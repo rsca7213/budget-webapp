@@ -35,8 +35,12 @@ body {
   align-items: center;
 }
 
-main {
+.bottom-gap {
   margin-bottom: 90px;
+}
+
+.w-100 {
+  width: 100% !important;
 }
 
 .mat-dialog-title {

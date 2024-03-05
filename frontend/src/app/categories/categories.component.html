@@ -1,7 +1,10 @@
 @if (viewState !== 'ready') {
-<shared-components-loading-view view="categories" [state]="viewState"></shared-components-loading-view>
+<shared-components-loading-view
+  view="categories"
+  [state]="viewState"
+></shared-components-loading-view>
 } @else {
-<main>
+<main class="bottom-gap">
   <h2 class="inline-flex-aligned mb-0">
     <mat-icon svgIcon="trending-up" class="mr-2"></mat-icon>
     Income
