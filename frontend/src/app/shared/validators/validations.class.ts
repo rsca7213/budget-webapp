@@ -30,7 +30,7 @@ export class CustomValidators {
       if (/[A-Z]/.test(value)) {
         return null
       } else {
-        return { hasCapitalCase: true }
+        return { hasUppercase: true }
       }
     }
   }
@@ -41,7 +41,7 @@ export class CustomValidators {
       if (/[a-z]/.test(value)) {
         return null
       } else {
-        return { hasLowerCase: true }
+        return { hasLowercase: true }
       }
     }
   }
@@ -49,7 +49,7 @@ export class CustomValidators {
   static hasSpecialCharacter(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value
-      if (!/[0-9a-zA-Z]/.test(value)) {
+      if (/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
         return null
       } else {
         return { hasSpecialCharacter: true }

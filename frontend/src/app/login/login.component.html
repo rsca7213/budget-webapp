@@ -42,7 +42,7 @@
               Password is required
             </mat-error>
             <mat-error *ngIf="form.get('password')?.hasError('minlength')">
-              Password must be at least 8 characters long
+              Password must be at least 10 characters long
             </mat-error>
             <mat-error *ngIf="form.get('password')?.hasError('maxlength')">
               Password must be at most 100 characters long
@@ -79,3 +79,6 @@
     </mat-card>
   </div>
 </main>
+
+<shared-components-error-dialog></shared-components-error-dialog>
+<shared-components-loading-dialog></shared-components-loading-dialog>

@@ -45,7 +45,7 @@ export class UserController {
 
     response.cookie('auth', jwt, {
       httpOnly: true,
-      sameSite: 'strict',
+      sameSite: 'lax',
       secure: process.env.JWT_ONLY_HTTPS === 'true',
       maxAge: Number(process.env.JWT_EXPIRES_HOURS) * 60 * 60 * 1000
     })
