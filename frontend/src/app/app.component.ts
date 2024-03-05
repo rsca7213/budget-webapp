@@ -20,21 +20,16 @@ export class AppComponent implements OnInit {
   public readonly APP_ROUTES = APP_ROUTES
   public displayMainNavigation = false
 
-  public constructor(private readonly router: Router, private readonly authService: AuthService) {
-    router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-        if (!authService.isAuthenticated()) {
-          this.displayMainNavigation = false
-          return
-        }
+  public constructor(private readonly router: Router, private readonly authService: AuthService) {}
 
+  public ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
         this.displayMainNavigation =
           this.APP_ROUTES.find(route => route.path === event.url.slice(1))?.sidebar ?? false
       }
     })
-  }
 
-  public ngOnInit(): void {
     this.toggleSidenavMode(window.innerWidth)
   }
 
