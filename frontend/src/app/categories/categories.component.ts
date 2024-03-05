@@ -29,7 +29,10 @@ export class CategoriesView implements OnInit {
 
   public viewState: LoadingState = 'loading'
 
-  public constructor(private readonly categoriesService: CategoriesService, private readonly dialog: MatDialog) {}
+  public constructor(
+    private readonly categoriesService: CategoriesService,
+    private readonly dialog: MatDialog
+  ) {}
 
   public loadView(): void {
     this.viewState = 'loading'

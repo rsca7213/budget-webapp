@@ -6,6 +6,7 @@ import { UserService } from '../shared/services/user.service'
 import { ErrorDialogComponent } from '../shared/components/error-dialog/error-dialog.component'
 import { LoadingDialogComponent } from '../shared/components/loading-dialog/loading-dialog.component'
 import { Router } from '@angular/router'
+import { AuthService } from '../shared/services/auth.service'
 
 @Component({
   selector: 'login-view',
@@ -36,7 +37,11 @@ export class LoginView {
   public APP_PROPERTIES = APP_PROPERTIES
   public passwordInputType: string = 'password'
 
-  public constructor(private readonly userService: UserService, private readonly router: Router) {}
+  public constructor(
+    private readonly userService: UserService,
+    private readonly router: Router,
+    private readonly authService: AuthService
+  ) {}
 
   public togglePasswordVisibility(): void {
     this.passwordInputType = this.passwordInputType === 'password' ? 'text' : 'password'
@@ -54,7 +59,8 @@ export class LoginView {
     this.userService
       .login(this.form.value)
       .subscribe({
-        next: () => {
+        next: async () => {
+          await this.authService.getAuthUser()
           this.router.navigate(['/'])
         },
         error: error => {

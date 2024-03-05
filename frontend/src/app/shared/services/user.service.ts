@@ -12,4 +12,8 @@ export class UserService {
   public login(data: LoginDto): Observable<void> {
     return this.httpClient.post<void>('/users/login', data)
   }
+
+  public logout(): Observable<void> {
+    return this.httpClient.post<void>('/users/logout', {})
+  }
 }

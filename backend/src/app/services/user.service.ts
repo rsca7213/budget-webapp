@@ -57,4 +57,16 @@ export class UserService {
 
     return user
   }
+
+  public async find(uuid: string): Promise<User | void> {
+    const user = await this.userRepository.find(uuid)
+
+    if (!user)
+      return Exception.throw(
+        'User was not found',
+        'ApplicationService.UserService.find',
+        'NotFound'
+      )
+    else return user
+  }
 }

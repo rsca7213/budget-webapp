@@ -250,3 +250,29 @@ describe('[Unit - UserService] Verify user credentials', () => {
     }
   })
 })
+
+describe('[Unit - UserService] Find user', () => {
+  it('Should find a user by uuid', async () => {
+    const uuid = 'cde4d425-c343-4a3d-bb0e-266f9331f165'
+
+    const user = (await userService.find(uuid)) as User
+
+    expect(user instanceof User).toBe(true)
+    expect(user.getUuid()).toBe(uuid)
+    expect(user.getCreatedAt()).toBeInstanceOf(Date)
+    expect(user.getUpdatedAt()).toBeInstanceOf(Date)
+    expect(user.getName()).toBe('User 1')
+    expect(user.getEmail()).toBe('user1@email.com')
+  })
+
+  it('Should throw an error when user was not found', async () => {
+    try {
+      await userService.find('invalid-uuid')
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('NotFound')
+      expect(error.origin).toBe('ApplicationService.UserService.find')
+      expect(error.message).toBe('User was not found')
+    }
+  })
+})

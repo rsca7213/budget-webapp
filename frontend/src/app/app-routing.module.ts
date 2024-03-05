@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core'
 import { Route, RouterModule } from '@angular/router'
+import { authGuard } from './shared/guards/auth.guard'
+import { nonAuthGuard } from './shared/guards/non-auth.guard'
+import { authResolver } from './shared/resolvers/auth.resolver'
 
 export const APP_ROUTES: (Route & { title: string; icon: string; sidebar: boolean })[] = [
   {
@@ -8,7 +11,8 @@ export const APP_ROUTES: (Route & { title: string; icon: string; sidebar: boolea
     title: 'Home',
     icon: 'home',
     sidebar: true,
-    canActivate: []
+    canActivate: [authGuard],
+    resolve: { user: authResolver }
   },
   {
     path: 'categories',
@@ -16,7 +20,8 @@ export const APP_ROUTES: (Route & { title: string; icon: string; sidebar: boolea
     title: 'Categories',
     icon: 'shape',
     sidebar: true,
-    canActivate: []
+    canActivate: [authGuard],
+    resolve: { user: authResolver }
   },
   {
     path: 'login',
@@ -24,7 +29,7 @@ export const APP_ROUTES: (Route & { title: string; icon: string; sidebar: boolea
     title: 'Login',
     icon: 'login',
     sidebar: false,
-    canActivate: []
+    canActivate: [nonAuthGuard]
   },
   {
     path: 'register',
@@ -32,7 +37,7 @@ export const APP_ROUTES: (Route & { title: string; icon: string; sidebar: boolea
     title: 'Register',
     icon: 'account-plus',
     sidebar: false,
-    canActivate: []
+    canActivate: [nonAuthGuard]
   },
   {
     path: 'forgot-password',
@@ -41,7 +46,7 @@ export const APP_ROUTES: (Route & { title: string; icon: string; sidebar: boolea
     title: 'Forgot Password',
     icon: 'lock-question',
     sidebar: false,
-    canActivate: []
+    canActivate: [nonAuthGuard]
   }
 ]
 
