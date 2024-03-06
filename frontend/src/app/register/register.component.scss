@@ -1,0 +1,25 @@
+@use '../../variables.scss' as var;
+
+form {
+  display: grid;
+  row-gap: var.$spacing-4;
+}
+
+main {
+  display: grid;
+  min-height: 100%;
+  width: 100%;
+
+  div {
+    width: 100%;
+    max-width: 500px;
+    place-self: center;
+  }
+}
+
+mat-card-actions {
+  padding: 0 var.$spacing-4 var.$spacing-4 var.$spacing-4 !important;
+  display: grid;
+  row-gap: var.$spacing-3;
+  grid-auto-rows: max-content;
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { AuthUserDto } from '../dto/auth-user.dto'
+import { AuthUserDto } from '../dto/users/auth-user.dto'
 import { HttpClient } from '@angular/common/http'
 import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs'
 

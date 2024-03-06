@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Category } from '../models/category.model'
-import { GetCategoryDto } from '../dto/get-category.dto'
-import { CreateCategoryDto } from '../dto/create-category.dto'
-import { UpdateCategoryDto } from '../dto/update-category.dto'
+import { GetCategoryDto } from '../dto/categories/get-category.dto'
+import { CreateCategoryDto } from '../dto/categories/create-category.dto'
+import { UpdateCategoryDto } from '../dto/categories/update-category.dto'
 
 @Injectable({
   providedIn: 'root'

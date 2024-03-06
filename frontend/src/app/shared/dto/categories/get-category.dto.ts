@@ -1,4 +1,4 @@
-import { CategoryType } from '../types/category.types'
+import { CategoryType } from '../../types/category.types'
 
 export interface GetCategoryDto {
   uuid: string
