@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { AuthUserDto } from '../dto/auth-user.dto'
 import { HttpClient } from '@angular/common/http'
-import { lastValueFrom } from 'rxjs'
+import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,16 @@ import { lastValueFrom } from 'rxjs'
 export class AuthService {
   private user: AuthUserDto | null = null
 
+  private serviceLoaded = new BehaviorSubject<boolean>(false)
+  public serviceLoadedObservable: Observable<boolean> = this.serviceLoaded.asObservable()
+
   public constructor(private readonly httpClient: HttpClient) {}
 
   public async getAuthUser(): Promise<AuthUserDto | null> {
-    if (!this.user) this.user = await this.getUser()
+    if (!this.user) {
+      this.user = await this.getUser()
+      this.serviceLoaded.next(true)
+    }
     return this.user
   }
 

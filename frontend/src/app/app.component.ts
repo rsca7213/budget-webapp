@@ -25,8 +25,17 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        this.displayMainNavigation =
-          this.APP_ROUTES.find(route => route.path === event.url.slice(1))?.sidebar ?? false
+        this.authService.serviceLoadedObservable.subscribe(loaded => {
+          if (!loaded) return
+
+          if (!this.authService.isAuthenticated()) {
+            this.displayMainNavigation = false
+            return
+          }
+
+          this.displayMainNavigation =
+            this.APP_ROUTES.find(route => route.path === event.url.slice(1))?.sidebar ?? false
+        })
       }
     })
 
