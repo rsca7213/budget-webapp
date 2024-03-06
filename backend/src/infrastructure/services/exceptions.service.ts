@@ -1,6 +1,7 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common'
 import { HttpAdapterHost } from '@nestjs/core'
 import { Exception } from '../../domain/exception/exception'
+import { Repository } from 'typeorm'
 
 @Catch()
 export class CatchExceptionsService implements ExceptionFilter {
@@ -10,6 +11,7 @@ export class CatchExceptionsService implements ExceptionFilter {
     NotFound: HttpStatus.NOT_FOUND,
     Authorization: HttpStatus.UNAUTHORIZED,
     Privilege: HttpStatus.FORBIDDEN,
+    Repository: HttpStatus.INTERNAL_SERVER_ERROR,
     Generic: HttpStatus.INTERNAL_SERVER_ERROR
   }
 

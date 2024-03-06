@@ -1,9 +1,17 @@
-export type ExceptionReason = 'Validation' | 'Verification' | 'NotFound' | 'Authorization' | 'Privilege' | 'Generic'
+export type ExceptionReason =
+  | 'Validation'
+  | 'Verification'
+  | 'NotFound'
+  | 'Authorization'
+  | 'Privilege'
+  | 'Repository'
+  | 'Generic'
 export const ExceptionReasons: ExceptionReason[] = [
   'Validation',
   'Verification',
   'NotFound',
   'Authorization',
   'Privilege',
+  'Repository',
   'Generic'
 ]

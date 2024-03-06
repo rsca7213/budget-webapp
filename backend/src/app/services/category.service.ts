@@ -10,44 +10,85 @@ export class CategoryService {
     private readonly categoryRepository: ICategoryRepository
   ) {}
 
-  public async create(name: string, type: CategoryType): Promise<Category> {
+  public async create(name: string, type: CategoryType, userUuid: string): Promise<Category> {
     const uuid = this.uuidService.generate()
 
     const category = Category.create(uuid, name, type)
 
-    await this.categoryRepository.save(category)
+    const result = await this.categoryRepository.save(category, userUuid)
+
+    if (!result)
+      Exception.throw(
+        'Category could not be created',
+        'ApplicationService.Category.create',
+        'Repository'
+      )
 
     return category
   }
 
-  public async find(uuid: string): Promise<Category | void> {
-    const category = await this.categoryRepository.find(uuid)
+  public async find(uuid: string, userUuid: string): Promise<Category | void> {
+    const category = await this.categoryRepository.find(uuid, userUuid)
 
-    if (!category) return Exception.throw('Category was not found', 'ApplicationService.Category.find', 'NotFound')
+    if (!category)
+      return Exception.throw(
+        'Category was not found',
+        'ApplicationService.Category.find',
+        'NotFound'
+      )
     else return category
   }
 
-  public async findAll(): Promise<Category[]> {
-    return await this.categoryRepository.findAll()
+  public async findAll(userUuid: string): Promise<Category[]> {
+    return await this.categoryRepository.findAll(userUuid)
   }
 
-  public async delete(uuid: string): Promise<void> {
-    const category = await this.categoryRepository.find(uuid)
+  public async delete(uuid: string, userUuid: string): Promise<void> {
+    const category = await this.categoryRepository.find(uuid, userUuid)
 
-    if (!category) return Exception.throw('Category was not found', 'ApplicationService.Category.delete', 'NotFound')
+    if (!category)
+      return Exception.throw(
+        'Category was not found',
+        'ApplicationService.Category.delete',
+        'NotFound'
+      )
 
-    await this.categoryRepository.delete(uuid)
+    const result = await this.categoryRepository.delete(uuid, userUuid)
+
+    if (!result)
+      Exception.throw(
+        'Category could not be deleted',
+        'ApplicationService.Category.delete',
+        'Repository'
+      )
   }
 
-  public async update(uuid: string, name: string, type: CategoryType): Promise<Category | void> {
-    const category = await this.categoryRepository.find(uuid)
+  public async update(
+    uuid: string,
+    name: string,
+    type: CategoryType,
+    userUuid: string
+  ): Promise<Category | void> {
+    const category = await this.categoryRepository.find(uuid, userUuid)
 
-    if (!category) return Exception.throw('Category was not found', 'ApplicationService.Category.update', 'NotFound')
+    if (!category)
+      return Exception.throw(
+        'Category was not found',
+        'ApplicationService.Category.update',
+        'NotFound'
+      )
 
     category.setName(name)
     category.setType(type)
 
-    await this.categoryRepository.save(category)
+    const result = await this.categoryRepository.save(category, userUuid)
+
+    if (!result)
+      return Exception.throw(
+        'Category could not be updated',
+        'ApplicationService.Category.update',
+        'Repository'
+      )
 
     return category
   }

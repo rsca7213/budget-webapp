@@ -20,13 +20,13 @@ export class CategoriesService {
     return this.httpClient.get<GetCategoryDto>(`/categories/${uuid}`)
   }
 
-  public create(category: CreateCategoryDto): Observable<void> {
-    return this.httpClient.post<void>('/categories', category)
+  public create(category: CreateCategoryDto): Observable<GetCategoryDto> {
+    return this.httpClient.post<GetCategoryDto>('/categories', category)
   }
 
-  public update(uuid: string, category: UpdateCategoryDto): Observable<void> {
+  public update(uuid: string, category: UpdateCategoryDto): Observable<GetCategoryDto> {
     const data: UpdateCategoryDto = category
-    return this.httpClient.put<void>(`/categories/${uuid}`, data)
+    return this.httpClient.put<GetCategoryDto>(`/categories/${uuid}`, data)
   }
 
   public delete(uuid: string): Observable<void> {

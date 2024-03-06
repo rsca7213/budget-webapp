@@ -18,11 +18,16 @@ export abstract class Entity {
 
   public setUuid(uuid: string): void {
     this.validatorService.uuidValidator.validateRequired(uuid) ||
-      Exception.throw('Uuid is required', `DomainEntity.${this.constructor.name}.uuid`, 'Validation')
+      Exception.throw(
+        'Uuid is required',
+        `DomainEntity.${this.constructor.name}.uuid`,
+        'Validation'
+      )
     this.validatorService.uuidValidator.validate(uuid) ||
       Exception.throw('Uuid is invalid', `DomainEntity.${this.constructor.name}.uuid`, 'Validation')
 
     this.uuid = uuid
+    this.setUpdatedAt(new Date())
   }
 
   public getCreatedAt(): Date {
@@ -31,7 +36,11 @@ export abstract class Entity {
 
   public setCreatedAt(createdAt: Date): void {
     this.validatorService.dateValidator.validateRequired(createdAt) ||
-      Exception.throw('CreatedAt is required', `DomainEntity.${this.constructor.name}.createdAt`, 'Validation')
+      Exception.throw(
+        'CreatedAt is required',
+        `DomainEntity.${this.constructor.name}.createdAt`,
+        'Validation'
+      )
 
     this.createdAt = createdAt
   }
@@ -42,7 +51,11 @@ export abstract class Entity {
 
   public setUpdatedAt(updatedAt: Date): void {
     this.validatorService.dateValidator.validateRequired(updatedAt) ||
-      Exception.throw('UpdatedAt is required', `DomainEntity.${this.constructor.name}.updatedAt`, 'Validation')
+      Exception.throw(
+        'UpdatedAt is required',
+        `DomainEntity.${this.constructor.name}.updatedAt`,
+        'Validation'
+      )
 
     this.updatedAt = updatedAt
   }

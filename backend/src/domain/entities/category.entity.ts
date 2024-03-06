@@ -24,11 +24,20 @@ export class Category extends Entity {
     this.validatorService.stringValidator.validateType(name) ||
       Exception.throw('Name is invalid', 'DomainEntity.Category.name', 'Validation')
     this.validatorService.stringValidator.validateMinLength(name, 3) ||
-      Exception.throw('Name must have at least 3 characters', 'DomainEntity.Category.name', 'Validation')
+      Exception.throw(
+        'Name must have at least 3 characters',
+        'DomainEntity.Category.name',
+        'Validation'
+      )
     this.validatorService.stringValidator.validateMaxLength(name, 50) ||
-      Exception.throw('Name must have at most 50 characters', 'DomainEntity.Category.name', 'Validation')
+      Exception.throw(
+        'Name must have at most 50 characters',
+        'DomainEntity.Category.name',
+        'Validation'
+      )
 
     this.name = name
+    this.setUpdatedAt(new Date())
   }
 
   public setType(type: CategoryType): void {
@@ -38,9 +47,16 @@ export class Category extends Entity {
       Exception.throw('Type is invalid', 'DomainEntity.Category.type', 'Validation')
 
     this.type = type
+    this.setUpdatedAt(new Date())
   }
 
-  public static restore(uuid: string, name: string, type: CategoryType, createdAt: Date, updatedAt: Date): Category {
+  public static restore(
+    uuid: string,
+    name: string,
+    type: CategoryType,
+    createdAt: Date,
+    updatedAt: Date
+  ): Category {
     const category = new Category()
 
     category.setUuid(uuid)

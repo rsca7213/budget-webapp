@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
+import { CategoryDatabaseEntity } from './category.orm.entity'
 
 @Entity()
 export class UserDatabaseEntity {
@@ -19,4 +20,7 @@ export class UserDatabaseEntity {
 
   @Column()
   public updatedAt: Date
+
+  @OneToMany(() => CategoryDatabaseEntity, category => category.user)
+  public categories: CategoryDatabaseEntity[]
 }

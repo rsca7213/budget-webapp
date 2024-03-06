@@ -48,6 +48,7 @@ export class UserController {
     return req.auth
   }
 
+  @HttpCode(HttpStatus.OK)
   @Post('logout')
   @ApiTags('Authentication')
   public async logout(@Res({ passthrough: true }) response: Response): Promise<void> {

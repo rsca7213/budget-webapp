@@ -68,9 +68,15 @@ export class CategoriesView implements OnInit {
 
         this.loadingDialog.open()
         this.categoriesService.update(category.uuid, data).subscribe({
-          next: () => {
+          next: category => {
             this.notification.notify('Category updated successfully', 'Close')
-            this.loadView()
+
+            const current = this.categories.find(c => c.uuid === category.uuid)
+            if (current) {
+              current.name = category.name
+              current.type = category.type
+            }
+            this.divideCategories()
           },
           error: err => {
             this.errorDialog.open('Failed to update category', err.message)
@@ -95,7 +101,8 @@ export class CategoriesView implements OnInit {
         this.categoriesService.delete(uuid).subscribe({
           next: () => {
             this.notification.notify('Category deleted successfully', 'Close')
-            this.loadView()
+            this.categories = this.categories.filter(c => c.uuid !== uuid)
+            this.divideCategories()
           },
           error: err => {
             this.errorDialog.open('Failed to delete category', err.message)
@@ -117,9 +124,10 @@ export class CategoriesView implements OnInit {
 
         this.loadingDialog.open()
         this.categoriesService.create(data).subscribe({
-          next: () => {
+          next: category => {
             this.notification.notify('Category created successfully', 'Close')
-            this.loadView()
+            this.categories.push(category)
+            this.divideCategories()
           },
           error: err => {
             this.errorDialog.open('Failed to create category', err.message)

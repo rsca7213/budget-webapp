@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm'
-import { CategoryType, CategoryTypes } from '../../../domain/types/category.types'
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm'
+import { CategoryType } from '../../../domain/types/category.types'
+import { UserDatabaseEntity } from './user.orm.entity'
 
 @Entity()
 export class CategoryDatabaseEntity {
@@ -17,4 +18,7 @@ export class CategoryDatabaseEntity {
 
   @Column()
   public updatedAt: Date
+
+  @ManyToOne(() => UserDatabaseEntity, user => user.categories)
+  public user: UserDatabaseEntity
 }

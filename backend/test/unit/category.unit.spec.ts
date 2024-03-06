@@ -6,6 +6,8 @@ import { CategoryRepository } from '../../src/infrastructure/database/category.r
 import { BootstrapServerService } from '../../src/infrastructure/services/bootstrap-server.service'
 import { UuidService } from '../../src/infrastructure/services/uuid.service'
 import { CategoryDatabaseEntity } from '../../src/infrastructure/database/models/category.orm.entity'
+import { UserDatabaseEntity } from '../../src/infrastructure/database/models/user.orm.entity'
+import { CategoryType } from '../../src/domain/types/category.types'
 
 jest.mock('../../src/infrastructure/services/uuid.service.ts')
 jest.mock('../../src/infrastructure/database/category.repository.ts')
@@ -14,10 +16,15 @@ let uuidService: UuidService
 let categoryService: CategoryService
 let categoryRepository: CategoryRepository
 
+const userUuid = 'cde4d425-c343-4a3d-bb0e-266f9331f171'
+
 beforeAll(() => {
   new BootstrapServerService().startDomainValidationService(false)
   uuidService = new UuidService()
-  categoryRepository = new CategoryRepository({} as Repository<CategoryDatabaseEntity>)
+  categoryRepository = new CategoryRepository(
+    {} as Repository<CategoryDatabaseEntity>,
+    {} as Repository<UserDatabaseEntity>
+  )
   categoryService = new CategoryService(uuidService, categoryRepository)
 })
 
@@ -25,7 +32,7 @@ describe('[Unit - CategoryService] Find a category', () => {
   it('Should find a category by uuid', async () => {
     const uuid = 'cde4d425-c343-4a3d-bb0e-266f9331f165'
 
-    const category = (await categoryService.find(uuid)) as Category
+    const category = (await categoryService.find(uuid, userUuid)) as Category
 
     expect(category instanceof Category).toBe(true)
     expect(category.getUuid()).toBe(uuid)
@@ -37,7 +44,7 @@ describe('[Unit - CategoryService] Find a category', () => {
 
   it('Should throw an error when category was not found', async () => {
     try {
-      await categoryService.find('invalid-uuid')
+      await categoryService.find('invalid-uuid', userUuid)
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('NotFound')
@@ -49,16 +56,18 @@ describe('[Unit - CategoryService] Find a category', () => {
 
 describe('[Unit - CategoryService] Find all categories', () => {
   it('Should find all categories', async () => {
-    const categories = await categoryService.findAll()
+    const categories = await categoryService.findAll(userUuid)
 
     expect(categories.length).toBe(6)
-    expect(categories.map(category => category instanceof Category).every(instance => instance)).toBe(true)
+    expect(
+      categories.map(category => category instanceof Category).every(instance => instance)
+    ).toBe(true)
   })
 })
 
 describe('[Unit - CategoryService] Create a new category', () => {
   it('Should create a valid category', async () => {
-    const category = await categoryService.create('Groceries', 'Income')
+    const category = await categoryService.create('Groceries', 'Income', userUuid)
 
     expect(category.getUuid()).toBe('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742')
     expect(category.getCreatedAt()).toBeInstanceOf(Date)
@@ -70,7 +79,7 @@ describe('[Unit - CategoryService] Create a new category', () => {
 
   it('Should throw an error when name is empty', async () => {
     try {
-      await categoryService.create('', 'Income')
+      await categoryService.create('', 'Income', userUuid)
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
@@ -81,7 +90,7 @@ describe('[Unit - CategoryService] Create a new category', () => {
 
   it('Should throw an error when name is less than 3 characters', async () => {
     try {
-      await categoryService.create('Ca', 'Income')
+      await categoryService.create('Ca', 'Income', userUuid)
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
@@ -92,7 +101,11 @@ describe('[Unit - CategoryService] Create a new category', () => {
 
   it('Should throw an error when name is more than 50 characters', async () => {
     try {
-      await categoryService.create('CategoryCategoryCategoryCategoryCategoryCategoryCategoryCategory', 'Income')
+      await categoryService.create(
+        'CategoryCategoryCategoryCategoryCategoryCategoryCategoryCategory',
+        'Income',
+        userUuid
+      )
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
@@ -103,7 +116,7 @@ describe('[Unit - CategoryService] Create a new category', () => {
 
   it('Should throw an error when type is empty', async () => {
     try {
-      await categoryService.create('Groceries', '' as any)
+      await categoryService.create('Groceries', '' as CategoryType, userUuid)
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
@@ -114,7 +127,7 @@ describe('[Unit - CategoryService] Create a new category', () => {
 
   it('Should throw an error when type is invalid', async () => {
     try {
-      await categoryService.create('Groceries', 'InvalidType' as any)
+      await categoryService.create('Groceries', 'InvalidType' as CategoryType, userUuid)
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
@@ -126,7 +139,12 @@ describe('[Unit - CategoryService] Create a new category', () => {
 
 describe('[Unit - CategoryService] Update a category', () => {
   it('Should update a category', async () => {
-    let category = await categoryService.update('cde4d425-c343-4a3d-bb0e-266f9331f165', 'Groceries', 'Income')
+    let category = await categoryService.update(
+      'cde4d425-c343-4a3d-bb0e-266f9331f165',
+      'Groceries',
+      'Income',
+      userUuid
+    )
 
     expect(category instanceof Category).toBe(true)
     if (!category) return
@@ -140,7 +158,12 @@ describe('[Unit - CategoryService] Update a category', () => {
 
   it('Should throw an error when category was not found', async () => {
     try {
-      await categoryService.update('cffd5c9b-294a-475b-95f0-e31a946ac6b3', 'Groceries', 'Income')
+      await categoryService.update(
+        'cffd5c9b-294a-475b-95f0-e31a946ac6b3',
+        'Groceries',
+        'Income',
+        userUuid
+      )
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('NotFound')
@@ -151,7 +174,7 @@ describe('[Unit - CategoryService] Update a category', () => {
 
   it('Should throw an error when name is empty', async () => {
     try {
-      await categoryService.update('cde4d425-c343-4a3d-bb0e-266f9331f165', '', 'Income')
+      await categoryService.update('cde4d425-c343-4a3d-bb0e-266f9331f165', '', 'Income', userUuid)
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
@@ -162,7 +185,7 @@ describe('[Unit - CategoryService] Update a category', () => {
 
   it('Should throw an error when name is less than 3 characters', async () => {
     try {
-      await categoryService.update('cde4d425-c343-4a3d-bb0e-266f9331f165', 'Ca', 'Income')
+      await categoryService.update('cde4d425-c343-4a3d-bb0e-266f9331f165', 'Ca', 'Income', userUuid)
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
@@ -176,7 +199,8 @@ describe('[Unit - CategoryService] Update a category', () => {
       await categoryService.update(
         'cde4d425-c343-4a3d-bb0e-266f9331f165',
         'CategoryCategoryCategoryCategoryCategoryCategoryCategoryCategoryCategory',
-        'Income'
+        'Income',
+        userUuid
       )
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
@@ -188,7 +212,12 @@ describe('[Unit - CategoryService] Update a category', () => {
 
   it('Should throw an error when type is empty', async () => {
     try {
-      await categoryService.update('cde4d425-c343-4a3d-bb0e-266f9331f165', 'Groceries', '' as any)
+      await categoryService.update(
+        'cde4d425-c343-4a3d-bb0e-266f9331f165',
+        'Groceries',
+        '' as CategoryType,
+        userUuid
+      )
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
@@ -199,7 +228,12 @@ describe('[Unit - CategoryService] Update a category', () => {
 
   it('Should throw an error when type is invalid', async () => {
     try {
-      await categoryService.update('cde4d425-c343-4a3d-bb0e-266f9331f165', 'Groceries', 'InvalidType' as any)
+      await categoryService.update(
+        'cde4d425-c343-4a3d-bb0e-266f9331f165',
+        'Groceries',
+        'InvalidType' as CategoryType,
+        userUuid
+      )
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
@@ -211,15 +245,15 @@ describe('[Unit - CategoryService] Update a category', () => {
 
 describe('[Unit - CategoryService] Delete a category', () => {
   it('Should delete a category', async () => {
-    await categoryService.delete('cde4d425-c343-4a3d-bb0e-266f9331f165')
+    await categoryService.delete('cde4d425-c343-4a3d-bb0e-266f9331f165', userUuid)
 
-    const categories = await categoryService.findAll()
+    const categories = await categoryService.findAll(userUuid)
     expect(categories.length).toBe(6)
   })
 
   it('Should throw an error when category was not found', async () => {
     try {
-      await categoryService.delete('cffd5c9b-294a-475b-95f0-e31a946ac6b3')
+      await categoryService.delete('cffd5c9b-294a-475b-95f0-e31a946ac6b3', userUuid)
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('NotFound')
