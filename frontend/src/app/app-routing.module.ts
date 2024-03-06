@@ -24,6 +24,15 @@ export const APP_ROUTES: (Route & { title: string; icon: string; sidebar: boolea
     resolve: { user: authResolver }
   },
   {
+    path: 'accounts',
+    loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule),
+    title: 'Accounts',
+    icon: 'bank',
+    sidebar: true,
+    canActivate: [authGuard],
+    resolve: { user: authResolver }
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
     title: 'Login',
