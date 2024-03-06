@@ -12,6 +12,9 @@ import { ConfigModule } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
 import { APP_FILTER } from '@nestjs/core'
 import { CatchExceptionsService } from './services/exceptions.service'
+import { CurrencyController } from './controllers/currency.controller'
+import { CurrencyDatabaseEntity } from './database/models/currency.orm.entity'
+import { CurrencyRepository } from './database/currency.repository'
 
 @Module({
   imports: [
@@ -24,12 +27,12 @@ import { CatchExceptionsService } from './services/exceptions.service'
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite',
-      entities: [UserDatabaseEntity, CategoryDatabaseEntity],
+      entities: [UserDatabaseEntity, CategoryDatabaseEntity, CurrencyDatabaseEntity],
       synchronize: true
     }),
-    TypeOrmModule.forFeature([UserDatabaseEntity, CategoryDatabaseEntity])
+    TypeOrmModule.forFeature([UserDatabaseEntity, CategoryDatabaseEntity, CurrencyDatabaseEntity])
   ],
-  controllers: [UserController, CategoryController],
+  controllers: [UserController, CategoryController, CurrencyController],
   providers: [
     // Common services
     UuidService,
@@ -37,6 +40,7 @@ import { CatchExceptionsService } from './services/exceptions.service'
     // Repositories
     UserRepository,
     CategoryRepository,
+    CurrencyRepository,
     // Exceptions
     {
       provide: APP_FILTER,

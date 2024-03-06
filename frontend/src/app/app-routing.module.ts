@@ -33,6 +33,15 @@ export const APP_ROUTES: (Route & { title: string; icon: string; sidebar: boolea
     resolve: { user: authResolver }
   },
   {
+    path: 'currencies',
+    loadChildren: () => import('./currencies/currencies.module').then(m => m.CurrenciesModule),
+    title: 'Currencies',
+    icon: 'currency-usd',
+    sidebar: true,
+    canActivate: [authGuard],
+    resolve: { user: authResolver }
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
     title: 'Login',

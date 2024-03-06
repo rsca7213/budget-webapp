@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { LoadingState } from '../../types/loading-state.types'
 import { Router } from '@angular/router'
+import { APP_PROPERTIES } from '../../../../properties'
 
 @Component({
   selector: 'shared-components-loading-view',
@@ -10,6 +11,8 @@ import { Router } from '@angular/router'
 export class LoadingViewComponent {
   @Input() public view: string
   @Input() public state: LoadingState
+
+  public APP_PROPERTIES = APP_PROPERTIES
 
   public constructor(public readonly router: Router) {}
 

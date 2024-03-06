@@ -4,7 +4,7 @@
       <mat-icon svgIcon="menu"></mat-icon>
     </button>
     <a mat-button routerLink="/" class="brand">
-      <mat-icon svgIcon="piggy-bank" class="icon-lg pb-2 pr-1"></mat-icon>
+      <mat-icon [svgIcon]="APP_PROPERTIES.icon" class="icon-lg pb-2 pr-1"></mat-icon>
       <span>{{ APP_PROPERTIES.title }}</span>
     </a>
     <span class="flex-spacer"></span>

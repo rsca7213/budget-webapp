@@ -20,11 +20,11 @@ export class CategoriesService {
     return this.httpClient.get<GetCategoryDto>(`/categories/${uuid}`)
   }
 
-  public create(category: CreateCategoryDto): Observable<GetCategoryDto> {
+  public create(category: CreateCategoryDto): Observable<Category> {
     return this.httpClient.post<GetCategoryDto>('/categories', category)
   }
 
-  public update(uuid: string, category: UpdateCategoryDto): Observable<GetCategoryDto> {
+  public update(uuid: string, category: UpdateCategoryDto): Observable<Category> {
     const data: UpdateCategoryDto = category
     return this.httpClient.put<GetCategoryDto>(`/categories/${uuid}`, data)
   }
