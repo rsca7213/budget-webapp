@@ -10,12 +10,14 @@
     Currencies
   </h2>
   <hr />
-  @if (currencies.length > 0 && defaultCurrency !== null) {
+  @if (currencies.length > 0 || defaultCurrency) {
   <currencies-components-currencies-list
     [currencies]="currencies"
     [defaultCurrency]="defaultCurrency"
   >
   </currencies-components-currencies-list>
+  } @else {
+  <h3 class="text-center">There are no currencies created.</h3>
   }
 </main>
 }
