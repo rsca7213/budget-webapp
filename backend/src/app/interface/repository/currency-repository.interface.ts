@@ -9,4 +9,10 @@ export interface ICurrencyRepository extends IRepository<Currency> {
   findAll(userUuid: string): Promise<Currency[]>
 
   delete(uuid: string, userUuid: string): Promise<boolean>
+
+  findByCode(code: string, userUuid: string): Promise<Currency | undefined>
+
+  findByName(name: string, userUuid: string): Promise<Currency | undefined>
+
+  count(userUuid: string): Promise<number>
 }

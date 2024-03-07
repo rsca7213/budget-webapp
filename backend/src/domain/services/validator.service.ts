@@ -33,7 +33,9 @@ export class DomainValidatorService {
     const uuidValidator: IUuidValidator = {
       validateRequired,
       validate: (value: string): boolean =>
-        value.match(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/) !== null
+        value.match(
+          /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
+        ) !== null
     }
 
     const stringValidator: IStringValidator = {
@@ -58,8 +60,10 @@ export class DomainValidatorService {
     const numberValidator: INumberValidator = {
       validateRequired,
       validateType: (value: number): boolean => typeof value === 'number' && !isNaN(value),
-      validateMin: (value: number, min: number): boolean => value >= min,
-      validateMax: (value: number, max: number): boolean => value <= max
+      validateMin: (value: number, min: number, eq: boolean): boolean =>
+        eq ? value >= min : value > min,
+      validateMax: (value: number, max: number, eq: boolean): boolean =>
+        eq ? value <= max : value < max
     }
 
     const dateValidator: IDateValidator = {

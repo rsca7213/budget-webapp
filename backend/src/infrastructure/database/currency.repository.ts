@@ -28,6 +28,7 @@ export class CurrencyRepository implements ICurrencyRepository {
     currencyDatabaseEntity.isDefault = currency.getIsDefault()
     currencyDatabaseEntity.createdAt = currency.getCreatedAt()
     currencyDatabaseEntity.updatedAt = currency.getUpdatedAt()
+    currencyDatabaseEntity.user = userOrmRepository
 
     await this.currencyOrmRepository.save(currencyDatabaseEntity)
     return true
@@ -68,5 +69,41 @@ export class CurrencyRepository implements ICurrencyRepository {
   public async delete(uuid: string, userUuid: string): Promise<boolean> {
     await this.currencyOrmRepository.delete({ uuid, user: { uuid: userUuid } })
     return true
+  }
+
+  public async findByCode(code: string, userUuid: string): Promise<Currency | undefined> {
+    const currency = await this.currencyOrmRepository.findOneBy({ code, user: { uuid: userUuid } })
+
+    if (!currency) return undefined
+
+    return Currency.restore(
+      currency.uuid,
+      currency.name,
+      currency.code,
+      currency.exchangeRate,
+      currency.isDefault,
+      currency.createdAt,
+      currency.updatedAt
+    )
+  }
+
+  public async findByName(name: string, userUuid: string): Promise<Currency | undefined> {
+    const currency = await this.currencyOrmRepository.findOneBy({ name, user: { uuid: userUuid } })
+
+    if (!currency) return undefined
+
+    return Currency.restore(
+      currency.uuid,
+      currency.name,
+      currency.code,
+      currency.exchangeRate,
+      currency.isDefault,
+      currency.createdAt,
+      currency.updatedAt
+    )
+  }
+
+  public async count(userUuid: string): Promise<number> {
+    return await this.currencyOrmRepository.countBy({ user: { uuid: userUuid } })
   }
 }

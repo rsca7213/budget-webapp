@@ -12,6 +12,10 @@ export class CurrencyRepository implements ICurrencyRepository {
         Currency.create('cde4d425-c343-4a3d-bb0e-266f9331f166', 'Dollar', 'USD', 0.95, false),
         Currency.create('cde4d425-c343-4a3d-bb0e-266f9331f167', 'Pound', 'GBP', 0.91, false)
       ]
+    },
+    {
+      uuid: 'cde4d425-c343-4a3d-bb0e-266f9331f172',
+      currencies: []
     }
   ]
 
@@ -39,5 +43,23 @@ export class CurrencyRepository implements ICurrencyRepository {
     if (!user) return false
     user.currencies = user.currencies.filter(currency => currency.getUuid() !== uuid)
     return true
+  }
+
+  public async findByCode(code: string, userUuid: string): Promise<Currency | undefined> {
+    const user = this.users.find(user => user.uuid === userUuid)
+    if (!user) return undefined
+    return user.currencies.find(currency => currency.getCode() === code)
+  }
+
+  public async findByName(name: string, userUuid: string): Promise<Currency | undefined> {
+    const user = this.users.find(user => user.uuid === userUuid)
+    if (!user) return undefined
+    return user.currencies.find(currency => currency.getName() === name)
+  }
+
+  public async count(userUuid: string): Promise<number> {
+    const user = this.users.find(user => user.uuid === userUuid)
+    if (!user) return 0
+    return user.currencies.length
   }
 }

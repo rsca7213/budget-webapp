@@ -12,7 +12,7 @@ export class CurrencyDatabaseEntity {
   @Column()
   public code: string
 
-  @Column()
+  @Column({ type: 'float' })
   public exchangeRate: number
 
   @Column()

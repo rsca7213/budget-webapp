@@ -84,9 +84,9 @@ export class Currency extends Entity {
         'DomainEntity.Currency.exchangeRate',
         'Validation'
       )
-    this.validatorService.numberValidator.validateMin(exchangeRate, 0) ||
+    this.validatorService.numberValidator.validateMin(exchangeRate, 0, false) ||
       Exception.throw(
-        'Exchange rate must be greater than or equal to 0',
+        'Exchange rate must be greater than 0',
         'DomainEntity.Currency.exchangeRate',
         'Validation'
       )
