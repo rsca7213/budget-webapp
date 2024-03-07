@@ -4,5 +4,28 @@
   [state]="viewState"
 ></shared-components-loading-view>
 } @else {
-<main class="bottom-gap"></main>
+<main class="bottom-gap">
+  <h2 class="inline-flex-aligned mb-0">
+    <mat-icon svgIcon="cash-multiple" class="mr-2"></mat-icon>
+    Currencies
+  </h2>
+  <hr />
+  @if (currencies.length > 0 && defaultCurrency !== null) {
+  <currencies-components-currencies-list
+    [currencies]="currencies"
+    [defaultCurrency]="defaultCurrency"
+  >
+  </currencies-components-currencies-list>
+  }
+</main>
 }
+
+<div class="bottom-actions">
+  <button mat-fab class="mr-3">
+    <mat-icon svgIcon="plus"> </mat-icon>
+  </button>
+</div>
+
+<shared-components-notification></shared-components-notification>
+<shared-components-error-dialog></shared-components-error-dialog>
+<shared-components-loading-dialog></shared-components-loading-dialog>

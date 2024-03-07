@@ -12,6 +12,7 @@ export class CurrenciesView implements OnInit {
   public viewState: LoadingState = 'loading'
 
   public currencies: Currency[] = []
+  public defaultCurrency: Currency | undefined
 
   public constructor(private readonly currenciesService: CurrenciesService) {}
 
@@ -23,7 +24,8 @@ export class CurrenciesView implements OnInit {
     this.viewState = 'loading'
     this.currenciesService.getAll().subscribe({
       next: (currencies: Currency[]) => {
-        this.currencies = currencies
+        this.currencies = currencies.filter(currency => !currency.isDefault)
+        this.defaultCurrency = currencies.find(currency => currency.isDefault)
         this.viewState = 'ready'
       },
       error: () => {

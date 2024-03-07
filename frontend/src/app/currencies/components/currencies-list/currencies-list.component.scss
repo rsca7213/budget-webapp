@@ -1,0 +1,6 @@
+@use '../../../../variables.scss' as var;
+
+.code {
+  font-weight: 600;
+  color: var.$accent !important;
+}
