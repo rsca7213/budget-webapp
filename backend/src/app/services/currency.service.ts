@@ -42,7 +42,10 @@ export class CurrencyService {
 
     const count = await this.currencyRepository.count(userUuid)
 
-    if (count === 0) currency.setIsDefault(true)
+    if (count === 0) {
+      currency.setIsDefault(true)
+      currency.setExchangeRate(1)
+    }
 
     const result = await this.currencyRepository.save(currency, userUuid)
 

@@ -54,14 +54,14 @@ describe('[Unit - CurrencyService] Create a currency', () => {
   })
 
   it('Should create a valid currency and set it as default', async () => {
-    const currencies = await currencyService.create('Real', 'BRL', 0.012, secondaryUserUuid)
+    const currencies = await currencyService.create('Real', 'BRL', 1, secondaryUserUuid)
 
     expect(currencies.getUuid()).toBe('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd743')
     expect(currencies.getCreatedAt()).toBeInstanceOf(Date)
     expect(currencies.getUpdatedAt()).toBeInstanceOf(Date)
     expect(currencies.getName()).toBe('Real')
     expect(currencies.getCode()).toBe('BRL')
-    expect(currencies.getExchangeRate()).toBe(0.012)
+    expect(currencies.getExchangeRate()).toBe(1)
     expect(currencies.getIsDefault()).toBe(true)
     expect(currencies instanceof Currency).toBe(true)
   })
