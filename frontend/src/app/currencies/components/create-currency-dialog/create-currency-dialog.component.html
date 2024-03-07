@@ -1,0 +1,62 @@
+<h2 mat-dialog-title class="mat-dialog-title">
+  <mat-icon svgIcon="cash-multiple" class="mr-2"> </mat-icon>
+  Create currency
+  <div class="flex-spacer"></div>
+  <button mat-icon-button (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+  </button>
+</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="py-2">
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label> Name </mat-label>
+      <input matInput type="text" placeholder="Name..." formControlName="name" />
+      <mat-icon matPrefix svgIcon="cash"> </mat-icon>
+      <mat-error *ngIf="form.get('name')?.hasError('required')"> Name is required </mat-error>
+      <mat-error *ngIf="form.get('name')?.hasError('minlength')">
+        Name must be at least 3 characters long
+      </mat-error>
+      <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
+        Name must be at most 50 characters long
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label> Code </mat-label>
+      <input matInput type="text" placeholder="Code..." formControlName="code" />
+      <mat-icon matPrefix svgIcon="barcode"> </mat-icon>
+      <mat-error *ngIf="form.get('code')?.hasError('required')"> Code is required </mat-error>
+      <mat-error *ngIf="form.get('code')?.hasError('minlength')">
+        Code must be at least 3 characters long
+      </mat-error>
+      <mat-error *ngIf="form.get('code')?.hasError('maxlength')">
+        Code must be at most 3 characters long
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label> Exchange Rate </mat-label>
+      <input matInput type="text" placeholder="Exchange Rate..." formControlName="exchangeRate" />
+      <mat-icon matPrefix svgIcon="swap-horizontal"> </mat-icon>
+      <mat-error *ngIf="form.get('exchangeRate')?.hasError('required')">
+        Exchange Rate is required
+      </mat-error>
+      <mat-error *ngIf="form.get('exchangeRate')?.hasError('min')">
+        Exchange Rate must be at least 0.0001
+      </mat-error>
+      <mat-hint>
+        1 USD is equal to @if (form.get('code')?.value && form.get('exchangeRate')?.value) {
+        {{ form.get('exchangeRate')?.value }} {{ form.get('code')?.value }}
+        }
+      </mat-hint>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions">
+  <button mat-button color="basic" (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+    Cancel
+  </button>
+  <button mat-flat-button color="primary" (click)="createCurrency()">
+    <mat-icon svgIcon="plus"> </mat-icon>
+    Create
+  </button>
+</mat-dialog-actions>
