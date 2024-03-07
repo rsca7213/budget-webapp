@@ -8,15 +8,21 @@
 </h2>
 <mat-dialog-content>
   <form [formGroup]="form" class="py-2">
-    <mat-form-field appearance="outline" color="accent">
+    <mat-form-field appearance="outline" color="accent" class="mat-form-field">
       <mat-label> Name </mat-label>
       <input matInput type="text" placeholder="Name..." formControlName="name" />
       <mat-icon matPrefix svgIcon="rename"> </mat-icon>
-      <mat-error *ngIf="form.get('name')?.hasError('required')"> Name is required </mat-error>
-      <mat-error *ngIf="form.get('name')?.hasError('minlength')"> Name must be at least 3 characters long </mat-error>
-      <mat-error *ngIf="form.get('name')?.hasError('maxlength')"> Name must be at most 50 characters long </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('name')?.hasError('required')">
+        Name is required
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('name')?.hasError('minlength')">
+        Name must be at least 3 characters long
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('name')?.hasError('maxlength')">
+        Name must be at most 50 characters long
+      </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline" color="accent">
+    <mat-form-field appearance="outline" color="accent" class="mat-form-field">
       <mat-label> Type </mat-label>
       <mat-select formControlName="type">
         @for (type of options.type; track type) {
@@ -24,8 +30,12 @@
         }
       </mat-select>
       <mat-icon matPrefix svgIcon="list-box-outline"> </mat-icon>
-      <mat-error *ngIf="form.get('type')?.hasError('required')"> Type is required </mat-error>
-      <mat-error *ngIf="form.get('type')?.hasError('categoryType')"> Type is invalid </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('type')?.hasError('required')">
+        Type is required
+      </mat-error>
+      <mat-error class="mat-error" *ngIf="form.get('type')?.hasError('categoryType')">
+        Type is invalid
+      </mat-error>
     </mat-form-field>
   </form>
 </mat-dialog-content>

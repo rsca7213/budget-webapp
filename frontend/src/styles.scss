@@ -23,6 +23,14 @@ body {
   text-align: center;
 }
 
+.mat-error {
+  display: none !important;
+}
+
+.mat-form-field .mat-error:first-child {
+  display: block !important;
+}
+
 .bottom-actions {
   position: fixed;
   display: flex;
