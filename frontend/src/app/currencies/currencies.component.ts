@@ -12,6 +12,7 @@ import { CreateCurrencyDto } from '../shared/dto/currencies/create-currency.dto'
 import { EditCurrencyDialogComponent } from './components/edit-currency-dialog/edit-currency-dialog.component'
 import { UpdateCurrencyDto } from '../shared/dto/currencies/update-currency.dto'
 import { DeleteCurrencyDialogComponent } from './components/delete-currency-dialog.component'
+import { SwapDefaultCurrencyDialogComponent } from './components/swap-default-currency-dialog/swap-default-currency-dialog.component'
 
 @Component({
   selector: 'views-currencies',
@@ -136,6 +137,35 @@ export class CurrenciesView implements OnInit {
           },
           error: err => {
             this.errorDialog.open('Failed to delete currency', err.message)
+          }
+        })
+      })
+      .add(() => this.loadingDialog.close())
+  }
+
+  public openSwapDefaultCurrencyDialog(): void {
+    const ref = this.dialog.open(SwapDefaultCurrencyDialogComponent, {
+      width: APP_DIALOG_SIZES.md,
+      data: {
+        currencies: this.currencies,
+        defaultCurrency: this.defaultCurrency
+      }
+    })
+
+    ref
+      .afterClosed()
+      .subscribe((uuid: string) => {
+        if (!uuid) return
+
+        this.loadingDialog.open()
+        this.currenciesService.swapDefault(uuid).subscribe({
+          next: currencies => {
+            this.defaultCurrency = currencies.find(c => c.isDefault)
+            this.currencies = currencies.filter(c => !c.isDefault)
+            this.notification.notify('Default currency swapped successfully', 'Close')
+          },
+          error: err => {
+            this.errorDialog.open('Failed to swap default currency', err.message)
           }
         })
       })

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http'
 import { GetCurrencyDto } from '../dto/currencies/get-currency.dto'
 import { CreateCurrencyDto } from '../dto/currencies/create-currency.dto'
 import { UpdateCurrencyDto } from '../dto/currencies/update-currency.dto'
+import { ExchangeRate } from '../types/exchange-rate.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,37 @@ export class CurrenciesService {
 
   public delete(uuid: string): Observable<void> {
     return this.httpClient.delete<void>(`/currencies/${uuid}`)
+  }
+
+  public swapDefault(uuid: string): Observable<Currency[]> {
+    return this.httpClient.patch<GetCurrencyDto[]>(`/currencies/swap-default/${uuid}`, {})
+  }
+
+  public calculateSwappedExchangeRates(
+    oldDefault: Currency,
+    newDefault: Currency,
+    otherCurrencies: Currency[]
+  ): ExchangeRate[] {
+    const exchangeRates: ExchangeRate[] = []
+
+    const newVsOldDefaultRate = 1 / newDefault.exchangeRate
+
+    exchangeRates.push({
+      defaultCode: newDefault.code,
+      code: oldDefault.code,
+      rate: newVsOldDefaultRate
+    })
+
+    otherCurrencies.forEach(currency => {
+      const rate = currency.exchangeRate * newVsOldDefaultRate
+
+      exchangeRates.push({
+        defaultCode: newDefault.code,
+        code: currency.code,
+        rate
+      })
+    })
+
+    return exchangeRates
   }
 }

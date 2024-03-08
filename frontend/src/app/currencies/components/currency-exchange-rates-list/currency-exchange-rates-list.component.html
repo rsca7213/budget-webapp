@@ -1,0 +1,16 @@
+<mat-list>
+  @for (exchangeRate of exchangeRates; track exchangeRate.code) {
+  <mat-list-item>
+    <div matListItemTitle class="flex-aligned justify-center">
+      1 {{ exchangeRate.defaultCode }}
+      <mat-icon svgIcon="swap-horizontal" class="mx-1"> </mat-icon>
+      @if (exchangeRate.rate > 1000) {
+      {{ exchangeRate.rate | number : '1.2-2' }}
+      } @else {
+      {{ exchangeRate.rate | number : '1.2-6' }}
+      }
+      {{ exchangeRate.code }}
+    </div>
+  </mat-list-item>
+  }
+</mat-list>

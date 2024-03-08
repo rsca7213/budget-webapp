@@ -1,0 +1,45 @@
+<h2 mat-dialog-title class="mat-dialog-title">
+  <mat-icon svgIcon="cash-multiple" class="mr-2"> </mat-icon>
+  Swap default
+  <div class="flex-spacer"></div>
+  <button mat-icon-button (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+  </button>
+</h2>
+<mat-dialog-content>
+  <p class="text-center text-white">
+    <span class="text-accent default-code"> {{ data.defaultCurrency.code }} </span>
+    {{ data.defaultCurrency.name }}
+  </p>
+  <p class="text-center">
+    <mat-icon svgIcon="swap-horizontal" class="icon-lg"> </mat-icon>
+  </p>
+  <form [formGroup]="form" class="py-2" (keydown.enter)="swap()">
+    <mat-form-field appearance="outline" color="accent" class="mat-form-field">
+      <mat-label> Currency </mat-label>
+      <mat-select formControlName="currency">
+        @for (currency of data.currencies; track currency) {
+        <mat-option [value]="currency"> {{ currency.code }} - {{ currency.name }} </mat-option>
+        }
+      </mat-select>
+      <mat-icon matPrefix svgIcon="list-box-outline"> </mat-icon>
+      <mat-error class="mat-error" *ngIf="form.get('currency')?.hasError('required')">
+        Currency is required
+      </mat-error>
+    </mat-form-field>
+  </form>
+  <p class="text-center text-accent mb-0">Notice</p>
+  <p class="text-center">Exchange rates will be updated</p>
+  <currencies-components-currency-exchange-rates-list [exchangeRates]="exchangeRates">
+  </currencies-components-currency-exchange-rates-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions">
+  <button mat-button color="basic" (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+    Cancel
+  </button>
+  <button mat-flat-button color="primary" (click)="swap()">
+    <mat-icon svgIcon="swap-horizontal"> </mat-icon>
+    Swap
+  </button>
+</mat-dialog-actions>

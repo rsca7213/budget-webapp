@@ -11,4 +11,5 @@ export class CurrenciesListComponent {
   @Input() defaultCurrency: Currency | undefined
   @Output() edit = new EventEmitter<Currency>()
   @Output() delete = new EventEmitter<Currency>()
+  @Output() swap = new EventEmitter<void>()
 }

@@ -9,6 +9,8 @@ import { CreateCurrencyDialogComponent } from './components/create-currency-dial
 import { ReactiveFormsModule } from '@angular/forms'
 import { EditCurrencyDialogComponent } from './components/edit-currency-dialog/edit-currency-dialog.component'
 import { DeleteCurrencyDialogComponent } from './components/delete-currency-dialog.component'
+import { SwapDefaultCurrencyDialogComponent } from './components/swap-default-currency-dialog/swap-default-currency-dialog.component';
+import { CurrencyExchangeRatesListComponent } from './components/currency-exchange-rates-list/currency-exchange-rates-list.component'
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { DeleteCurrencyDialogComponent } from './components/delete-currency-dial
     CurrenciesListComponent,
     CreateCurrencyDialogComponent,
     EditCurrencyDialogComponent,
-    DeleteCurrencyDialogComponent
+    DeleteCurrencyDialogComponent,
+    SwapDefaultCurrencyDialogComponent,
+    CurrencyExchangeRatesListComponent
   ],
   imports: [
     CommonModule,

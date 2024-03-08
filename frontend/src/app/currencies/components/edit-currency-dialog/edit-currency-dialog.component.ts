@@ -55,8 +55,8 @@ export class EditCurrencyDialogComponent {
   public hookExchangeRate(): void {
     this.form.get('exchangeRate')?.valueChanges.subscribe((value: string) => {
       if (value === null) return
-      // allow numbers, only one dot, and 4 decimals
-      const regex = /^\d*\.?\d{0,4}$/
+      // allow numbers, only one dot, and 6 decimals
+      const regex = /^\d*\.?\d{0,6}$/
       if (!regex.test(value)) {
         this.form.get('exchangeRate')?.setValue(this.form.get('exchangeRate')?.value.slice(0, -1))
       }
