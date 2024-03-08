@@ -14,7 +14,7 @@
   <p class="text-center">
     <mat-icon svgIcon="swap-horizontal" class="icon-lg"> </mat-icon>
   </p>
-  <form [formGroup]="form" class="py-2" (keydown.enter)="swap()">
+  <form [formGroup]="form" class="py-2 form" (keydown.enter)="swap()">
     <mat-form-field appearance="outline" color="accent" class="mat-form-field">
       <mat-label> Currency </mat-label>
       <mat-select formControlName="currency">

@@ -7,7 +7,7 @@
   </button>
 </h2>
 <mat-dialog-content>
-  <form [formGroup]="form" class="py-2" (keydown.enter)="editCurrency()">
+  <form [formGroup]="form" class="py-2 form" (keydown.enter)="editCurrency()">
     <mat-form-field appearance="outline" color="accent" class="mat-form-field">
       <mat-label> Name </mat-label>
       <input matInput type="text" placeholder="Name..." formControlName="name" />

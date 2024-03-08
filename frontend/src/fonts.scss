@@ -1,0 +1,25 @@
+@use './variables.scss' as var;
+
+.text-accent {
+  color: var.$accent !important;
+}
+
+.text-primary {
+  color: var.$primary !important;
+}
+
+.text-warn {
+  color: var.$warn !important;
+}
+
+.text-muted {
+  color: var.$muted !important;
+}
+
+.text-white {
+  color: var.$white !important;
+}
+
+.text-center {
+  text-align: center;
+}
