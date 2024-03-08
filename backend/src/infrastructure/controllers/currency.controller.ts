@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '../guards/auth.guard'
 import { CurrencyService } from '../../app/services/currency.service'
 import { UuidService } from '../services/uuid.service'
@@ -39,6 +39,25 @@ export class CurrencyController {
         updatedAt: currency.getUpdatedAt().toISOString()
       }
     })
+  }
+
+  @Get(':uuid')
+  @ApiTags('Currency')
+  public async find(
+    @Param('uuid') uuid: string,
+    @Req() req: Request & { auth: AuthUserDto }
+  ): Promise<GetCurrencyDto> {
+    let currency = (await this.currencyService.find(uuid, req.auth.uuid)) as Currency
+
+    return {
+      uuid: currency.getUuid(),
+      name: currency.getName(),
+      code: currency.getCode(),
+      exchangeRate: currency.getExchangeRate(),
+      isDefault: currency.getIsDefault(),
+      createdAt: currency.getCreatedAt().toISOString(),
+      updatedAt: currency.getUpdatedAt().toISOString()
+    }
   }
 
   @Post()
@@ -89,5 +108,14 @@ export class CurrencyController {
       createdAt: currency.getCreatedAt().toISOString(),
       updatedAt: currency.getUpdatedAt().toISOString()
     }
+  }
+
+  @Delete(':uuid')
+  @ApiTags('Currency')
+  public async delete(
+    @Param('uuid') uuid: string,
+    @Req() req: Request & { auth: AuthUserDto }
+  ): Promise<void> {
+    await this.currencyService.delete(uuid, req.auth.uuid)
   }
 }

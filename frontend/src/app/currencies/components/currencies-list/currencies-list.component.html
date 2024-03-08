@@ -1,5 +1,5 @@
 <mat-card class="mt-4">
-  <mat-card-content class="p-0">
+  <mat-card-content class="py-2 px-0">
     <mat-list>
       <mat-list-item>
         <div matListItemTitle>
@@ -13,7 +13,7 @@
           </button>
         </div>
       </mat-list-item>
-      <hr />
+      <hr class="mx-4" />
       @for (currency of currencies; track currency.uuid) {
       <mat-list-item>
         <div matListItemTitle>
@@ -29,6 +29,9 @@
         <div matListItemMeta>
           <button mat-icon-button class="mt-3" (click)="edit.emit(currency)">
             <mat-icon svgIcon="pencil"></mat-icon>
+          </button>
+          <button mat-icon-button class="mt-3" (click)="delete.emit(currency)">
+            <mat-icon svgIcon="delete"></mat-icon>
           </button>
         </div>
       </mat-list-item>

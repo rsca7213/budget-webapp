@@ -28,6 +28,46 @@ beforeAll(() => {
   currencyService = new CurrencyService(uuidService, currencyRepository)
 })
 
+describe('[Unit - CurrencyService] Find a currency', () => {
+  it('Should find a currency', async () => {
+    const currency = (await currencyService.find(
+      'cde4d425-c343-4a3d-bb0e-266f9331f165',
+      userUuid
+    )) as Currency
+
+    expect(currency.getUuid()).toBe('cde4d425-c343-4a3d-bb0e-266f9331f165')
+    expect(currency.getCreatedAt()).toBeInstanceOf(Date)
+    expect(currency.getUpdatedAt()).toBeInstanceOf(Date)
+    expect(currency.getName()).toBe('Euro')
+    expect(currency.getCode()).toBe('EUR')
+    expect(currency.getExchangeRate()).toBe(1.0)
+    expect(currency.getIsDefault()).toBe(true)
+    expect(currency instanceof Currency).toBe(true)
+  })
+
+  it('Should throw an error when currency was not found', async () => {
+    try {
+      await currencyService.find('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd744', userUuid)
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('NotFound')
+      expect(error.origin).toBe('ApplicationService.Currency.find')
+      expect(error.message).toBe('Currency was not found')
+    }
+  })
+
+  it('Should throw an error when currency is not from the user', async () => {
+    try {
+      await currencyService.find('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd743', userUuid)
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('NotFound')
+      expect(error.origin).toBe('ApplicationService.Currency.find')
+      expect(error.message).toBe('Currency was not found')
+    }
+  })
+})
+
 describe('[Unit - CurrencyService] Find all currencies', () => {
   it('Should find all currencies', async () => {
     const currencies = await currencyService.findAll(userUuid)
@@ -232,7 +272,7 @@ describe('[Unit - CurrencyService] Update a currency', () => {
       )
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
-      expect(error.reason).toBe('Verification')
+      expect(error.reason).toBe('NotFound')
       expect(error.origin).toBe('ApplicationService.Currency.update')
       expect(error.message).toBe('Currency was not found')
     }
@@ -419,8 +459,50 @@ describe('[Unit - CurrencyService] Update a currency', () => {
       )
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
-      expect(error.reason).toBe('Verification')
+      expect(error.reason).toBe('NotFound')
       expect(error.origin).toBe('ApplicationService.Currency.update')
+      expect(error.message).toBe('Currency was not found')
+    }
+  })
+})
+
+describe('[Unit - CurrencyService] Delete a currency', () => {
+  it('Should delete a currency', async () => {
+    await currencyService.delete('cde4d425-c343-4a3d-bb0e-266f9331f166', userUuid)
+
+    const currencies = await currencyService.findAll(userUuid)
+    expect(currencies.length).toBe(3)
+  })
+
+  it('Should throw an error when deleting a default currency', async () => {
+    try {
+      await currencyService.delete('cde4d425-c343-4a3d-bb0e-266f9331f167', userUuid)
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Validation')
+      expect(error.origin).toBe('ApplicationService.Currency.delete')
+      expect(error.message).toBe('Default currency cannot be deleted')
+    }
+  })
+
+  it('Should throw an error when currency was not found', async () => {
+    try {
+      await currencyService.delete('cffd5c9b-294a-475b-95f0-e31a946ac6b3', userUuid)
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('NotFound')
+      expect(error.origin).toBe('ApplicationService.Currency.delete')
+      expect(error.message).toBe('Currency was not found')
+    }
+  })
+
+  it('Should throw an error when currency is not from the user', async () => {
+    try {
+      await currencyService.delete('cde4d425-c343-4a3d-bb0e-266f9331f166', secondaryUserUuid)
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('NotFound')
+      expect(error.origin).toBe('ApplicationService.Currency.delete')
       expect(error.message).toBe('Currency was not found')
     }
   })

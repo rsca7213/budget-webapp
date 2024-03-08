@@ -10,4 +10,5 @@ export class CurrenciesListComponent {
   @Input() currencies: Currency[] = []
   @Input() defaultCurrency: Currency | undefined
   @Output() edit = new EventEmitter<Currency>()
+  @Output() delete = new EventEmitter<Currency>()
 }

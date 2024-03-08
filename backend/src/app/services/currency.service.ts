@@ -13,6 +13,19 @@ export class CurrencyService {
     return await this.currencyRepository.findAll(userUuid)
   }
 
+  public async find(uuid: string, userUuid: string): Promise<Currency | void> {
+    const currency = await this.currencyRepository.find(uuid, userUuid)
+
+    if (!currency)
+      return Exception.throw(
+        'Currency was not found',
+        'ApplicationService.Currency.find',
+        'NotFound'
+      )
+
+    return currency
+  }
+
   public async create(
     name: string,
     code: string,
@@ -72,7 +85,7 @@ export class CurrencyService {
       return Exception.throw(
         `Currency was not found`,
         'ApplicationService.Currency.update',
-        'Verification'
+        'NotFound'
       )
 
     const codeExists = await this.currencyRepository.findByCode(code, userUuid)
@@ -106,5 +119,32 @@ export class CurrencyService {
       )
 
     return currency
+  }
+
+  public async delete(uuid: string, userUuid: string): Promise<void> {
+    const currency = await this.currencyRepository.find(uuid, userUuid)
+
+    if (!currency)
+      return Exception.throw(
+        `Currency was not found`,
+        'ApplicationService.Currency.delete',
+        'NotFound'
+      )
+
+    if (currency.getIsDefault())
+      Exception.throw(
+        'Default currency cannot be removed',
+        'ApplicationService.Currency.delete',
+        'Verification'
+      )
+
+    const result = await this.currencyRepository.delete(uuid, userUuid)
+
+    if (!result)
+      Exception.throw(
+        'Currency could not be removed',
+        'ApplicationService.Currency.delete',
+        'Repository'
+      )
   }
 }
