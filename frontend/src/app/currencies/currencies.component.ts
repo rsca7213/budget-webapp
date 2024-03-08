@@ -11,7 +11,7 @@ import { LoadingDialogComponent } from '../shared/components/loading-dialog/load
 import { CreateCurrencyDto } from '../shared/dto/currencies/create-currency.dto'
 import { EditCurrencyDialogComponent } from './components/edit-currency-dialog/edit-currency-dialog.component'
 import { UpdateCurrencyDto } from '../shared/dto/currencies/update-currency.dto'
-import { DeleteCurrencyDialogComponent } from './componentes/delete-currency-dialog/delete-currency-dialog.component'
+import { DeleteCurrencyDialogComponent } from './components/delete-currency-dialog.component'
 
 @Component({
   selector: 'views-currencies',

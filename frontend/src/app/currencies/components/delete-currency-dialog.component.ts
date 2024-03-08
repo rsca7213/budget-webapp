@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
-import { Currency } from '../../../shared/models/currency.model'
+import { Currency } from '../../shared/models/currency.model'
 
 @Component({
   selector: 'currencies-components-delete-currency-dialog',
