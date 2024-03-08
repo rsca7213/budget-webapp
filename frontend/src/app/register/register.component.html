@@ -12,7 +12,7 @@
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <form [formGroup]="form" class="mt-5 mb-2">
+        <form [formGroup]="form" class="mt-5 mb-2" (keydown.enter)="register()">
           <mat-form-field appearance="outline" color="accent" class="mat-form-field">
             <mat-label> Name </mat-label>
             <input matInput type="text" placeholder="Name..." formControlName="name" />
