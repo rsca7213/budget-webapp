@@ -21,6 +21,12 @@ export class CategoryRepository implements ICategoryRepository {
   public async save(category: Category, userUuid: string): Promise<boolean> {
     const user = this.users.find(user => user.uuid === userUuid)
     if (!user) return false
+    const current = user.categories.find(current => current.getUuid() === category.getUuid())
+    if (current) {
+      current.setName(category.getName())
+      current.setType(category.getType())
+      return true
+    }
     user.categories.push(category)
     return true
   }

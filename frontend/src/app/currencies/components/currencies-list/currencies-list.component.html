@@ -8,7 +8,7 @@
         </div>
         <div matListItemLine class="flex-aligned mt-2 ml-1">Default Currency</div>
         <div matListItemMeta>
-          <button mat-icon-button class="mt-3">
+          <button mat-icon-button class="mt-3" (click)="edit.emit(defaultCurrency)">
             <mat-icon svgIcon="pencil"></mat-icon>
           </button>
         </div>
@@ -23,11 +23,11 @@
         <div matListItemLine class="flex-aligned mt-2 ml-1">
           1 {{ defaultCurrency?.code }}
           <mat-icon svgIcon="swap-horizontal" class="mx-1"></mat-icon>
-          {{ currency.exchangeRate | number : '1.2-2' }}
+          {{ currency.exchangeRate | number : '1.2-4' }}
           {{ currency.code }}
         </div>
         <div matListItemMeta>
-          <button mat-icon-button class="mt-3">
+          <button mat-icon-button class="mt-3" (click)="edit.emit(currency)">
             <mat-icon svgIcon="pencil"></mat-icon>
           </button>
         </div>

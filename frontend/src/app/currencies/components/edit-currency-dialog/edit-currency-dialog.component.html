@@ -1,20 +1,13 @@
 <h2 mat-dialog-title class="mat-dialog-title">
   <mat-icon svgIcon="cash-multiple" class="mr-2"> </mat-icon>
-  Create currency
+  Edit currency
   <div class="flex-spacer"></div>
   <button mat-icon-button (click)="closeDialog()">
     <mat-icon svgIcon="close"> </mat-icon>
   </button>
 </h2>
 <mat-dialog-content>
-  @if (!defaultCurrency) {
-  <p class="flex-aligned mx-2 text-accent">
-    <mat-icon svgIcon="information" class="icon-2x my-2 mr-4"> </mat-icon>
-    Since there are currently no currencies in the system, the currency you are about to create will
-    be set as the default currency.
-  </p>
-  }
-  <form [formGroup]="form" class="py-2" (keydown.enter)="createCurrency()">
+  <form [formGroup]="form" class="py-2" (keydown.enter)="editCurrency()">
     <mat-form-field appearance="outline" color="accent" class="mat-form-field">
       <mat-label> Name </mat-label>
       <input matInput type="text" placeholder="Name..." formControlName="name" />
@@ -43,7 +36,7 @@
         Code must be at most 3 characters long
       </mat-error>
     </mat-form-field>
-    @if (defaultCurrency) {
+    @if (data.defaultCurrency.uuid !== data.currency.uuid) {
     <mat-form-field appearance="outline" color="accent" class="mat-form-field">
       <mat-label> Exchange Rate </mat-label>
       <input matInput type="text" placeholder="Exchange Rate..." formControlName="exchangeRate" />
@@ -55,7 +48,7 @@
         Exchange Rate must be at least 0.0001
       </mat-error>
       <mat-hint>
-        1 {{ defaultCurrency.code }} is equal to @if (form.get('code')?.value &&
+        1 {{ data.defaultCurrency.code }} is equal to @if (form.get('code')?.value &&
         form.get('exchangeRate')?.value) { {{ form.get('exchangeRate')?.value }}
         {{ form.get('code')?.value }}
         }
@@ -69,8 +62,8 @@
     <mat-icon svgIcon="close"> </mat-icon>
     Cancel
   </button>
-  <button mat-flat-button color="primary" (click)="createCurrency()">
-    <mat-icon svgIcon="plus"> </mat-icon>
-    Create
+  <button mat-flat-button color="primary" (click)="editCurrency()">
+    <mat-icon svgIcon="pencil"> </mat-icon>
+    Edit
   </button>
 </mat-dialog-actions>

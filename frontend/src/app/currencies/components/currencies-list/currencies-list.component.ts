@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { Currency } from '../../../shared/models/currency.model'
 
 @Component({
@@ -9,4 +9,5 @@ import { Currency } from '../../../shared/models/currency.model'
 export class CurrenciesListComponent {
   @Input() currencies: Currency[] = []
   @Input() defaultCurrency: Currency | undefined
+  @Output() edit = new EventEmitter<Currency>()
 }

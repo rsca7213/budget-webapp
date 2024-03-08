@@ -11,6 +11,22 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+.text-accent {
+  color: var.$accent !important;
+}
+
+.text-primary {
+  color: var.$primary !important;
+}
+
+.text-warn {
+  color: var.$warn !important;
+}
+
+.text-muted {
+  color: var.$muted !important;
+}
+
 .flex-spacer {
   flex: 1 1 auto;
 }

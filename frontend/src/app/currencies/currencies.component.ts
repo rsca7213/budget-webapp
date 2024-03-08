@@ -9,6 +9,8 @@ import { ErrorDialogComponent } from '../shared/components/error-dialog/error-di
 import { NotificationComponent } from '../shared/components/notification/notification.component'
 import { LoadingDialogComponent } from '../shared/components/loading-dialog/loading-dialog.component'
 import { CreateCurrencyDto } from '../shared/dto/currencies/create-currency.dto'
+import { EditCurrencyDialogComponent } from './components/edit-currency-dialog/edit-currency-dialog.component'
+import { UpdateCurrencyDto } from '../shared/dto/currencies/update-currency.dto'
 
 @Component({
   selector: 'views-currencies',
@@ -71,6 +73,43 @@ export class CurrenciesView implements OnInit {
           },
           error: err => {
             this.errorDialog.open('Failed to create currency', err.message)
+          }
+        })
+      })
+      .add(() => this.loadingDialog.close())
+  }
+
+  public openEditCurrencyDialog(currency: Currency): void {
+    const ref = this.dialog.open(EditCurrencyDialogComponent, {
+      width: APP_DIALOG_SIZES.md,
+      data: {
+        defaultCurrency: this.defaultCurrency,
+        currency
+      }
+    })
+
+    ref
+      .afterClosed()
+      .subscribe((data: UpdateCurrencyDto) => {
+        if (!data) return
+
+        this.loadingDialog.open()
+        this.currenciesService.update(data, currency.uuid).subscribe({
+          next: currency => {
+            if (currency.isDefault) {
+              this.defaultCurrency = currency
+            } else {
+              const current = this.currencies.find(c => c.uuid === currency.uuid)
+              if (current) {
+                current.name = currency.name
+                current.code = currency.code
+                current.exchangeRate = currency.exchangeRate
+              }
+            }
+            this.notification.notify('Currency updated successfully', 'Close')
+          },
+          error: err => {
+            this.errorDialog.open('Failed to update currency', err.message)
           }
         })
       })

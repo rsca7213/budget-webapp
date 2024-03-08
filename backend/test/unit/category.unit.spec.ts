@@ -17,6 +17,7 @@ let categoryService: CategoryService
 let categoryRepository: CategoryRepository
 
 const userUuid = 'cde4d425-c343-4a3d-bb0e-266f9331f171'
+const secondaryUserUuid = 'cde4d425-c343-4a3d-bb0e-266f9331f172'
 
 beforeAll(() => {
   new BootstrapServerService().startDomainValidationService(false)
@@ -45,6 +46,17 @@ describe('[Unit - CategoryService] Find a category', () => {
   it('Should throw an error when category was not found', async () => {
     try {
       await categoryService.find('invalid-uuid', userUuid)
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('NotFound')
+      expect(error.origin).toBe('ApplicationService.Category.find')
+      expect(error.message).toBe('Category was not found')
+    }
+  })
+
+  it('Should throw an error when category is not from the user', async () => {
+    try {
+      await categoryService.find('cde4d425-c343-4a3d-bb0e-266f9331f166', userUuid)
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('NotFound')
@@ -241,6 +253,22 @@ describe('[Unit - CategoryService] Update a category', () => {
       expect(error.message).toBe('Type is invalid')
     }
   })
+
+  it('Should throw an error when category is not from the user', async () => {
+    try {
+      await categoryService.update(
+        'cde4d425-c343-4a3d-bb0e-266f9331f166',
+        'Groceries',
+        'Income',
+        userUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('NotFound')
+      expect(error.origin).toBe('ApplicationService.Category.update')
+      expect(error.message).toBe('Category was not found')
+    }
+  })
 })
 
 describe('[Unit - CategoryService] Delete a category', () => {
@@ -254,6 +282,17 @@ describe('[Unit - CategoryService] Delete a category', () => {
   it('Should throw an error when category was not found', async () => {
     try {
       await categoryService.delete('cffd5c9b-294a-475b-95f0-e31a946ac6b3', userUuid)
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('NotFound')
+      expect(error.origin).toBe('ApplicationService.Category.delete')
+      expect(error.message).toBe('Category was not found')
+    }
+  })
+
+  it('Should throw an error when category is not from the user', async () => {
+    try {
+      await categoryService.delete('cde4d425-c343-4a3d-bb0e-266f9331f166', secondaryUserUuid)
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('NotFound')

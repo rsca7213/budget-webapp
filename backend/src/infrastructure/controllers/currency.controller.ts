@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '../guards/auth.guard'
 import { CurrencyService } from '../../app/services/currency.service'
 import { UuidService } from '../services/uuid.service'
@@ -9,6 +9,7 @@ import { GetCurrencyDto } from '../dto/currencies/get-currency.dto'
 import { Request } from 'express'
 import { AuthUserDto } from '../dto/users/auth.dto'
 import { CreateCurrencyDto } from '../dto/currencies/create-currency.dto'
+import { UpdateCurrencyDto } from '../dto/currencies/update-currency.dto'
 
 @Controller('api/currencies')
 @UseGuards(AuthGuard)
@@ -52,6 +53,32 @@ export class CurrencyController {
       data.exchangeRate,
       req.auth.uuid
     )
+
+    return {
+      uuid: currency.getUuid(),
+      name: currency.getName(),
+      code: currency.getCode(),
+      exchangeRate: currency.getExchangeRate(),
+      isDefault: currency.getIsDefault(),
+      createdAt: currency.getCreatedAt().toISOString(),
+      updatedAt: currency.getUpdatedAt().toISOString()
+    }
+  }
+
+  @Put(':uuid')
+  @ApiTags('Currency')
+  public async update(
+    @Param('uuid') uuid: string,
+    @Body() data: UpdateCurrencyDto,
+    @Req() req: Request & { auth: AuthUserDto }
+  ): Promise<GetCurrencyDto> {
+    let currency = (await this.currencyService.update(
+      uuid,
+      data.name,
+      data.code,
+      data.exchangeRate,
+      req.auth.uuid
+    )) as Currency
 
     return {
       uuid: currency.getUuid(),

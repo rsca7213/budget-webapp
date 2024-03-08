@@ -6,10 +6,11 @@ import { AngularMaterialModule } from '../angular-material.module'
 import { CurrenciesRoutingModule } from './currencies-routing.module'
 import { CurrenciesListComponent } from './components/currencies-list/currencies-list.component'
 import { CreateCurrencyDialogComponent } from './components/create-currency-dialog/create-currency-dialog.component'
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
+import { EditCurrencyDialogComponent } from './components/edit-currency-dialog/edit-currency-dialog.component'
 
 @NgModule({
-  declarations: [CurrenciesView, CurrenciesListComponent, CreateCurrencyDialogComponent],
+  declarations: [CurrenciesView, CurrenciesListComponent, CreateCurrencyDialogComponent, EditCurrencyDialogComponent],
   imports: [
     CommonModule,
     SharedModule,

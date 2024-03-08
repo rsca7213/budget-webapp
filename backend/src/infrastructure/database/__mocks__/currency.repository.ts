@@ -22,6 +22,14 @@ export class CurrencyRepository implements ICurrencyRepository {
   public async save(currency: Currency, userUuid: string): Promise<boolean> {
     const user = this.users.find(user => user.uuid === userUuid)
     if (!user) return false
+    const current = user.currencies.find(current => current.getUuid() === currency.getUuid())
+    if (current) {
+      current.setName(currency.getName())
+      current.setCode(currency.getCode())
+      current.setExchangeRate(currency.getExchangeRate())
+      current.setIsDefault(currency.getIsDefault())
+      return true
+    }
     user.currencies.push(currency)
     return true
   }

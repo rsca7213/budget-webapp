@@ -181,3 +181,247 @@ describe('[Unit - CurrencyService] Create a currency', () => {
     }
   })
 })
+
+describe('[Unit - CurrencyService] Update a currency', () => {
+  it('Should update a valid currency', async () => {
+    const currency = (await currencyService.update(
+      '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+      'Peso Argentino',
+      'ARS',
+      0.012,
+      userUuid
+    )) as Currency
+
+    expect(currency.getUuid()).toBe('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742')
+    expect(currency.getCreatedAt()).toBeInstanceOf(Date)
+    expect(currency.getUpdatedAt()).toBeInstanceOf(Date)
+    expect(currency.getName()).toBe('Peso Argentino')
+    expect(currency.getCode()).toBe('ARS')
+    expect(currency.getExchangeRate()).toBe(0.012)
+    expect(currency.getIsDefault()).toBe(false)
+    expect(currency instanceof Currency).toBe(true)
+  })
+
+  it('Should update a valid default currency', async () => {
+    const currency = (await currencyService.update(
+      '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd743',
+      'Real',
+      'BRL',
+      1.5,
+      secondaryUserUuid
+    )) as Currency
+
+    expect(currency.getUuid()).toBe('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd743')
+    expect(currency.getCreatedAt()).toBeInstanceOf(Date)
+    expect(currency.getUpdatedAt()).toBeInstanceOf(Date)
+    expect(currency.getName()).toBe('Real')
+    expect(currency.getCode()).toBe('BRL')
+    expect(currency.getExchangeRate()).toBe(1)
+    expect(currency.getIsDefault()).toBe(true)
+    expect(currency instanceof Currency).toBe(true)
+  })
+
+  it('Should throw an error when currency was not found', async () => {
+    try {
+      await currencyService.update(
+        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd744',
+        'Peso',
+        'ARS',
+        0.012,
+        userUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Verification')
+      expect(error.origin).toBe('ApplicationService.Currency.update')
+      expect(error.message).toBe('Currency was not found')
+    }
+  })
+
+  it('Should throw an error when currency by code already exists', async () => {
+    try {
+      await currencyService.update(
+        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'Peso Argentino',
+        'BRL',
+        0.012,
+        userUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Verification')
+      expect(error.origin).toBe('ApplicationService.Currency.update')
+      expect(error.message).toBe('Currency by code BRL already exists')
+    }
+  })
+
+  it('Should throw an error when currency by name already exists', async () => {
+    try {
+      await currencyService.update(
+        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'Real',
+        'ARS',
+        0.012,
+        userUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Verification')
+      expect(error.origin).toBe('ApplicationService.Currency.update')
+      expect(error.message).toBe('Currency by name Real already exists')
+    }
+  })
+
+  it('Should throw an error when name is empty', async () => {
+    try {
+      await currencyService.update(
+        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        '',
+        'ARS',
+        0.012,
+        userUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Validation')
+      expect(error.origin).toBe('DomainEntity.Currency.name')
+      expect(error.message).toBe('Name is required')
+    }
+  })
+
+  it('Should throw an error when name is less than 3 characters', async () => {
+    try {
+      await currencyService.update(
+        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'Pe',
+        'ARS',
+        0.012,
+        userUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Validation')
+      expect(error.origin).toBe('DomainEntity.Currency.name')
+      expect(error.message).toBe('Name must have at least 3 characters')
+    }
+  })
+
+  it('Should throw an error when name is more than 50 characters', async () => {
+    try {
+      await currencyService.update(
+        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'Republic of Argentina National Currency The ARS Peso',
+        'ARS',
+        0.012,
+        userUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Validation')
+      expect(error.origin).toBe('DomainEntity.Currency.name')
+      expect(error.message).toBe('Name must have at most 50 characters')
+    }
+  })
+
+  it('Should throw an error when code is empty', async () => {
+    try {
+      await currencyService.update(
+        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'Peso',
+        '',
+        0.012,
+        userUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Validation')
+      expect(error.origin).toBe('DomainEntity.Currency.code')
+      expect(error.message).toBe('Code is required')
+    }
+  })
+
+  it('Should throw an error when code is less than 3 characters', async () => {
+    try {
+      await currencyService.update(
+        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'Peso',
+        'AR',
+        0.012,
+        userUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Validation')
+      expect(error.origin).toBe('DomainEntity.Currency.code')
+      expect(error.message).toBe('Code must have at least 3 characters')
+    }
+  })
+
+  it('Should throw an error when code is more than 3 characters', async () => {
+    try {
+      await currencyService.update(
+        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'Peso',
+        'ARSS',
+        0.012,
+        userUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Validation')
+      expect(error.origin).toBe('DomainEntity.Currency.code')
+      expect(error.message).toBe('Code must have at most 3 characters')
+    }
+  })
+
+  it('Should throw an error when exchange rate is empty', async () => {
+    try {
+      await currencyService.update(
+        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'Peso',
+        'ARS',
+        null as any,
+        userUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Validation')
+      expect(error.origin).toBe('DomainEntity.Currency.exchangeRate')
+      expect(error.message).toBe('Exchange rate is required')
+    }
+  })
+
+  it('Should throw an error when exchange rate is less than 0', async () => {
+    try {
+      await currencyService.update(
+        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'Peso',
+        'ARS',
+        0,
+        userUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Validation')
+      expect(error.origin).toBe('DomainEntity.Currency.exchangeRate')
+      expect(error.message).toBe('Exchange rate must be greater than 0')
+    }
+  })
+
+  it('Should throw an error when currency is not from the user', async () => {
+    try {
+      await currencyService.update(
+        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd743',
+        'Real',
+        'BRL',
+        1.5,
+        userUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Verification')
+      expect(error.origin).toBe('ApplicationService.Currency.update')
+      expect(error.message).toBe('Currency was not found')
+    }
+  })
+})

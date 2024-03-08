@@ -1,14 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { Currency } from '../../../shared/models/currency.model'
 
 @Component({
-  selector: 'currencies-components-create-currency-dialog',
-  templateUrl: './create-currency-dialog.component.html',
-  styleUrl: './create-currency-dialog.component.scss'
+  selector: 'currenccies-components-edit-currency-dialog',
+  templateUrl: './edit-currency-dialog.component.html',
+  styleUrl: './edit-currency-dialog.component.scss'
 })
-export class CreateCurrencyDialogComponent implements OnInit {
+export class EditCurrencyDialogComponent {
   public form: FormGroup = new FormGroup({
     name: new FormControl<string>('', [
       Validators.required,
@@ -24,17 +24,22 @@ export class CreateCurrencyDialogComponent implements OnInit {
   })
 
   public constructor(
-    private readonly dialogRef: MatDialogRef<CreateCurrencyDialogComponent>,
+    private readonly dialogRef: MatDialogRef<EditCurrencyDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public readonly defaultCurrency: Currency
+    public readonly data: {
+      defaultCurrency: Currency
+      currency: Currency
+    }
   ) {}
 
   private resetForm(): void {
     this.form.reset()
-    this.form.get('exchangeRate')?.setValue(1.0)
+    this.form.get('name')?.setValue(this.data.currency.name)
+    this.form.get('code')?.setValue(this.data.currency.code)
+    this.form.get('exchangeRate')?.setValue(this.data.currency.exchangeRate)
   }
 
-  public createCurrency(): void {
+  public editCurrency(): void {
     this.form.markAllAsTouched()
     if (this.form.invalid) return
     this.form.get('exchangeRate')?.setValue(Number(this.form.get('exchangeRate')?.value))
@@ -60,5 +65,6 @@ export class CreateCurrencyDialogComponent implements OnInit {
 
   public ngOnInit(): void {
     this.hookExchangeRate()
+    this.resetForm()
   }
 }
