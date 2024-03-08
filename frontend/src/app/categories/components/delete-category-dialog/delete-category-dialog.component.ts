@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
+import { Category } from '../../../shared/models/category.model'
 
 @Component({
   selector: 'categories-components-delete-category-dialog',
@@ -10,11 +11,11 @@ export class DeleteCategoryDialogComponent {
   public constructor(
     private readonly dialogRef: MatDialogRef<DeleteCategoryDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public readonly uuid: string
+    public readonly category: Category
   ) {}
 
   public deleteCategory(): void {
-    this.dialogRef.close(this.uuid)
+    this.dialogRef.close(this.category.uuid)
   }
 
   public closeDialog(): void {

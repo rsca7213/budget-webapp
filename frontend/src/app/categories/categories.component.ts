@@ -89,7 +89,7 @@ export class CategoriesView implements OnInit {
   public openDeleteCategoryDialog(category: Category): void {
     const ref = this.dialog.open(DeleteCategoryDialogComponent, {
       width: APP_DIALOG_SIZES.md,
-      data: category.uuid
+      data: category
     })
 
     ref

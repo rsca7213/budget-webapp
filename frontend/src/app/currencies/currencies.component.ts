@@ -11,6 +11,7 @@ import { LoadingDialogComponent } from '../shared/components/loading-dialog/load
 import { CreateCurrencyDto } from '../shared/dto/currencies/create-currency.dto'
 import { EditCurrencyDialogComponent } from './components/edit-currency-dialog/edit-currency-dialog.component'
 import { UpdateCurrencyDto } from '../shared/dto/currencies/update-currency.dto'
+import { DeleteCurrencyDialogComponent } from './componentes/delete-currency-dialog/delete-currency-dialog.component'
 
 @Component({
   selector: 'views-currencies',
@@ -110,6 +111,31 @@ export class CurrenciesView implements OnInit {
           },
           error: err => {
             this.errorDialog.open('Failed to update currency', err.message)
+          }
+        })
+      })
+      .add(() => this.loadingDialog.close())
+  }
+
+  public openDeleteCurrencyDialog(currency: Currency): void {
+    const ref = this.dialog.open(DeleteCurrencyDialogComponent, {
+      width: APP_DIALOG_SIZES.md,
+      data: currency
+    })
+
+    ref
+      .afterClosed()
+      .subscribe((uuid: string) => {
+        if (!uuid) return
+
+        this.loadingDialog.open()
+        this.currenciesService.delete(uuid).subscribe({
+          next: () => {
+            this.notification.notify('Currency deleted successfully', 'Close')
+            this.currencies = this.currencies.filter(c => c.uuid !== uuid)
+          },
+          error: err => {
+            this.errorDialog.open('Failed to delete currency', err.message)
           }
         })
       })

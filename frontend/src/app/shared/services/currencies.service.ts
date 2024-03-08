@@ -23,4 +23,8 @@ export class CurrenciesService {
   public update(data: UpdateCurrencyDto, uuid: string): Observable<Currency> {
     return this.httpClient.put<GetCurrencyDto>(`/currencies/${uuid}`, data)
   }
+
+  public delete(uuid: string): Observable<void> {
+    return this.httpClient.delete<void>(`/currencies/${uuid}`)
+  }
 }

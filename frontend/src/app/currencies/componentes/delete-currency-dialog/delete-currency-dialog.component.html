@@ -1,6 +1,6 @@
 <h2 mat-dialog-title class="mat-dialog-title">
-  <mat-icon svgIcon="shape" class="mr-2"> </mat-icon>
-  Delete category
+  <mat-icon svgIcon="cash-multiple" class="mr-2"> </mat-icon>
+  Delete currency
   <div class="flex-spacer"></div>
   <button mat-icon-button (click)="closeDialog()">
     <mat-icon svgIcon="close"> </mat-icon>
@@ -11,8 +11,8 @@
     <mat-icon svgIcon="message-alert" class="icon-lg" color="warn"></mat-icon>
   </p>
   <p class="text-center">
-    Are you sure you want to delete the category named
-    <span class="text-warn">{{ category.name }}</span
+    Are you sure you want to delete the currency by code
+    <span class="text-warn">{{ currency.code }}</span
     >?
   </p>
 </mat-dialog-content>
@@ -21,7 +21,7 @@
     <mat-icon svgIcon="close"> </mat-icon>
     Cancel
   </button>
-  <button mat-flat-button color="primary" (click)="deleteCategory()">
+  <button mat-flat-button color="primary" (click)="deleteCurrency()">
     <mat-icon svgIcon="delete"> </mat-icon>
     Delete
   </button>
