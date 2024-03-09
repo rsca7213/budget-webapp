@@ -18,3 +18,11 @@ mat-card-actions {
   row-gap: var.$spacing-3;
   grid-auto-rows: max-content;
 }
+
+.password-field {
+  margin-bottom: -1.25em;
+}
+
+.password-hint {
+  color: rgba(105, 240, 174, 0.5);
+}

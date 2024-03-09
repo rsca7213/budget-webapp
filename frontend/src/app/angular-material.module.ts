@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatSelectModule } from '@angular/material/select'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatProgressBarModule } from '@angular/material/progress-bar'
 
 import { DomSanitizer } from '@angular/platform-browser'
 
@@ -30,7 +31,8 @@ import { DomSanitizer } from '@angular/platform-browser'
     MatInputModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ]
 })
 export class AngularMaterialModule {

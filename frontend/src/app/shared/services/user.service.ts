@@ -21,4 +21,25 @@ export class UserService {
   public logout(): Observable<void> {
     return this.httpClient.post<void>('/users/logout', {})
   }
+
+  public determinePasswordStrength(password: string): number {
+    let strength: number = 0
+
+    // if password length is more or equal than 10
+    if (password.length > 10) strength += 20
+
+    // if password has lowercase letters
+    if (password.match(/[a-z]/)) strength += 20
+
+    // if password has uppercase letters
+    if (password.match(/[A-Z]/)) strength += 20
+
+    // if password has numbers
+    if (password.match(/[0-9]/)) strength += 20
+
+    // if password has special characters
+    if (password.match(/[^a-zA-Z0-9]/)) strength += 20
+
+    return strength
+  }
 }

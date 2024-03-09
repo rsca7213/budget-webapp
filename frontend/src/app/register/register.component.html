@@ -41,7 +41,7 @@
               Email must be at most 320 characters long
             </mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline" color="accent" class="mat-form-field">
+          <mat-form-field appearance="outline" color="accent" class="mat-form-field password-field">
             <mat-label> Password </mat-label>
             <input
               matInput
@@ -54,29 +54,126 @@
               <mat-icon [svgIcon]="passwordInputType === 'password' ? 'eye' : 'eye-off'">
               </mat-icon>
             </button>
-            <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('required')">
-              Password is required
+          </mat-form-field>
+          <div class="text-muted">
+            <mat-progress-bar mode="determinate" color="accent" [value]="passwordStrength">
+            </mat-progress-bar>
+            <p class="mt-2 mb-1 ml-2 password-hint" [class.text-accent]="passwordStrength === 100">
+              Password must include:
+            </p>
+            <p
+              [class.text-accent]="
+                form.get('password')!.value && !form.get('password')!.hasError('minlength')
+              "
+              class="flex-aligned my-0 py-0 ml-1"
+            >
+              @if ( form.get('password')!.value && !form.get('password')!.hasError('minlength') ) {
+              <mat-icon svgIcon="check"> </mat-icon>
+              } @else {
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } At least 10 characters
+            </p>
+            <p
+              [class.text-accent]="
+                form.get('password')!.value && !form.get('password')!.hasError('hasNumber')
+              "
+              class="flex-aligned my-0 py-0 ml-1"
+            >
+              @if ( form.get('password')!.value && !form.get('password')!.hasError('hasNumber') ) {
+              <mat-icon svgIcon="check"> </mat-icon>
+              } @else {
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } At least one number
+            </p>
+            <p
+              [class.text-accent]="
+                form.get('password')!.value && !form.get('password')!.hasError('hasUppercase')
+              "
+              class="flex-aligned my-0 py-0 ml-1"
+            >
+              @if ( form.get('password')!.value && !form.get('password')!.hasError('hasUppercase') )
+              {
+              <mat-icon svgIcon="check"> </mat-icon>
+              } @else {
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } At least one uppercase letter
+            </p>
+            <p
+              [class.text-accent]="
+                form.get('password')!.value && !form.get('password')!.hasError('hasLowercase')
+              "
+              class="flex-aligned my-0 py-0 ml-1"
+            >
+              @if ( form.get('password')!.value && !form.get('password')!.hasError('hasLowercase') )
+              {
+              <mat-icon svgIcon="check"> </mat-icon>
+              } @else {
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } At least one lowercase letter
+            </p>
+            <p
+              [class.text-accent]="
+                form.get('password')!.value &&
+                !form.get('password')!.hasError('hasSpecialCharacter')
+              "
+              class="flex-aligned my-0 py-0 ml-1"
+            >
+              @if ( form.get('password')!.value &&
+              !form.get('password')!.hasError('hasSpecialCharacter') ) {
+              <mat-icon svgIcon="check"> </mat-icon>
+              } @else {
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } At least one special character
+            </p>
+          </div>
+          <mat-form-field appearance="outline" color="accent" class="mat-form-field">
+            <mat-label> Confirm Password </mat-label>
+            <input
+              matInput
+              [type]="passwordInputType"
+              placeholder="Password confirmation..."
+              formControlName="confirmPassword"
+            />
+            <mat-icon matPrefix svgIcon="lock-check"> </mat-icon>
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+              <mat-icon [svgIcon]="passwordInputType === 'password' ? 'eye' : 'eye-off'">
+              </mat-icon>
+            </button>
+            <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('required')">
+              Confirmation is required
             </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('minlength')">
-              Password must be at least 10 characters long
+            <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('minlength')">
+              Confirmation must be at least 10 characters long
             </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('maxlength')">
-              Password must be at most 100 characters long
+            <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('maxlength')">
+              Confirmation must be at most 100 characters long
             </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasNumber')">
-              Password must contain at least one number
-            </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasUppercase')">
-              Password must contain at least one uppercase letter
-            </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasLowercase')">
-              Password must contain at least one lowercase letter
+            <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('hasNumber')">
+              Confirmation must contain at least one number
             </mat-error>
             <mat-error
               class="mat-error"
-              *ngIf="form.get('password')?.hasError('hasSpecialCharacter')"
+              *ngIf="form.get('confirmPassword')?.hasError('hasUppercase')"
             >
-              Password must contain at least one special character
+              Confirmation must contain at least one uppercase letter
+            </mat-error>
+            <mat-error
+              class="mat-error"
+              *ngIf="form.get('confirmPassword')?.hasError('hasLowercase')"
+            >
+              Confirmation must contain at least one lowercase letter
+            </mat-error>
+            <mat-error
+              class="mat-error"
+              *ngIf="form.get('confirmPassword')?.hasError('hasSpecialCharacter')"
+            >
+              Confirmation must contain at least one special character
+            </mat-error>
+            <mat-error
+              class="mat-error"
+              *ngIf="form.get('confirmPassword')?.hasError('passwordMatch')"
+            >
+              Confirmation must match password
             </mat-error>
           </mat-form-field>
         </form>
