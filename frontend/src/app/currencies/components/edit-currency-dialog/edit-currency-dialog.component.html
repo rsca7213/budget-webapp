@@ -39,7 +39,13 @@
     @if (data.defaultCurrency.uuid !== data.currency.uuid) {
     <mat-form-field appearance="outline" color="accent" class="mat-form-field">
       <mat-label> Exchange Rate </mat-label>
-      <input matInput type="text" placeholder="Exchange Rate..." formControlName="exchangeRate" />
+      <input
+        matInput
+        type="text"
+        placeholder="Exchange Rate..."
+        formControlName="exchangeRate"
+        currencyFormatter
+      />
       <mat-icon matPrefix svgIcon="swap-horizontal"> </mat-icon>
       <mat-error class="mat-error" *ngIf="form.get('exchangeRate')?.hasError('required')">
         Exchange Rate is required

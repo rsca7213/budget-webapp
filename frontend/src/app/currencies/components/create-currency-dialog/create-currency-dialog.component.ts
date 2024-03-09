@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { Currency } from '../../../shared/models/currency.model'
@@ -8,7 +8,7 @@ import { Currency } from '../../../shared/models/currency.model'
   templateUrl: './create-currency-dialog.component.html',
   styleUrl: './create-currency-dialog.component.scss'
 })
-export class CreateCurrencyDialogComponent implements OnInit {
+export class CreateCurrencyDialogComponent {
   public form: FormGroup = new FormGroup({
     name: new FormControl<string>('', [
       Validators.required,
@@ -45,20 +45,5 @@ export class CreateCurrencyDialogComponent implements OnInit {
   public closeDialog(): void {
     this.resetForm()
     this.dialogRef.close()
-  }
-
-  public hookExchangeRate(): void {
-    this.form.get('exchangeRate')?.valueChanges.subscribe((value: string) => {
-      if (value === null) return
-      // allow numbers, only one dot, and 6 decimals
-      const regex = /^\d*\.?\d{0,6}$/
-      if (!regex.test(value)) {
-        this.form.get('exchangeRate')?.setValue(this.form.get('exchangeRate')?.value.slice(0, -1))
-      }
-    })
-  }
-
-  public ngOnInit(): void {
-    this.hookExchangeRate()
   }
 }

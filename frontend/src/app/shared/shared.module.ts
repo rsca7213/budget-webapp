@@ -8,6 +8,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
 import { ErrorDialogContentComponent } from './components/error-dialog/content/error-dialog-content.component'
 import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component'
 import { LoadingDialogContentComponent } from './components/loading-dialog/content/loading-dialog-content.component'
+import { CurrencyFormatterDirective } from './directives/currency-formatter.directive'
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { LoadingDialogContentComponent } from './components/loading-dialog/conte
     ErrorDialogComponent,
     ErrorDialogContentComponent,
     LoadingDialogComponent,
-    LoadingDialogContentComponent
+    LoadingDialogContentComponent,
+    CurrencyFormatterDirective
   ],
   imports: [CommonModule, AngularMaterialModule, RouterModule],
   exports: [
@@ -25,7 +27,8 @@ import { LoadingDialogContentComponent } from './components/loading-dialog/conte
     LoadingDialogContentComponent,
     NotificationComponent,
     ErrorDialogComponent,
-    ErrorDialogContentComponent
+    ErrorDialogContentComponent,
+    CurrencyFormatterDirective
   ]
 })
 export class SharedModule {}

@@ -64,7 +64,6 @@ export class EditCurrencyDialogComponent {
   }
 
   public ngOnInit(): void {
-    this.hookExchangeRate()
     this.resetForm()
   }
 }
