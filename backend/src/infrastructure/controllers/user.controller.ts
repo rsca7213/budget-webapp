@@ -14,7 +14,7 @@ import { UserService } from '../../app/services/user.service'
 import { UuidService } from '../services/uuid.service'
 import { UserRepository } from '../database/user.repository'
 import { HashService } from '../services/hash.service'
-import { ApiTags } from '@nestjs/swagger'
+import { ApiCookieAuth, ApiTags } from '@nestjs/swagger'
 import { VerifyUserCredentialsDto } from '../dto/users/verify-credentials.dto'
 import { User } from '../../domain/entities/user.entity'
 import { JwtService } from '@nestjs/jwt'
@@ -44,6 +44,7 @@ export class UserController {
   @Get('login')
   @ApiTags('Authentication')
   @UseGuards(AuthGuard)
+  @ApiCookieAuth('auth')
   public async getAuthUser(@Req() req: Request & { auth: AuthUserDto }): Promise<AuthUserDto> {
     return req.auth
   }
@@ -51,6 +52,8 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   @Post('logout')
   @ApiTags('Authentication')
+  @UseGuards(AuthGuard)
+  @ApiCookieAuth('auth')
   public async logout(@Res({ passthrough: true }) response: Response): Promise<void> {
     response.clearCookie('auth')
   }

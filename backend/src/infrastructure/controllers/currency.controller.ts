@@ -14,7 +14,7 @@ import { AuthGuard } from '../guards/auth.guard'
 import { CurrencyService } from '../../app/services/currency.service'
 import { UuidService } from '../services/uuid.service'
 import { CurrencyRepository } from '../database/currency.repository'
-import { ApiTags } from '@nestjs/swagger'
+import { ApiCookieAuth, ApiTags } from '@nestjs/swagger'
 import { Currency } from '../../domain/entities/currency.entity'
 import { GetCurrencyDto } from '../dto/currencies/get-currency.dto'
 import { Request } from 'express'
@@ -24,6 +24,7 @@ import { UpdateCurrencyDto } from '../dto/currencies/update-currency.dto'
 
 @Controller('api/currencies')
 @UseGuards(AuthGuard)
+@ApiCookieAuth('auth')
 export class CurrencyController {
   private readonly currencyService: CurrencyService
 

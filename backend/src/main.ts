@@ -11,6 +11,7 @@ async function bootstrap() {
     .setDescription('API Reference for Budget WebApp')
     .setLicense('MIT', 'https://opensource.org/licenses/MIT')
     .setVersion('0.0.1')
+    .addCookieAuth('auth', { type: 'apiKey' })
     .build()
 
   app.enableCors({

@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from 
 import { CategoryService } from '../../app/services/category.service'
 import { UuidService } from '../services/uuid.service'
 import { CategoryRepository } from '../database/category.repository'
-import { ApiTags } from '@nestjs/swagger'
+import { ApiCookieAuth, ApiTags } from '@nestjs/swagger'
 import { GetCategoryDto } from '../dto/categories/get-category.dto'
 import { Category } from '../../domain/entities/category.entity'
 import { CreateCategoryDto } from '../dto/categories/create-category.dto'
@@ -13,6 +13,7 @@ import { AuthGuard } from '../guards/auth.guard'
 
 @Controller('api/categories')
 @UseGuards(AuthGuard)
+@ApiCookieAuth('auth')
 export class CategoryController {
   private readonly categoryService: CategoryService
 
