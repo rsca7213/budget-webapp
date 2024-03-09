@@ -13,6 +13,7 @@ import { EditCurrencyDialogComponent } from './components/edit-currency-dialog/e
 import { UpdateCurrencyDto } from '../shared/dto/currencies/update-currency.dto'
 import { DeleteCurrencyDialogComponent } from './components/delete-currency-dialog.component'
 import { SwapDefaultCurrencyDialogComponent } from './components/swap-default-currency-dialog/swap-default-currency-dialog.component'
+import { finalize } from 'rxjs'
 
 @Component({
   selector: 'views-currencies',
@@ -58,13 +59,14 @@ export class CurrenciesView implements OnInit {
       data: this.defaultCurrency
     })
 
-    ref
-      .afterClosed()
-      .subscribe((data: CreateCurrencyDto) => {
-        if (!data) return
+    ref.afterClosed().subscribe((data: CreateCurrencyDto) => {
+      if (!data) return
 
-        this.loadingDialog.open()
-        this.currenciesService.create(data).subscribe({
+      this.loadingDialog.open()
+      this.currenciesService
+        .create(data)
+        .pipe(finalize(() => this.loadingDialog.close()))
+        .subscribe({
           next: currency => {
             if (currency.isDefault) {
               this.defaultCurrency = currency
@@ -77,8 +79,7 @@ export class CurrenciesView implements OnInit {
             this.errorDialog.open('Failed to create currency', err.message)
           }
         })
-      })
-      .add(() => this.loadingDialog.close())
+    })
   }
 
   public openEditCurrencyDialog(currency: Currency): void {
@@ -90,13 +91,14 @@ export class CurrenciesView implements OnInit {
       }
     })
 
-    ref
-      .afterClosed()
-      .subscribe((data: UpdateCurrencyDto) => {
-        if (!data) return
+    ref.afterClosed().subscribe((data: UpdateCurrencyDto) => {
+      if (!data) return
 
-        this.loadingDialog.open()
-        this.currenciesService.update(data, currency.uuid).subscribe({
+      this.loadingDialog.open()
+      this.currenciesService
+        .update(data, currency.uuid)
+        .pipe(finalize(() => this.loadingDialog.close()))
+        .subscribe({
           next: currency => {
             if (currency.isDefault) {
               this.defaultCurrency = currency
@@ -114,8 +116,7 @@ export class CurrenciesView implements OnInit {
             this.errorDialog.open('Failed to update currency', err.message)
           }
         })
-      })
-      .add(() => this.loadingDialog.close())
+    })
   }
 
   public openDeleteCurrencyDialog(currency: Currency): void {
@@ -124,13 +125,14 @@ export class CurrenciesView implements OnInit {
       data: currency
     })
 
-    ref
-      .afterClosed()
-      .subscribe((uuid: string) => {
-        if (!uuid) return
+    ref.afterClosed().subscribe((uuid: string) => {
+      if (!uuid) return
 
-        this.loadingDialog.open()
-        this.currenciesService.delete(uuid).subscribe({
+      this.loadingDialog.open()
+      this.currenciesService
+        .delete(uuid)
+        .pipe(finalize(() => this.loadingDialog.close()))
+        .subscribe({
           next: () => {
             this.notification.notify('Currency deleted successfully', 'Close')
             this.currencies = this.currencies.filter(c => c.uuid !== uuid)
@@ -139,8 +141,7 @@ export class CurrenciesView implements OnInit {
             this.errorDialog.open('Failed to delete currency', err.message)
           }
         })
-      })
-      .add(() => this.loadingDialog.close())
+    })
   }
 
   public openSwapDefaultCurrencyDialog(): void {
@@ -152,13 +153,14 @@ export class CurrenciesView implements OnInit {
       }
     })
 
-    ref
-      .afterClosed()
-      .subscribe((uuid: string) => {
-        if (!uuid) return
+    ref.afterClosed().subscribe((uuid: string) => {
+      if (!uuid) return
 
-        this.loadingDialog.open()
-        this.currenciesService.swapDefault(uuid).subscribe({
+      this.loadingDialog.open()
+      this.currenciesService
+        .swapDefault(uuid)
+        .pipe(finalize(() => this.loadingDialog.close()))
+        .subscribe({
           next: currencies => {
             this.defaultCurrency = currencies.find(c => c.isDefault)
             this.currencies = currencies.filter(c => !c.isDefault)
@@ -168,7 +170,6 @@ export class CurrenciesView implements OnInit {
             this.errorDialog.open('Failed to swap default currency', err.message)
           }
         })
-      })
-      .add(() => this.loadingDialog.close())
+    })
   }
 }

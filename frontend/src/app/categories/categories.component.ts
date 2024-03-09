@@ -12,6 +12,7 @@ import { LoadingDialogComponent } from '../shared/components/loading-dialog/load
 import { EditCategoryDialogComponent } from './components/edit-category-dialog/edit-category-dialog.component'
 import { UpdateCategoryDto } from '../shared/dto/categories/update-category.dto'
 import { DeleteCategoryDialogComponent } from './components/delete-category-dialog/delete-category-dialog.component'
+import { finalize } from 'rxjs'
 
 @Component({
   selector: 'categories-view',
@@ -61,13 +62,14 @@ export class CategoriesView implements OnInit {
       }
     })
 
-    ref
-      .afterClosed()
-      .subscribe((data: UpdateCategoryDto) => {
-        if (!data) return
+    ref.afterClosed().subscribe((data: UpdateCategoryDto) => {
+      if (!data) return
 
-        this.loadingDialog.open()
-        this.categoriesService.update(category.uuid, data).subscribe({
+      this.loadingDialog.open()
+      this.categoriesService
+        .update(category.uuid, data)
+        .pipe(finalize(() => this.loadingDialog.close()))
+        .subscribe({
           next: category => {
             this.notification.notify('Category updated successfully', 'Close')
 
@@ -82,8 +84,7 @@ export class CategoriesView implements OnInit {
             this.errorDialog.open('Failed to update category', err.message)
           }
         })
-      })
-      .add(() => this.loadingDialog.close())
+    })
   }
 
   public openDeleteCategoryDialog(category: Category): void {
@@ -92,13 +93,14 @@ export class CategoriesView implements OnInit {
       data: category
     })
 
-    ref
-      .afterClosed()
-      .subscribe((uuid: string) => {
-        if (!uuid) return
+    ref.afterClosed().subscribe((uuid: string) => {
+      if (!uuid) return
 
-        this.loadingDialog.open()
-        this.categoriesService.delete(uuid).subscribe({
+      this.loadingDialog.open()
+      this.categoriesService
+        .delete(uuid)
+        .pipe(finalize(() => this.loadingDialog.close()))
+        .subscribe({
           next: () => {
             this.notification.notify('Category deleted successfully', 'Close')
             this.categories = this.categories.filter(c => c.uuid !== uuid)
@@ -108,8 +110,7 @@ export class CategoriesView implements OnInit {
             this.errorDialog.open('Failed to delete category', err.message)
           }
         })
-      })
-      .add(() => this.loadingDialog.close())
+    })
   }
 
   public openCreateCategoryDialog(): void {
@@ -117,13 +118,14 @@ export class CategoriesView implements OnInit {
       width: APP_DIALOG_SIZES.md
     })
 
-    ref
-      .afterClosed()
-      .subscribe((data: CreateCategoryDto) => {
-        if (!data) return
+    ref.afterClosed().subscribe((data: CreateCategoryDto) => {
+      if (!data) return
 
-        this.loadingDialog.open()
-        this.categoriesService.create(data).subscribe({
+      this.loadingDialog.open()
+      this.categoriesService
+        .create(data)
+        .pipe(finalize(() => this.loadingDialog.close()))
+        .subscribe({
           next: category => {
             this.notification.notify('Category created successfully', 'Close')
             this.categories.push(category)
@@ -133,8 +135,7 @@ export class CategoriesView implements OnInit {
             this.errorDialog.open('Failed to create category', err.message)
           }
         })
-      })
-      .add(() => this.loadingDialog.close())
+    })
   }
 
   public divideCategories(): void {
