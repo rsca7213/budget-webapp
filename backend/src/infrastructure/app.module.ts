@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { MiddlewareConsumer, Module } from '@nestjs/common'
 import { UserController } from './controllers/user.controller'
 import { UuidService } from './services/uuid.service'
 import { HashService } from './services/hash.service'
@@ -15,6 +15,7 @@ import { CatchExceptionsService } from './services/exceptions.service'
 import { CurrencyController } from './controllers/currency.controller'
 import { CurrencyDatabaseEntity } from './database/models/currency.orm.entity'
 import { CurrencyRepository } from './database/currency.repository'
+import { HttpLoggerMiddleware } from './middleware/http-logger.middleware'
 
 @Module({
   imports: [
@@ -48,4 +49,8 @@ import { CurrencyRepository } from './database/currency.repository'
     }
   ]
 })
-export class AppModule {}
+export class AppModule {
+  public configure(consumer: MiddlewareConsumer) {
+    consumer.apply(HttpLoggerMiddleware).forRoutes('*')
+  }
+}
