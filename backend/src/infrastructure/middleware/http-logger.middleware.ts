@@ -61,12 +61,12 @@ export class HttpLoggerMiddleware implements NestMiddleware {
   }
 
   private getStatus(status: number): string {
-    if (status >= 200 && status < 300) return greenBright(status.toString())
-    if (status >= 300 && status < 400) return cyanBright(status.toString())
-    if (status >= 400 && status < 500) return yellowBright(status.toString())
-    if (status >= 500) return redBright(status.toString())
+    if (status >= 200 && status < 300) return greenBright('\\' + status.toString())
+    if (status >= 300 && status < 400) return cyanBright('\\' + status.toString())
+    if (status >= 400 && status < 500) return yellowBright('\\' + status.toString())
+    if (status >= 500) return redBright('\\' + status.toString())
 
-    return white(status.toString())
+    return white('\\' + status.toString())
   }
 
   public use(req: Request, res: Response, next: NextFunction) {
@@ -77,7 +77,7 @@ export class HttpLoggerMiddleware implements NestMiddleware {
       const duration = (process.hrtime(startTime)[1] / 1000000).toFixed(0)
 
       console.log(
-        `${http} ${this.getDate()} - [${this.getMethod(req.method)} - ${this.getStatus(res.statusCode)} - ${duration}ms] ${this.getUrl(req.originalUrl)} - ${this.getUser(req)}`
+        `${http} ${this.getDate()} - ${this.getMethod(req.method)}${this.getStatus(res.statusCode)} ${this.getUrl(req.originalUrl)} - ${this.getUser(req)} [${duration}ms]`
       )
     })
 
