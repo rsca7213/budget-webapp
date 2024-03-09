@@ -34,6 +34,30 @@ export class CurrencyRepository implements ICurrencyRepository {
     return true
   }
 
+  public async saveAll(currencies: Currency[], userUuid: string): Promise<boolean> {
+    const userOrmRepository = await this.userOrmRepository.findOneBy({ uuid: userUuid })
+
+    if (!userOrmRepository) return false
+
+    const currencyDatabaseEntities = currencies.map(currency => {
+      const currencyDatabaseEntity = new CurrencyDatabaseEntity()
+
+      currencyDatabaseEntity.uuid = currency.getUuid()
+      currencyDatabaseEntity.name = currency.getName()
+      currencyDatabaseEntity.code = currency.getCode()
+      currencyDatabaseEntity.exchangeRate = currency.getExchangeRate()
+      currencyDatabaseEntity.isDefault = currency.getIsDefault()
+      currencyDatabaseEntity.createdAt = currency.getCreatedAt()
+      currencyDatabaseEntity.updatedAt = currency.getUpdatedAt()
+      currencyDatabaseEntity.user = userOrmRepository
+
+      return currencyDatabaseEntity
+    })
+
+    await this.currencyOrmRepository.save(currencyDatabaseEntities)
+    return true
+  }
+
   public async find(uuid: string, userUuid: string): Promise<Currency | undefined> {
     const currency = await this.currencyOrmRepository.findOneBy({ uuid, user: { uuid: userUuid } })
 

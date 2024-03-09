@@ -3,7 +3,6 @@ import { UserService } from '../../src/app/services/user.service'
 import { User } from '../../src/domain/entities/user.entity'
 import { Exception } from '../../src/domain/exception/exception'
 import { UserRepository } from '../../src/infrastructure/database/user.repository'
-import { BootstrapServerService } from '../../src/infrastructure/services/bootstrap-server.service'
 import { HashService } from '../../src/infrastructure/services/hash.service'
 import { UuidService } from '../../src/infrastructure/services/uuid.service'
 import { UserDatabaseEntity } from '../../src/infrastructure/database/models/user.orm.entity'
@@ -17,8 +16,7 @@ let hashService: HashService
 let userRepository: UserRepository
 let userService: UserService
 
-beforeAll(() => {
-  new BootstrapServerService().startDomainValidationService(false)
+beforeEach(() => {
   uuidService = new UuidService()
   hashService = new HashService()
   userRepository = new UserRepository({} as Repository<UserDatabaseEntity>)

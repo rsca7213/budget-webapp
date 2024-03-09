@@ -1,7 +1,6 @@
 import { Repository } from 'typeorm'
 import { CurrencyService } from '../../src/app/services/currency.service'
 import { CurrencyRepository } from '../../src/infrastructure/database/currency.repository'
-import { BootstrapServerService } from '../../src/infrastructure/services/bootstrap-server.service'
 import { UuidService } from '../../src/infrastructure/services/uuid.service'
 import { CurrencyDatabaseEntity } from '../../src/infrastructure/database/models/currency.orm.entity'
 import { UserDatabaseEntity } from '../../src/infrastructure/database/models/user.orm.entity'
@@ -18,8 +17,7 @@ let currencyRepository: CurrencyRepository
 const userUuid = 'cde4d425-c343-4a3d-bb0e-266f9331f171'
 const secondaryUserUuid = 'cde4d425-c343-4a3d-bb0e-266f9331f172'
 
-beforeAll(() => {
-  new BootstrapServerService().startDomainValidationService(false)
+beforeEach(() => {
   uuidService = new UuidService()
   currencyRepository = new CurrencyRepository(
     {} as Repository<CurrencyDatabaseEntity>,
@@ -96,7 +94,7 @@ describe('[Unit - CurrencyService] Create a currency', () => {
   it('Should create a valid currency and set it as default', async () => {
     const currencies = await currencyService.create('Real', 'BRL', 1, secondaryUserUuid)
 
-    expect(currencies.getUuid()).toBe('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd743')
+    expect(currencies.getUuid()).toBe('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742')
     expect(currencies.getCreatedAt()).toBeInstanceOf(Date)
     expect(currencies.getUpdatedAt()).toBeInstanceOf(Date)
     expect(currencies.getName()).toBe('Real')
@@ -225,14 +223,14 @@ describe('[Unit - CurrencyService] Create a currency', () => {
 describe('[Unit - CurrencyService] Update a currency', () => {
   it('Should update a valid currency', async () => {
     const currency = (await currencyService.update(
-      '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+      'cde4d425-c343-4a3d-bb0e-266f9331f167',
       'Peso Argentino',
       'ARS',
       0.012,
       userUuid
     )) as Currency
 
-    expect(currency.getUuid()).toBe('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742')
+    expect(currency.getUuid()).toBe('cde4d425-c343-4a3d-bb0e-266f9331f167')
     expect(currency.getCreatedAt()).toBeInstanceOf(Date)
     expect(currency.getUpdatedAt()).toBeInstanceOf(Date)
     expect(currency.getName()).toBe('Peso Argentino')
@@ -244,14 +242,14 @@ describe('[Unit - CurrencyService] Update a currency', () => {
 
   it('Should update a valid default currency', async () => {
     const currency = (await currencyService.update(
-      '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd743',
+      'cde4d425-c343-4a3d-bb0e-266f9331f165',
       'Real',
       'BRL',
       1.5,
-      secondaryUserUuid
+      userUuid
     )) as Currency
 
-    expect(currency.getUuid()).toBe('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd743')
+    expect(currency.getUuid()).toBe('cde4d425-c343-4a3d-bb0e-266f9331f165')
     expect(currency.getCreatedAt()).toBeInstanceOf(Date)
     expect(currency.getUpdatedAt()).toBeInstanceOf(Date)
     expect(currency.getName()).toBe('Real')
@@ -281,7 +279,7 @@ describe('[Unit - CurrencyService] Update a currency', () => {
   it('Should throw an error when currency by code already exists', async () => {
     try {
       await currencyService.update(
-        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'cde4d425-c343-4a3d-bb0e-266f9331f167',
         'Peso Argentino',
         'BRL',
         0.012,
@@ -298,7 +296,7 @@ describe('[Unit - CurrencyService] Update a currency', () => {
   it('Should throw an error when currency by name already exists', async () => {
     try {
       await currencyService.update(
-        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'cde4d425-c343-4a3d-bb0e-266f9331f167',
         'Real',
         'ARS',
         0.012,
@@ -315,7 +313,7 @@ describe('[Unit - CurrencyService] Update a currency', () => {
   it('Should throw an error when name is empty', async () => {
     try {
       await currencyService.update(
-        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'cde4d425-c343-4a3d-bb0e-266f9331f167',
         '',
         'ARS',
         0.012,
@@ -332,7 +330,7 @@ describe('[Unit - CurrencyService] Update a currency', () => {
   it('Should throw an error when name is less than 3 characters', async () => {
     try {
       await currencyService.update(
-        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'cde4d425-c343-4a3d-bb0e-266f9331f167',
         'Pe',
         'ARS',
         0.012,
@@ -349,7 +347,7 @@ describe('[Unit - CurrencyService] Update a currency', () => {
   it('Should throw an error when name is more than 50 characters', async () => {
     try {
       await currencyService.update(
-        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'cde4d425-c343-4a3d-bb0e-266f9331f167',
         'Republic of Argentina National Currency The ARS Peso',
         'ARS',
         0.012,
@@ -366,7 +364,7 @@ describe('[Unit - CurrencyService] Update a currency', () => {
   it('Should throw an error when code is empty', async () => {
     try {
       await currencyService.update(
-        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'cde4d425-c343-4a3d-bb0e-266f9331f167',
         'Peso',
         '',
         0.012,
@@ -383,7 +381,7 @@ describe('[Unit - CurrencyService] Update a currency', () => {
   it('Should throw an error when code is less than 3 characters', async () => {
     try {
       await currencyService.update(
-        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'cde4d425-c343-4a3d-bb0e-266f9331f167',
         'Peso',
         'AR',
         0.012,
@@ -400,7 +398,7 @@ describe('[Unit - CurrencyService] Update a currency', () => {
   it('Should throw an error when code is more than 3 characters', async () => {
     try {
       await currencyService.update(
-        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'cde4d425-c343-4a3d-bb0e-266f9331f167',
         'Peso',
         'ARSS',
         0.012,
@@ -417,7 +415,7 @@ describe('[Unit - CurrencyService] Update a currency', () => {
   it('Should throw an error when exchange rate is empty', async () => {
     try {
       await currencyService.update(
-        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'cde4d425-c343-4a3d-bb0e-266f9331f167',
         'Peso',
         'ARS',
         null as any,
@@ -434,7 +432,7 @@ describe('[Unit - CurrencyService] Update a currency', () => {
   it('Should throw an error when exchange rate is less than 0', async () => {
     try {
       await currencyService.update(
-        '6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742',
+        'cde4d425-c343-4a3d-bb0e-266f9331f167',
         'Peso',
         'ARS',
         0,
@@ -471,7 +469,7 @@ describe('[Unit - CurrencyService] Delete a currency', () => {
     await currencyService.delete('cde4d425-c343-4a3d-bb0e-266f9331f166', userUuid)
 
     const currencies = await currencyService.findAll(userUuid)
-    expect(currencies.length).toBe(3)
+    expect(currencies.length).toBe(2)
   })
 
   it('Should throw an error when deleting a default currency', async () => {
@@ -503,6 +501,62 @@ describe('[Unit - CurrencyService] Delete a currency', () => {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('NotFound')
       expect(error.origin).toBe('ApplicationService.Currency.delete')
+      expect(error.message).toBe('Currency was not found')
+    }
+  })
+})
+
+describe('[Unit - CurrencyService] Swap default currency', () => {
+  it('Should swap default currency', async () => {
+    const currencies = (await currencyService.swapDefaultCurrency(
+      'cde4d425-c343-4a3d-bb0e-266f9331f167',
+      userUuid
+    )) as Currency[]
+
+    const newDefault = currencies.find(currency => currency.getIsDefault()) as Currency
+    const otherCurrencies = currencies.filter(currency => !currency.getIsDefault())
+
+    expect(newDefault instanceof Currency).toBe(true)
+    expect(newDefault.getUuid()).toBe('cde4d425-c343-4a3d-bb0e-266f9331f167')
+    expect(newDefault.getIsDefault()).toBe(true)
+    expect(newDefault.getExchangeRate()).toBe(1)
+    expect(otherCurrencies.every(currency => currency.getIsDefault() === false)).toBe(true)
+    expect(currencies.find(currency => currency.getCode() === 'USD')!.getExchangeRate()).toBe(1.28)
+    expect(currencies.find(currency => currency.getCode() === 'EUR')!.getExchangeRate()).toBe(1.18)
+  })
+
+  it('Should throw an error when currency was not found', async () => {
+    try {
+      await currencyService.swapDefaultCurrency('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd744', userUuid)
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('NotFound')
+      expect(error.origin).toBe('ApplicationService.Currency.swapDefaultCurrency')
+      expect(error.message).toBe('Currency was not found')
+    }
+  })
+
+  it('Should throw an error when currency is already default', async () => {
+    try {
+      await currencyService.swapDefaultCurrency('cde4d425-c343-4a3d-bb0e-266f9331f165', userUuid)
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('Verification')
+      expect(error.origin).toBe('ApplicationService.Currency.swapDefaultCurrency')
+      expect(error.message).toBe('Currency is already default')
+    }
+  })
+
+  it('Should throw an error when currency is not from the user', async () => {
+    try {
+      await currencyService.swapDefaultCurrency(
+        'cde4d425-c343-4a3d-bb0e-266f9331f166',
+        secondaryUserUuid
+      )
+    } catch (error) {
+      expect(error instanceof Exception).toBe(true)
+      expect(error.reason).toBe('NotFound')
+      expect(error.origin).toBe('ApplicationService.Currency.swapDefaultCurrency')
       expect(error.message).toBe('Currency was not found')
     }
   })

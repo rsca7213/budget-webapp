@@ -1,5 +1,6 @@
 import { Currency } from '../../domain/entities/currency.entity'
 import { Exception } from '../../domain/exception/exception'
+import { CurrencyHelper } from '../helpers/currency.helper'
 import { ICurrencyRepository } from '../interface/repository/currency-repository.interface'
 import { IUuidService } from '../interface/uuid-service.interface'
 
@@ -146,5 +147,56 @@ export class CurrencyService {
         'ApplicationService.Currency.delete',
         'Repository'
       )
+  }
+
+  public async swapDefaultCurrency(uuid: string, userUuid: string): Promise<Currency[] | void> {
+    const currencies = await this.currencyRepository.findAll(userUuid)
+
+    const newCurrency = currencies.find(c => c.getUuid() === uuid)
+    const oldCurrency = currencies.find(c => c.getIsDefault())
+
+    if (!newCurrency || !oldCurrency)
+      return Exception.throw(
+        'Currency was not found',
+        'ApplicationService.Currency.swapDefaultCurrency',
+        'NotFound'
+      )
+
+    if (newCurrency.getIsDefault())
+      return Exception.throw(
+        'Currency is already default',
+        'ApplicationService.Currency.swapDefaultCurrency',
+        'Verification'
+      )
+
+    oldCurrency.setIsDefault(false)
+    newCurrency.setIsDefault(true)
+
+    const exchangeRates = CurrencyHelper.calculateSwappedExchangeRates(
+      oldCurrency,
+      newCurrency,
+      currencies.filter(
+        c => c.getUuid() !== newCurrency.getUuid() && c.getUuid() !== oldCurrency.getUuid()
+      )
+    )
+
+    for (const exchangeRate of exchangeRates) {
+      const currency = currencies.find(c => c.getCode() === exchangeRate.code)
+
+      if (currency) currency.setExchangeRate(exchangeRate.rate)
+    }
+
+    currencies.find(c => c.getIsDefault())!.setExchangeRate(1)
+
+    const result = await this.currencyRepository.saveAll(currencies, userUuid)
+
+    if (!result)
+      Exception.throw(
+        'Currencies could not be updated',
+        'ApplicationService.Currency.swapDefaultCurrency',
+        'Repository'
+      )
+
+    return currencies
   }
 }

@@ -89,6 +89,9 @@ export class DomainValidatorService {
   }
 
   public static getInstance(): DomainValidatorService {
+    if (!DomainValidatorService.instance) {
+      this.generateInstance()
+    }
     return DomainValidatorService.instance
   }
 }

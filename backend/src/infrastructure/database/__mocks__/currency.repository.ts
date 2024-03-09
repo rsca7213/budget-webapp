@@ -9,8 +9,8 @@ export class CurrencyRepository implements ICurrencyRepository {
       uuid: 'cde4d425-c343-4a3d-bb0e-266f9331f171',
       currencies: [
         Currency.create('cde4d425-c343-4a3d-bb0e-266f9331f165', 'Euro', 'EUR', 1.0, true),
-        Currency.create('cde4d425-c343-4a3d-bb0e-266f9331f166', 'Dollar', 'USD', 0.95, false),
-        Currency.create('cde4d425-c343-4a3d-bb0e-266f9331f167', 'Pound', 'GBP', 0.91, false)
+        Currency.create('cde4d425-c343-4a3d-bb0e-266f9331f166', 'Dollar', 'USD', 1.09, false),
+        Currency.create('cde4d425-c343-4a3d-bb0e-266f9331f167', 'Pound', 'GBP', 0.85, false)
       ]
     },
     {
@@ -31,6 +31,23 @@ export class CurrencyRepository implements ICurrencyRepository {
       return true
     }
     user.currencies.push(currency)
+    return true
+  }
+
+  public async saveAll(currencies: Currency[], userUuid: string): Promise<boolean> {
+    const user = this.users.find(user => user.uuid === userUuid)
+    if (!user) return false
+
+    currencies.forEach(currency => {
+      const current = user.currencies.find(current => current.getUuid() === currency.getUuid())
+      if (current) {
+        current.setName(currency.getName())
+        current.setCode(currency.getCode())
+        current.setExchangeRate(currency.getExchangeRate())
+        current.setIsDefault(currency.getIsDefault())
+      } else user.currencies.push(currency)
+    })
+
     return true
   }
 

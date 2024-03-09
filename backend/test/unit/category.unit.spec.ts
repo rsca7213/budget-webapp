@@ -3,7 +3,6 @@ import { CategoryService } from '../../src/app/services/category.service'
 import { Category } from '../../src/domain/entities/category.entity'
 import { Exception } from '../../src/domain/exception/exception'
 import { CategoryRepository } from '../../src/infrastructure/database/category.repository'
-import { BootstrapServerService } from '../../src/infrastructure/services/bootstrap-server.service'
 import { UuidService } from '../../src/infrastructure/services/uuid.service'
 import { CategoryDatabaseEntity } from '../../src/infrastructure/database/models/category.orm.entity'
 import { UserDatabaseEntity } from '../../src/infrastructure/database/models/user.orm.entity'
@@ -19,8 +18,7 @@ let categoryRepository: CategoryRepository
 const userUuid = 'cde4d425-c343-4a3d-bb0e-266f9331f171'
 const secondaryUserUuid = 'cde4d425-c343-4a3d-bb0e-266f9331f172'
 
-beforeAll(() => {
-  new BootstrapServerService().startDomainValidationService(false)
+beforeEach(() => {
   uuidService = new UuidService()
   categoryRepository = new CategoryRepository(
     {} as Repository<CategoryDatabaseEntity>,
@@ -276,7 +274,7 @@ describe('[Unit - CategoryService] Delete a category', () => {
     await categoryService.delete('cde4d425-c343-4a3d-bb0e-266f9331f165', userUuid)
 
     const categories = await categoryService.findAll(userUuid)
-    expect(categories.length).toBe(6)
+    expect(categories.length).toBe(5)
   })
 
   it('Should throw an error when category was not found', async () => {

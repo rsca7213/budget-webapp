@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Req,
+  UseGuards
+} from '@nestjs/common'
 import { AuthGuard } from '../guards/auth.guard'
 import { CurrencyService } from '../../app/services/currency.service'
 import { UuidService } from '../services/uuid.service'
@@ -117,5 +128,29 @@ export class CurrencyController {
     @Req() req: Request & { auth: AuthUserDto }
   ): Promise<void> {
     await this.currencyService.delete(uuid, req.auth.uuid)
+  }
+
+  @Patch('swap-default/:uuid')
+  @ApiTags('Currency')
+  public async swapDefault(
+    @Param('uuid') uuid: string,
+    @Req() req: Request & { auth: AuthUserDto }
+  ): Promise<GetCurrencyDto[]> {
+    let currencies: Currency[] = (await this.currencyService.swapDefaultCurrency(
+      uuid,
+      req.auth.uuid
+    )) as Currency[]
+
+    return currencies.map(currency => {
+      return {
+        uuid: currency.getUuid(),
+        name: currency.getName(),
+        code: currency.getCode(),
+        exchangeRate: currency.getExchangeRate(),
+        isDefault: currency.getIsDefault(),
+        createdAt: currency.getCreatedAt().toISOString(),
+        updatedAt: currency.getUpdatedAt().toISOString()
+      }
+    })
   }
 }
