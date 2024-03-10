@@ -16,6 +16,7 @@ import { CurrencyController } from './controllers/currency.controller'
 import { CurrencyDatabaseEntity } from './database/models/currency.orm.entity'
 import { CurrencyRepository } from './database/currency.repository'
 import { HttpLoggerMiddleware } from './middleware/http-logger.middleware'
+import { AccountGroupDatabaseEntity } from './database/models/account-group.orm.entity'
 
 @Module({
   imports: [
@@ -28,10 +29,20 @@ import { HttpLoggerMiddleware } from './middleware/http-logger.middleware'
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite',
-      entities: [UserDatabaseEntity, CategoryDatabaseEntity, CurrencyDatabaseEntity],
+      entities: [
+        UserDatabaseEntity,
+        CategoryDatabaseEntity,
+        CurrencyDatabaseEntity,
+        AccountGroupDatabaseEntity
+      ],
       synchronize: true
     }),
-    TypeOrmModule.forFeature([UserDatabaseEntity, CategoryDatabaseEntity, CurrencyDatabaseEntity])
+    TypeOrmModule.forFeature([
+      UserDatabaseEntity,
+      CategoryDatabaseEntity,
+      CurrencyDatabaseEntity,
+      AccountGroupDatabaseEntity
+    ])
   ],
   controllers: [UserController, CategoryController, CurrencyController],
   providers: [

@@ -4,11 +4,16 @@ import { AccountType, AccountTypes } from '../types/account.types'
 import { Account } from './account.entity'
 
 export class AccountGroup extends Entity {
+  private name: string
   private type: AccountType
   private accounts: Account[]
 
   private constructor() {
     super()
+  }
+
+  public getName(): string {
+    return this.name
   }
 
   public getType(): AccountType {
@@ -17,6 +22,28 @@ export class AccountGroup extends Entity {
 
   public getAccounts(): Account[] {
     return this.accounts
+  }
+
+  public setName(name: string): void {
+    this.validatorService.stringValidator.validateRequired(name) ||
+      Exception.throw('Name is required', 'DomainEntity.AccountGroup.name', 'Validation')
+    this.validatorService.stringValidator.validateType(name) ||
+      Exception.throw('Name must be a string', 'DomainEntity.AccountGroup.name', 'Validation')
+    this.validatorService.stringValidator.validateMinLength(name, 3) ||
+      Exception.throw(
+        'Name must be at least 3 characters',
+        'DomainEntity.AccountGroup.name',
+        'Validation'
+      )
+    this.validatorService.stringValidator.validateMaxLength(name, 50) ||
+      Exception.throw(
+        'Name must be at most 50 characters',
+        'DomainEntity.AccountGroup.name',
+        'Validation'
+      )
+
+    this.name = name
+    this.setUpdatedAt(new Date())
   }
 
   public setType(type: AccountType): void {
@@ -41,6 +68,7 @@ export class AccountGroup extends Entity {
 
   public static restore(
     uuid: string,
+    name: string,
     type: AccountType,
     createdAt: Date,
     updatedAt: Date,
@@ -49,6 +77,7 @@ export class AccountGroup extends Entity {
     const accountGroup = new AccountGroup()
 
     accountGroup.setUuid(uuid)
+    accountGroup.setName(name)
     accountGroup.setType(type)
     accountGroup.setCreatedAt(createdAt)
     accountGroup.setUpdatedAt(updatedAt)
@@ -57,10 +86,11 @@ export class AccountGroup extends Entity {
     return accountGroup
   }
 
-  public static create(uuid: string, type: AccountType): AccountGroup {
+  public static create(uuid: string, name: string, type: AccountType): AccountGroup {
     const accountGroup = new AccountGroup()
 
     accountGroup.setUuid(uuid)
+    accountGroup.setName(name)
     accountGroup.setType(type)
     accountGroup.setCreatedAt(new Date())
     accountGroup.setUpdatedAt(new Date())
