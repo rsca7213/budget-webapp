@@ -17,6 +17,8 @@ import { CurrencyDatabaseEntity } from './database/models/currency.orm.entity'
 import { CurrencyRepository } from './database/currency.repository'
 import { HttpLoggerMiddleware } from './middleware/http-logger.middleware'
 import { AccountGroupDatabaseEntity } from './database/models/account-group.orm.entity'
+import { AccountGroupController } from './controllers/account-group.controller'
+import { AccountGroupRepository } from './database/account-group.repository'
 
 @Module({
   imports: [
@@ -44,7 +46,7 @@ import { AccountGroupDatabaseEntity } from './database/models/account-group.orm.
       AccountGroupDatabaseEntity
     ])
   ],
-  controllers: [UserController, CategoryController, CurrencyController],
+  controllers: [UserController, CategoryController, CurrencyController, AccountGroupController],
   providers: [
     // Common services
     UuidService,
@@ -53,6 +55,7 @@ import { AccountGroupDatabaseEntity } from './database/models/account-group.orm.
     UserRepository,
     CategoryRepository,
     CurrencyRepository,
+    AccountGroupRepository,
     // Exceptions
     {
       provide: APP_FILTER,

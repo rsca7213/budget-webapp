@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm'
 import { AccountType } from '../../../domain/types/account.types'
+import { UserDatabaseEntity } from './user.orm.entity'
 
 @Entity()
 export class AccountGroupDatabaseEntity {
@@ -17,4 +18,7 @@ export class AccountGroupDatabaseEntity {
 
   @Column()
   public updatedAt: Date
+
+  @ManyToOne(() => UserDatabaseEntity, user => user.accountGroups)
+  public user: UserDatabaseEntity
 }

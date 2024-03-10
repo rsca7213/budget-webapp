@@ -1,10 +1,14 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { AuthUserDto } from '../dto/users/auth.dto'
+import { UserRepository } from '../database/user.repository'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  public constructor(private readonly jwtService: JwtService) {}
+  public constructor(
+    private readonly jwtService: JwtService,
+    private readonly userRepository: UserRepository
+  ) {}
 
   public async canActivate(context: ExecutionContext): Promise<boolean> {
     try {
@@ -21,6 +25,10 @@ export class AuthGuard implements CanActivate {
         email: payload.email,
         expires: new Date(payload.exp * 1000)
       } as AuthUserDto
+
+      const user = await this.userRepository.find(request.auth.uuid)
+
+      if (!user) throw new Error('Authenticated user does not exist')
 
       if (
         request.auth.expires.getTime() - Date.now() <

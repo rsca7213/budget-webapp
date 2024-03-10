@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 import { CategoryDatabaseEntity } from './category.orm.entity'
 import { CurrencyDatabaseEntity } from './currency.orm.entity'
+import { AccountGroupDatabaseEntity } from './account-group.orm.entity'
 
 @Entity()
 export class UserDatabaseEntity {
@@ -27,4 +28,7 @@ export class UserDatabaseEntity {
 
   @OneToMany(() => CurrencyDatabaseEntity, currency => currency.user)
   public currencies: CurrencyDatabaseEntity[]
+
+  @OneToMany(() => AccountGroupDatabaseEntity, accountGroup => accountGroup.user)
+  public accountGroups: AccountGroupDatabaseEntity[]
 }

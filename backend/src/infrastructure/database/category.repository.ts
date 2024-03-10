@@ -17,16 +17,16 @@ export class CategoryRepository implements ICategoryRepository {
 
   public async save(category: Category, userUuid: string): Promise<boolean> {
     const categoryDatabaseEntity = new CategoryDatabaseEntity()
-    const userOrmRepository = await this.userOrmRepository.findOneBy({ uuid: userUuid })
+    const userDatabaseEntity = await this.userOrmRepository.findOneBy({ uuid: userUuid })
 
-    if (!userOrmRepository) return false
+    if (!userDatabaseEntity) return false
 
     categoryDatabaseEntity.uuid = category.getUuid()
     categoryDatabaseEntity.name = category.getName()
     categoryDatabaseEntity.type = category.getType()
     categoryDatabaseEntity.createdAt = category.getCreatedAt()
     categoryDatabaseEntity.updatedAt = category.getUpdatedAt()
-    categoryDatabaseEntity.user = userOrmRepository
+    categoryDatabaseEntity.user = userDatabaseEntity
 
     await this.categoryOrmRepository.save(categoryDatabaseEntity)
 

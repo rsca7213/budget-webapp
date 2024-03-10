@@ -17,9 +17,9 @@ export class CurrencyRepository implements ICurrencyRepository {
 
   public async save(currency: Currency, userUuid: string): Promise<boolean> {
     const currencyDatabaseEntity = new CurrencyDatabaseEntity()
-    const userOrmRepository = await this.userOrmRepository.findOneBy({ uuid: userUuid })
+    const userDatabaseEntity = await this.userOrmRepository.findOneBy({ uuid: userUuid })
 
-    if (!userOrmRepository) return false
+    if (!userDatabaseEntity) return false
 
     currencyDatabaseEntity.uuid = currency.getUuid()
     currencyDatabaseEntity.name = currency.getName()
@@ -28,16 +28,16 @@ export class CurrencyRepository implements ICurrencyRepository {
     currencyDatabaseEntity.isDefault = currency.getIsDefault()
     currencyDatabaseEntity.createdAt = currency.getCreatedAt()
     currencyDatabaseEntity.updatedAt = currency.getUpdatedAt()
-    currencyDatabaseEntity.user = userOrmRepository
+    currencyDatabaseEntity.user = userDatabaseEntity
 
     await this.currencyOrmRepository.save(currencyDatabaseEntity)
     return true
   }
 
   public async saveAll(currencies: Currency[], userUuid: string): Promise<boolean> {
-    const userOrmRepository = await this.userOrmRepository.findOneBy({ uuid: userUuid })
+    const userDatabaseEntity = await this.userOrmRepository.findOneBy({ uuid: userUuid })
 
-    if (!userOrmRepository) return false
+    if (!userDatabaseEntity) return false
 
     const currencyDatabaseEntities = currencies.map(currency => {
       const currencyDatabaseEntity = new CurrencyDatabaseEntity()
@@ -49,7 +49,7 @@ export class CurrencyRepository implements ICurrencyRepository {
       currencyDatabaseEntity.isDefault = currency.getIsDefault()
       currencyDatabaseEntity.createdAt = currency.getCreatedAt()
       currencyDatabaseEntity.updatedAt = currency.getUpdatedAt()
-      currencyDatabaseEntity.user = userOrmRepository
+      currencyDatabaseEntity.user = userDatabaseEntity
 
       return currencyDatabaseEntity
     })
