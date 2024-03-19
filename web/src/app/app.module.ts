@@ -5,11 +5,11 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { RouterModule } from '@angular/router'
-import { AngularMaterialModule } from './angular-material.module'
 import { NavbarModule } from './navbar/navbar.module'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { ApiInterceptor } from './shared/interceptors/api.interceptor'
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor'
+import { SharedModule } from './shared/shared.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +18,7 @@ import { ErrorInterceptor } from './shared/interceptors/error.interceptor'
     AppRoutingModule,
     HttpClientModule,
     RouterModule,
-    AngularMaterialModule,
+    SharedModule,
     NavbarModule
   ],
   providers: [

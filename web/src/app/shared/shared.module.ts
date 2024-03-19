@@ -28,7 +28,8 @@ import { CurrencyFormatterDirective } from './directives/currency-formatter.dire
     NotificationComponent,
     ErrorDialogComponent,
     ErrorDialogContentComponent,
-    CurrencyFormatterDirective
+    CurrencyFormatterDirective,
+    AngularMaterialModule
   ]
 })
 export class SharedModule {}
