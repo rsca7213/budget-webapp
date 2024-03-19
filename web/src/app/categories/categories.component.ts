@@ -15,11 +15,11 @@ import { DeleteCategoryDialogComponent } from './components/delete-category-dial
 import { finalize } from 'rxjs'
 
 @Component({
-  selector: 'categories-view',
+  selector: 'views-categories',
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
-export class CategoriesView implements OnInit {
+export class CategoriesViewComponent implements OnInit {
   @ViewChild(NotificationComponent) public notification: NotificationComponent
   @ViewChild(ErrorDialogComponent) public errorDialog: ErrorDialogComponent
   @ViewChild(LoadingDialogComponent) public loadingDialog: LoadingDialogComponent

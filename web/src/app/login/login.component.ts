@@ -9,11 +9,11 @@ import { Router } from '@angular/router'
 import { AuthService } from '../shared/services/auth.service'
 
 @Component({
-  selector: 'login-view',
+  selector: 'views-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginView {
+export class LoginViewComponent {
   @ViewChild(ErrorDialogComponent) public errorDialog: ErrorDialogComponent
   @ViewChild(LoadingDialogComponent) public loadingDialog: LoadingDialogComponent
 

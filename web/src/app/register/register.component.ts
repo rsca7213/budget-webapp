@@ -6,15 +6,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { CustomValidators } from '../shared/validators/validations.class'
 import { UserService } from '../shared/services/user.service'
 import { Router } from '@angular/router'
-import { AuthService } from '../shared/services/auth.service'
 import { NotificationComponent } from '../shared/components/notification/notification.component'
 
 @Component({
-  selector: 'register-view',
+  selector: 'views-register',
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterView implements OnInit {
+export class RegisterViewComponent implements OnInit {
   @ViewChild(ErrorDialogComponent) public errorDialog: ErrorDialogComponent
   @ViewChild(LoadingDialogComponent) public loadingDialog: LoadingDialogComponent
   @ViewChild(NotificationComponent) public notification: NotificationComponent
@@ -46,30 +45,33 @@ export class RegisterView implements OnInit {
     confirmPassword: new FormControl<string>('', [Validators.required])
   })
 
-  public constructor(private readonly userService: UserService, private readonly router: Router) {}
+  public constructor(
+    private readonly userService: UserService,
+    private readonly router: Router
+  ) {}
 
   public togglePasswordVisibility(): void {
     this.passwordInputType = this.passwordInputType === 'password' ? 'text' : 'password'
   }
 
   public passwordMatchValidation(): void {
-    if (this.form.get('password')!.value === this.form.get('confirmPassword')!.value) return
+    if (this.form.get('password')?.value === this.form.get('confirmPassword')?.value) return
 
-    this.form.get('confirmPassword')!.setErrors({ passwordMatch: true })
+    this.form.get('confirmPassword')?.setErrors({ passwordMatch: true })
   }
 
   public startPasswordMatchValidation(): void {
-    this.form.get('confirmPassword')!.valueChanges.subscribe(() => this.passwordMatchValidation())
+    this.form.get('confirmPassword')?.valueChanges.subscribe(() => this.passwordMatchValidation())
   }
 
   public determinePasswordStrength(): void {
     this.passwordStrength = this.userService.determinePasswordStrength(
-      this.form.get('password')!.value
+      this.form.get('password')?.value
     )
   }
 
   public startPasswordStrengthValidation(): void {
-    this.form.get('password')!.valueChanges.subscribe(() => this.determinePasswordStrength())
+    this.form.get('password')?.valueChanges.subscribe(() => this.determinePasswordStrength())
   }
 
   public register(): void {

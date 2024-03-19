@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { Category } from '../../../shared/models/category.model'
 
 @Component({
-  selector: 'categories-components-delete-category-dialog',
+  selector: 'components-delete-category-dialog',
   templateUrl: './delete-category-dialog.component.html',
   styleUrl: './delete-category-dialog.component.scss'
 })

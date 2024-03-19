@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Category } from '../../../shared/models/category.model'
 
 @Component({
-  selector: 'categories-components-category-card',
+  selector: 'components-category-card',
   templateUrl: './category-card.component.html',
   styleUrl: './category-card.component.scss'
 })

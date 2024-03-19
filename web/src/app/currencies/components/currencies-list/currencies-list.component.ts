@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { Currency } from '../../../shared/models/currency.model'
 
 @Component({
-  selector: 'currencies-components-currencies-list',
+  selector: 'components-currencies-list',
   templateUrl: './currencies-list.component.html',
   styleUrl: './currencies-list.component.scss'
 })

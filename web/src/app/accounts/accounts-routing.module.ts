@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { AccountsView } from './accounts.component'
+import { AccountsViewComponent } from './accounts.component'
 
 const routes: Routes = [
   {
     path: '',
-    component: AccountsView
+    component: AccountsViewComponent
   }
 ]
 

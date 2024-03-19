@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { CategoriesView } from './categories.component'
+import { CategoriesViewComponent } from './categories.component'
 import { CategoryCardComponent } from './components/category-card/category-card.component'
 import { CategoriesRoutingModule } from './categories-routing.module'
 import { CreateCategoryDialogComponent } from './components/create-category-dialog/create-category-dialog.component'
@@ -11,7 +11,7 @@ import { DeleteCategoryDialogComponent } from './components/delete-category-dial
 
 @NgModule({
   declarations: [
-    CategoriesView,
+    CategoriesViewComponent,
     CategoryCardComponent,
     CreateCategoryDialogComponent,
     EditCategoryDialogComponent,

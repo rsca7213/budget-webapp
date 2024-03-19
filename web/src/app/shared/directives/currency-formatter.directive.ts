@@ -2,10 +2,13 @@ import { Directive, ElementRef, HostListener } from '@angular/core'
 import { NgControl } from '@angular/forms'
 
 @Directive({
-  selector: '[currencyFormatter]'
+  selector: '[directivesCurrencyFormatter]'
 })
 export class CurrencyFormatterDirective {
-  public constructor(private el: ElementRef, private ngControl: NgControl) {}
+  public constructor(
+    private el: ElementRef,
+    private ngControl: NgControl
+  ) {}
 
   @HostListener('input', ['$event.target.value'])
   public onInput(value: string) {

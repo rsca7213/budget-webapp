@@ -1,45 +1,42 @@
 @if (viewState !== 'ready') {
-<shared-components-loading-view
-  view="categories"
-  [state]="viewState"
-></shared-components-loading-view>
+  <components-loading-view view="categories" [state]="viewState"></components-loading-view>
 } @else {
-<main class="bottom-gap">
-  <h2 class="inline-flex-aligned mb-0">
-    <mat-icon svgIcon="trending-up" class="mr-2"></mat-icon>
-    Income Categories
-  </h2>
-  <hr />
-  <div class="categories my-3">
-    @for (category of incomeCategories; track category.uuid) {
-    <categories-components-category-card
-      [category]="category"
-      (edit)="openEditCategoryDialog($event)"
-      (delete)="openDeleteCategoryDialog($event)"
-    >
-    </categories-components-category-card>
-    } @empty {
-    <h3 class="text-center empty-set">There are no categories currently created.</h3>
-    }
-  </div>
-  <h2 class="inline-flex-aligned mb-0">
-    <mat-icon svgIcon="trending-down" class="mr-2"></mat-icon>
-    Expense Categories
-  </h2>
-  <hr />
-  <div class="categories my-3">
-    @for (category of expenseCategories; track category.uuid) {
-    <categories-components-category-card
-      [category]="category"
-      (edit)="openEditCategoryDialog($event)"
-      (delete)="openDeleteCategoryDialog($event)"
-    >
-    </categories-components-category-card>
-    } @empty {
-    <h3 class="text-center empty-set">There are no categories currently created.</h3>
-    }
-  </div>
-</main>
+  <main class="bottom-gap">
+    <h2 class="inline-flex-aligned mb-0">
+      <mat-icon svgIcon="trending-up" class="mr-2"></mat-icon>
+      Income Categories
+    </h2>
+    <hr />
+    <div class="categories my-3">
+      @for (category of incomeCategories; track category.uuid) {
+        <components-category-card
+          [category]="category"
+          (edit)="openEditCategoryDialog($event)"
+          (delete)="openDeleteCategoryDialog($event)"
+        >
+        </components-category-card>
+      } @empty {
+        <h3 class="text-center empty-set">There are no categories currently created.</h3>
+      }
+    </div>
+    <h2 class="inline-flex-aligned mb-0">
+      <mat-icon svgIcon="trending-down" class="mr-2"></mat-icon>
+      Expense Categories
+    </h2>
+    <hr />
+    <div class="categories my-3">
+      @for (category of expenseCategories; track category.uuid) {
+        <components-category-card
+          [category]="category"
+          (edit)="openEditCategoryDialog($event)"
+          (delete)="openDeleteCategoryDialog($event)"
+        >
+        </components-category-card>
+      } @empty {
+        <h3 class="text-center empty-set">There are no categories currently created.</h3>
+      }
+    </div>
+  </main>
 }
 
 <div class="bottom-actions">
@@ -48,6 +45,6 @@
   </button>
 </div>
 
-<shared-components-notification></shared-components-notification>
-<shared-components-error-dialog></shared-components-error-dialog>
-<shared-components-loading-dialog></shared-components-loading-dialog>
+<components-notification></components-notification>
+<components-error-dialog></components-error-dialog>
+<components-loading-dialog></components-loading-dialog>

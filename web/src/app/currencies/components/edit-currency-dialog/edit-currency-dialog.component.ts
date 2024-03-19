@@ -1,14 +1,14 @@
-import { Component, Inject } from '@angular/core'
+import { Component, Inject, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { Currency } from '../../../shared/models/currency.model'
 
 @Component({
-  selector: 'currenccies-components-edit-currency-dialog',
+  selector: 'components-edit-currency-dialog',
   templateUrl: './edit-currency-dialog.component.html',
   styleUrl: './edit-currency-dialog.component.scss'
 })
-export class EditCurrencyDialogComponent {
+export class EditCurrencyDialogComponent implements OnInit {
   public form: FormGroup = new FormGroup({
     name: new FormControl<string>('', [
       Validators.required,

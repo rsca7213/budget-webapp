@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { ForgotPasswordView } from './forgot-password.component'
+import { ForgotPasswordViewComponent } from './forgot-password.component'
 
 const routes: Routes = [
   {
     path: '',
-    component: ForgotPasswordView
+    component: ForgotPasswordViewComponent
   }
 ]
 
