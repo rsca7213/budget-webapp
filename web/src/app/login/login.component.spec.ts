@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { LoginView } from './login.component'
+import { LoginViewComponent } from './login.component'
 import { RouterTestingModule } from '@angular/router/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { SharedModule } from '../shared/shared.module'
 
-describe('Login/LoginView', () => {
-  let component: LoginView
-  let fixture: ComponentFixture<LoginView>
+describe('Login/LoginViewComponent', () => {
+  let component: LoginViewComponent
+  let fixture: ComponentFixture<LoginViewComponent>
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LoginView],
+      declarations: [LoginViewComponent],
       imports: [HttpClientTestingModule, RouterTestingModule, SharedModule]
     })
 
-    fixture = TestBed.createComponent(LoginView)
+    fixture = TestBed.createComponent(LoginViewComponent)
     component = fixture.componentInstance
   })
 

@@ -2,19 +2,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { SharedModule } from '../shared/shared.module'
-import { CategoriesView } from './categories.component'
+import { CategoriesViewComponent } from './categories.component'
 
-describe('Categories/CategoriesView', () => {
-  let component: CategoriesView
-  let fixture: ComponentFixture<CategoriesView>
+describe('Categories/CategoriesViewComponent', () => {
+  let component: CategoriesViewComponent
+  let fixture: ComponentFixture<CategoriesViewComponent>
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CategoriesView],
+      declarations: [CategoriesViewComponent],
       imports: [HttpClientTestingModule, RouterTestingModule, SharedModule]
     })
 
-    fixture = TestBed.createComponent(CategoriesView)
+    fixture = TestBed.createComponent(CategoriesViewComponent)
     component = fixture.componentInstance
   })
 
