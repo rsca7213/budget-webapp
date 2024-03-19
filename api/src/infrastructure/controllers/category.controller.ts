@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common'
 import { CategoryService } from '../../app/services/category.service'
 import { UuidService } from '../services/uuid.service'
 import { CategoryRepository } from '../database/category.repository'
@@ -8,8 +8,8 @@ import { Category } from '../../domain/entities/category.entity'
 import { CreateCategoryDto } from '../dto/categories/create-category.dto'
 import { UpdateCategoryDto } from '../dto/categories/update-category.dto'
 import { AuthUserDto } from '../dto/users/auth.dto'
-import { Request } from 'express'
 import { AuthGuard } from '../guards/auth.guard'
+import { AuthUser } from '../decorators/auth-user.decorator'
 
 @Controller('api/categories')
 @UseGuards(AuthGuard)
@@ -26,8 +26,8 @@ export class CategoryController {
 
   @Get()
   @ApiTags('Category')
-  public async findAll(@Req() req: Request & { auth: AuthUserDto }): Promise<GetCategoryDto[]> {
-    let categories: Category[] = await this.categoryService.findAll(req.auth.uuid)
+  public async findAll(@AuthUser() auth: AuthUserDto): Promise<GetCategoryDto[]> {
+    let categories: Category[] = await this.categoryService.findAll(auth.uuid)
     return categories.map(category => {
       return {
         uuid: category.getUuid(),
@@ -43,9 +43,9 @@ export class CategoryController {
   @ApiTags('Category')
   public async find(
     @Param('uuid') uuid: string,
-    @Req() req: Request & { auth: AuthUserDto }
+    @AuthUser() auth: AuthUserDto
   ): Promise<GetCategoryDto | void> {
-    let category = await this.categoryService.find(uuid, req.auth.uuid)
+    let category = await this.categoryService.find(uuid, auth.uuid)
     if (!category) return
     return {
       uuid: category.getUuid(),
@@ -60,9 +60,9 @@ export class CategoryController {
   @ApiTags('Category')
   public async create(
     @Body() data: CreateCategoryDto,
-    @Req() req: Request & { auth: AuthUserDto }
+    @AuthUser() auth: AuthUserDto
   ): Promise<GetCategoryDto> {
-    const category = await this.categoryService.create(data.name, data.type, req.auth.uuid)
+    const category = await this.categoryService.create(data.name, data.type, auth.uuid)
     return {
       uuid: category.getUuid(),
       name: category.getName(),
@@ -77,13 +77,13 @@ export class CategoryController {
   public async update(
     @Param('uuid') uuid: string,
     @Body() data: UpdateCategoryDto,
-    @Req() req: Request & { auth: AuthUserDto }
+    @AuthUser() auth: AuthUserDto
   ): Promise<GetCategoryDto> {
     const category = (await this.categoryService.update(
       uuid,
       data.name,
       data.type,
-      req.auth.uuid
+      auth.uuid
     )) as Category
     return {
       uuid: category.getUuid(),
@@ -96,10 +96,7 @@ export class CategoryController {
 
   @Delete(':uuid')
   @ApiTags('Category')
-  public async delete(
-    @Param('uuid') uuid: string,
-    @Req() req: Request & { auth: AuthUserDto }
-  ): Promise<void> {
-    await this.categoryService.delete(uuid, req.auth.uuid)
+  public async delete(@Param('uuid') uuid: string, @AuthUser() auth: AuthUserDto): Promise<void> {
+    await this.categoryService.delete(uuid, auth.uuid)
   }
 }
