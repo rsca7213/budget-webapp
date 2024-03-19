@@ -1,10 +1,10 @@
-name: 'Build & test Back-End'
+name: 'Web'
 
 on: [push, pull_request]
 
 defaults:
   run:
-    working-directory: api
+    working-directory: web
 
 jobs:
   build:
@@ -18,4 +18,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: npm install
-      - run: npm run test:unit
+      - run: npm run test
