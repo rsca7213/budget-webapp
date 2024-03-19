@@ -149,7 +149,7 @@ describe('[Unit - CategoryService] Create a new category', () => {
 
 describe('[Unit - CategoryService] Update a category', () => {
   it('Should update a category', async () => {
-    let category = await categoryService.update(
+    const category = await categoryService.update(
       'cde4d425-c343-4a3d-bb0e-266f9331f165',
       'Groceries',
       'Income',

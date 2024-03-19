@@ -27,16 +27,13 @@ export class CategoryService {
     return category
   }
 
-  public async find(uuid: string, userUuid: string): Promise<Category | void> {
+  public async find(uuid: string, userUuid: string): Promise<Category | undefined> {
     const category = await this.categoryRepository.find(uuid, userUuid)
 
-    if (!category)
-      return Exception.throw(
-        'Category was not found',
-        'ApplicationService.Category.find',
-        'NotFound'
-      )
-    else return category
+    if (!category) {
+      Exception.throw('Category was not found', 'ApplicationService.Category.find', 'NotFound')
+      return
+    } else return category
   }
 
   public async findAll(userUuid: string): Promise<Category[]> {
@@ -46,12 +43,10 @@ export class CategoryService {
   public async delete(uuid: string, userUuid: string): Promise<void> {
     const category = await this.categoryRepository.find(uuid, userUuid)
 
-    if (!category)
-      return Exception.throw(
-        'Category was not found',
-        'ApplicationService.Category.delete',
-        'NotFound'
-      )
+    if (!category) {
+      Exception.throw('Category was not found', 'ApplicationService.Category.delete', 'NotFound')
+      return
+    }
 
     const result = await this.categoryRepository.delete(uuid, userUuid)
 
@@ -68,27 +63,27 @@ export class CategoryService {
     name: string,
     type: CategoryType,
     userUuid: string
-  ): Promise<Category | void> {
+  ): Promise<Category | undefined> {
     const category = await this.categoryRepository.find(uuid, userUuid)
 
-    if (!category)
-      return Exception.throw(
-        'Category was not found',
-        'ApplicationService.Category.update',
-        'NotFound'
-      )
+    if (!category) {
+      Exception.throw('Category was not found', 'ApplicationService.Category.update', 'NotFound')
+      return
+    }
 
     category.setName(name)
     category.setType(type)
 
     const result = await this.categoryRepository.save(category, userUuid)
 
-    if (!result)
-      return Exception.throw(
+    if (!result) {
+      Exception.throw(
         'Category could not be updated',
         'ApplicationService.Category.update',
         'Repository'
       )
+      return
+    }
 
     return category
   }

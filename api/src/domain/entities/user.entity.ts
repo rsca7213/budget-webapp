@@ -10,6 +10,39 @@ export class User extends Entity {
     super()
   }
 
+  public static restore(
+    uuid: string,
+    name: string,
+    email: string,
+    hash: string,
+    createdAt: Date,
+    updatedAt: Date
+  ): User {
+    const user = new User()
+
+    user.setUuid(uuid)
+    user.setName(name)
+    user.setEmail(email)
+    user.setPasswordHash(hash)
+    user.setCreatedAt(createdAt)
+    user.setUpdatedAt(updatedAt)
+
+    return user
+  }
+
+  public static create(uuid: string, name: string, email: string, hash: string): User {
+    const user = new User()
+
+    user.setUuid(uuid)
+    user.setName(name)
+    user.setEmail(email)
+    user.setPasswordHash(hash)
+    user.setCreatedAt(new Date())
+    user.setUpdatedAt(new Date())
+
+    return user
+  }
+
   public getName(): string {
     return this.name
   }
@@ -113,38 +146,5 @@ export class User extends Entity {
 
     this.passwordHash = hash
     this.setUpdatedAt(new Date())
-  }
-
-  public static restore(
-    uuid: string,
-    name: string,
-    email: string,
-    hash: string,
-    createdAt: Date,
-    updatedAt: Date
-  ): User {
-    const user = new User()
-
-    user.setUuid(uuid)
-    user.setName(name)
-    user.setEmail(email)
-    user.setPasswordHash(hash)
-    user.setCreatedAt(createdAt)
-    user.setUpdatedAt(updatedAt)
-
-    return user
-  }
-
-  public static create(uuid: string, name: string, email: string, hash: string): User {
-    const user = new User()
-
-    user.setUuid(uuid)
-    user.setName(name)
-    user.setEmail(email)
-    user.setPasswordHash(hash)
-    user.setCreatedAt(new Date())
-    user.setUpdatedAt(new Date())
-
-    return user
   }
 }

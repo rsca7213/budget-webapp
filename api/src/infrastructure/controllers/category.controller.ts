@@ -27,7 +27,7 @@ export class CategoryController {
   @Get()
   @ApiTags('Category')
   public async findAll(@AuthUser() auth: AuthUserDto): Promise<GetCategoryDto[]> {
-    let categories: Category[] = await this.categoryService.findAll(auth.uuid)
+    const categories: Category[] = await this.categoryService.findAll(auth.uuid)
     return categories.map(category => {
       return {
         uuid: category.getUuid(),
@@ -44,8 +44,8 @@ export class CategoryController {
   public async find(
     @Param('uuid') uuid: string,
     @AuthUser() auth: AuthUserDto
-  ): Promise<GetCategoryDto | void> {
-    let category = await this.categoryService.find(uuid, auth.uuid)
+  ): Promise<GetCategoryDto | undefined> {
+    const category = await this.categoryService.find(uuid, auth.uuid)
     if (!category) return
     return {
       uuid: category.getUuid(),

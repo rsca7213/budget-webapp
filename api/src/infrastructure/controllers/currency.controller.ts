@@ -27,7 +27,7 @@ export class CurrencyController {
   @Get()
   @ApiTags('Currency')
   public async findAll(@AuthUser() auth: AuthUserDto): Promise<GetCurrencyDto[]> {
-    let currencies: Currency[] = await this.currencyService.findAll(auth.uuid)
+    const currencies: Currency[] = await this.currencyService.findAll(auth.uuid)
 
     return currencies.map(currency => {
       return {
@@ -48,7 +48,7 @@ export class CurrencyController {
     @Param('uuid') uuid: string,
     @AuthUser() auth: AuthUserDto
   ): Promise<GetCurrencyDto> {
-    let currency = (await this.currencyService.find(uuid, auth.uuid)) as Currency
+    const currency = (await this.currencyService.find(uuid, auth.uuid)) as Currency
 
     return {
       uuid: currency.getUuid(),
@@ -67,12 +67,12 @@ export class CurrencyController {
     @Body() data: CreateCurrencyDto,
     @AuthUser() auth: AuthUserDto
   ): Promise<GetCurrencyDto> {
-    let currency: Currency = await this.currencyService.create(
+    const currency = (await this.currencyService.create(
       data.name,
       data.code,
       data.exchangeRate,
       auth.uuid
-    )
+    )) as Currency
 
     return {
       uuid: currency.getUuid(),
@@ -92,7 +92,7 @@ export class CurrencyController {
     @Body() data: UpdateCurrencyDto,
     @AuthUser() auth: AuthUserDto
   ): Promise<GetCurrencyDto> {
-    let currency = (await this.currencyService.update(
+    const currency = (await this.currencyService.update(
       uuid,
       data.name,
       data.code,
@@ -123,7 +123,7 @@ export class CurrencyController {
     @Param('uuid') uuid: string,
     @AuthUser() auth: AuthUserDto
   ): Promise<GetCurrencyDto[]> {
-    let currencies: Currency[] = (await this.currencyService.swapDefaultCurrency(
+    const currencies: Currency[] = (await this.currencyService.swapDefaultCurrency(
       uuid,
       auth.uuid
     )) as Currency[]

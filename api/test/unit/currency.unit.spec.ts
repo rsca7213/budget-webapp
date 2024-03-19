@@ -79,7 +79,7 @@ describe('[Unit - CurrencyService] Find all currencies', () => {
 
 describe('[Unit - CurrencyService] Create a currency', () => {
   it('Should create a valid currency', async () => {
-    const currencies = await currencyService.create('Peso', 'ARS', 0.012, userUuid)
+    const currencies = (await currencyService.create('Peso', 'ARS', 0.012, userUuid)) as Currency
 
     expect(currencies.getUuid()).toBe('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742')
     expect(currencies.getCreatedAt()).toBeInstanceOf(Date)
@@ -92,7 +92,12 @@ describe('[Unit - CurrencyService] Create a currency', () => {
   })
 
   it('Should create a valid currency and set it as default', async () => {
-    const currencies = await currencyService.create('Real', 'BRL', 1, secondaryUserUuid)
+    const currencies = (await currencyService.create(
+      'Real',
+      'BRL',
+      1,
+      secondaryUserUuid
+    )) as Currency
 
     expect(currencies.getUuid()).toBe('6d6a9b03-8a3c-4d39-8119-f9cf8a9fd742')
     expect(currencies.getCreatedAt()).toBeInstanceOf(Date)
@@ -199,7 +204,7 @@ describe('[Unit - CurrencyService] Create a currency', () => {
 
   it('Should throw an error when exchange rate is empty', async () => {
     try {
-      await currencyService.create('Peso', 'ARS', null as any, userUuid)
+      await currencyService.create('Peso', 'ARS', null as never, userUuid)
     } catch (error) {
       expect(error instanceof Exception).toBe(true)
       expect(error.reason).toBe('Validation')
@@ -418,7 +423,8 @@ describe('[Unit - CurrencyService] Update a currency', () => {
         'cde4d425-c343-4a3d-bb0e-266f9331f167',
         'Peso',
         'ARS',
-        null as any,
+        // @ts-expect-error: Testing for empty value
+        null,
         userUuid
       )
     } catch (error) {
@@ -521,8 +527,8 @@ describe('[Unit - CurrencyService] Swap default currency', () => {
     expect(newDefault.getIsDefault()).toBe(true)
     expect(newDefault.getExchangeRate()).toBe(1)
     expect(otherCurrencies.every(currency => currency.getIsDefault() === false)).toBe(true)
-    expect(currencies.find(currency => currency.getCode() === 'USD')!.getExchangeRate()).toBe(1.28)
-    expect(currencies.find(currency => currency.getCode() === 'EUR')!.getExchangeRate()).toBe(1.18)
+    expect(currencies.find(currency => currency.getCode() === 'USD')?.getExchangeRate()).toBe(1.28)
+    expect(currencies.find(currency => currency.getCode() === 'EUR')?.getExchangeRate()).toBe(1.18)
   })
 
   it('Should throw an error when currency was not found', async () => {

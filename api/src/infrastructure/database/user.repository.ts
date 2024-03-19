@@ -28,7 +28,14 @@ export class UserRepository implements IUserRepository {
     const user = await this.usersOrmRepository.findOneBy({ uuid })
     if (!user) return undefined
 
-    return User.restore(user.uuid, user.name, user.email, user.password, user.createdAt, user.updatedAt)
+    return User.restore(
+      user.uuid,
+      user.name,
+      user.email,
+      user.password,
+      user.createdAt,
+      user.updatedAt
+    )
   }
 
   public async findAll(): Promise<User[]> {
@@ -47,6 +54,13 @@ export class UserRepository implements IUserRepository {
     const user = await this.usersOrmRepository.findOneBy({ email })
     if (!user) return undefined
 
-    return User.restore(user.uuid, user.name, user.email, user.password, user.createdAt, user.updatedAt)
+    return User.restore(
+      user.uuid,
+      user.name,
+      user.email,
+      user.password,
+      user.createdAt,
+      user.updatedAt
+    )
   }
 }

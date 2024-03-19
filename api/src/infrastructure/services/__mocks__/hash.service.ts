@@ -22,10 +22,12 @@ export class HashService implements IHashService {
     '$2a$12$m5dmJ8jW6Lr/nAUbQn/MsegCCdHnrYJhG.HccW0l5t3EOmPrHZxVL'
   ]
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async hash(value: string): Promise<string> {
     return Promise.resolve(this.hashes.shift() || '')
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public compare(value: string, hash: string): Promise<boolean> {
     return Promise.resolve(true)
   }

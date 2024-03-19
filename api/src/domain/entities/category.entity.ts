@@ -1,6 +1,6 @@
 import { Entity } from '../interface/entity.abstract'
 import { Exception } from '../exception/exception'
-import { CategoryType, CategoryTypes } from '../types/category.types'
+import { CategoryType, categoryTypes } from '../types/category.types'
 
 export class Category extends Entity {
   private name: string
@@ -8,6 +8,36 @@ export class Category extends Entity {
 
   private constructor() {
     super()
+  }
+
+  public static restore(
+    uuid: string,
+    name: string,
+    type: CategoryType,
+    createdAt: Date,
+    updatedAt: Date
+  ): Category {
+    const category = new Category()
+
+    category.setUuid(uuid)
+    category.setName(name)
+    category.setType(type)
+    category.setCreatedAt(createdAt)
+    category.setUpdatedAt(updatedAt)
+
+    return category
+  }
+
+  public static create(uuid: string, name: string, type: CategoryType): Category {
+    const category = new Category()
+
+    category.setUuid(uuid)
+    category.setName(name)
+    category.setType(type)
+    category.setCreatedAt(new Date())
+    category.setUpdatedAt(new Date())
+
+    return category
   }
 
   public getName(): string {
@@ -43,40 +73,10 @@ export class Category extends Entity {
   public setType(type: CategoryType): void {
     this.validatorService.fixedValueValidator.validateRequired(type) ||
       Exception.throw('Type is required', 'DomainEntity.Category.type', 'Validation')
-    this.validatorService.fixedValueValidator.validateExists(type, CategoryTypes) ||
+    this.validatorService.fixedValueValidator.validateExists(type, categoryTypes) ||
       Exception.throw('Type is invalid', 'DomainEntity.Category.type', 'Validation')
 
     this.type = type
     this.setUpdatedAt(new Date())
-  }
-
-  public static restore(
-    uuid: string,
-    name: string,
-    type: CategoryType,
-    createdAt: Date,
-    updatedAt: Date
-  ): Category {
-    const category = new Category()
-
-    category.setUuid(uuid)
-    category.setName(name)
-    category.setType(type)
-    category.setCreatedAt(createdAt)
-    category.setUpdatedAt(updatedAt)
-
-    return category
-  }
-
-  public static create(uuid: string, name: string, type: CategoryType): Category {
-    const category = new Category()
-
-    category.setUuid(uuid)
-    category.setName(name)
-    category.setType(type)
-    category.setCreatedAt(new Date())
-    category.setUpdatedAt(new Date())
-
-    return category
   }
 }

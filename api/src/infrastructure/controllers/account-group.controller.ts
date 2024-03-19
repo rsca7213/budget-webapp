@@ -26,7 +26,7 @@ export class AccountGroupController {
   @Get()
   @ApiTags('Account Group')
   public async findAll(@AuthUser() auth: AuthUserDto): Promise<GetAccountGroupDto[]> {
-    let accountGroups: AccountGroup[] = await this.accountGroupService.findAll(auth.uuid)
+    const accountGroups: AccountGroup[] = await this.accountGroupService.findAll(auth.uuid)
 
     return accountGroups.map(accountGroup => {
       return {

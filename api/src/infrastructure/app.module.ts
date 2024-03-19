@@ -64,7 +64,7 @@ import { AccountGroupRepository } from './database/account-group.repository'
   ]
 })
 export class AppModule {
-  public configure(consumer: MiddlewareConsumer) {
+  public configure(consumer: MiddlewareConsumer): void {
     consumer.apply(HttpLoggerMiddleware).forRoutes('*')
   }
 }
