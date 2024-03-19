@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 defaults:
   run:
-    working-directory: frontend
+    working-directory: web
 
 jobs:
   build:
