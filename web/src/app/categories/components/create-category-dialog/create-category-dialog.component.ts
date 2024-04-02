@@ -5,7 +5,7 @@ import { CategoryType, CategoryTypes } from '../../../shared/types/category.type
 import { MatDialogRef } from '@angular/material/dialog'
 
 @Component({
-  selector: 'categories-components-create-category-dialog',
+  selector: 'components-create-category-dialog',
   templateUrl: './create-category-dialog.component.html',
   styleUrl: './create-category-dialog.component.scss'
 })
@@ -15,8 +15,15 @@ export class CreateCategoryDialogComponent {
   }
 
   public form: FormGroup = new FormGroup({
-    name: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
-    type: new FormControl<CategoryType>('Income', [Validators.required, CustomValidators.categoryType()])
+    name: new FormControl<string>('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(50)
+    ]),
+    type: new FormControl<CategoryType>('Income', [
+      Validators.required,
+      CustomValidators.categoryType()
+    ])
   })
 
   public constructor(private readonly dialogRef: MatDialogRef<CreateCategoryDialogComponent>) {}

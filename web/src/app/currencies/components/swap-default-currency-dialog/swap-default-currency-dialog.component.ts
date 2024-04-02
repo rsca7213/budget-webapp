@@ -6,7 +6,7 @@ import { CurrenciesService } from '../../../shared/services/currencies.service'
 import { ExchangeRate } from '../../../shared/types/exchange-rate.interface'
 
 @Component({
-  selector: 'currencies-components-swap-default-currency-dialog',
+  selector: 'components-swap-default-currency-dialog',
   templateUrl: './swap-default-currency-dialog.component.html',
   styleUrl: './swap-default-currency-dialog.component.scss'
 })

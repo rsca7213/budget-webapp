@@ -20,7 +20,7 @@ import { finalize } from 'rxjs'
   templateUrl: './currencies.component.html',
   styleUrl: './currencies.component.scss'
 })
-export class CurrenciesView implements OnInit {
+export class CurrenciesViewComponent implements OnInit {
   @ViewChild(NotificationComponent) public notification: NotificationComponent
   @ViewChild(ErrorDialogComponent) public errorDialog: ErrorDialogComponent
   @ViewChild(LoadingDialogComponent) public loadingDialog: LoadingDialogComponent

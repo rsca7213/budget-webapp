@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Component({
-  selector: 'shared-components-notification',
+  selector: 'components-notification',
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.scss'
 })

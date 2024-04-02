@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-  Put,
-  Req,
-  UseGuards
-} from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '../guards/auth.guard'
 import { CurrencyService } from '../../app/services/currency.service'
 import { UuidService } from '../services/uuid.service'
@@ -17,10 +6,10 @@ import { CurrencyRepository } from '../database/currency.repository'
 import { ApiCookieAuth, ApiTags } from '@nestjs/swagger'
 import { Currency } from '../../domain/entities/currency.entity'
 import { GetCurrencyDto } from '../dto/currencies/get-currency.dto'
-import { Request } from 'express'
 import { AuthUserDto } from '../dto/users/auth.dto'
 import { CreateCurrencyDto } from '../dto/currencies/create-currency.dto'
 import { UpdateCurrencyDto } from '../dto/currencies/update-currency.dto'
+import { AuthUser } from '../decorators/auth-user.decorator'
 
 @Controller('api/currencies')
 @UseGuards(AuthGuard)
@@ -37,8 +26,8 @@ export class CurrencyController {
 
   @Get()
   @ApiTags('Currency')
-  public async findAll(@Req() req: Request & { auth: AuthUserDto }): Promise<GetCurrencyDto[]> {
-    let currencies: Currency[] = await this.currencyService.findAll(req.auth.uuid)
+  public async findAll(@AuthUser() auth: AuthUserDto): Promise<GetCurrencyDto[]> {
+    const currencies: Currency[] = await this.currencyService.findAll(auth.uuid)
 
     return currencies.map(currency => {
       return {
@@ -57,9 +46,9 @@ export class CurrencyController {
   @ApiTags('Currency')
   public async find(
     @Param('uuid') uuid: string,
-    @Req() req: Request & { auth: AuthUserDto }
+    @AuthUser() auth: AuthUserDto
   ): Promise<GetCurrencyDto> {
-    let currency = (await this.currencyService.find(uuid, req.auth.uuid)) as Currency
+    const currency = (await this.currencyService.find(uuid, auth.uuid)) as Currency
 
     return {
       uuid: currency.getUuid(),
@@ -76,14 +65,14 @@ export class CurrencyController {
   @ApiTags('Currency')
   public async create(
     @Body() data: CreateCurrencyDto,
-    @Req() req: Request & { auth: AuthUserDto }
+    @AuthUser() auth: AuthUserDto
   ): Promise<GetCurrencyDto> {
-    let currency: Currency = await this.currencyService.create(
+    const currency = (await this.currencyService.create(
       data.name,
       data.code,
       data.exchangeRate,
-      req.auth.uuid
-    )
+      auth.uuid
+    )) as Currency
 
     return {
       uuid: currency.getUuid(),
@@ -101,14 +90,14 @@ export class CurrencyController {
   public async update(
     @Param('uuid') uuid: string,
     @Body() data: UpdateCurrencyDto,
-    @Req() req: Request & { auth: AuthUserDto }
+    @AuthUser() auth: AuthUserDto
   ): Promise<GetCurrencyDto> {
-    let currency = (await this.currencyService.update(
+    const currency = (await this.currencyService.update(
       uuid,
       data.name,
       data.code,
       data.exchangeRate,
-      req.auth.uuid
+      auth.uuid
     )) as Currency
 
     return {
@@ -124,22 +113,19 @@ export class CurrencyController {
 
   @Delete(':uuid')
   @ApiTags('Currency')
-  public async delete(
-    @Param('uuid') uuid: string,
-    @Req() req: Request & { auth: AuthUserDto }
-  ): Promise<void> {
-    await this.currencyService.delete(uuid, req.auth.uuid)
+  public async delete(@Param('uuid') uuid: string, @AuthUser() auth: AuthUserDto): Promise<void> {
+    await this.currencyService.delete(uuid, auth.uuid)
   }
 
   @Patch('swap-default/:uuid')
   @ApiTags('Currency')
   public async swapDefault(
     @Param('uuid') uuid: string,
-    @Req() req: Request & { auth: AuthUserDto }
+    @AuthUser() auth: AuthUserDto
   ): Promise<GetCurrencyDto[]> {
-    let currencies: Currency[] = (await this.currencyService.swapDefaultCurrency(
+    const currencies: Currency[] = (await this.currencyService.swapDefaultCurrency(
       uuid,
-      req.auth.uuid
+      auth.uuid
     )) as Currency[]
 
     return currencies.map(currency => {

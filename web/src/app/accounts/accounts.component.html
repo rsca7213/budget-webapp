@@ -1,8 +1,5 @@
 @if (viewState !== 'ready') {
-<shared-components-loading-view
-  view="accounts"
-  [state]="viewState"
-></shared-components-loading-view>
+  <components-loading-view view="accounts" [state]="viewState"></components-loading-view>
 } @else {
-<main class="bottom-gap"></main>
+  <main class="bottom-gap"></main>
 }

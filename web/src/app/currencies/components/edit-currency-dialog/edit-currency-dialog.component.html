@@ -7,7 +7,7 @@
   </button>
 </h2>
 <mat-dialog-content>
-  <form [formGroup]="form" class="py-2 form" (keydown.enter)="editCurrency()">
+  <form [formGroup]="form" class="py-2 form" (keydown.enter)="editCurrency()" tabindex="0">
     <mat-form-field appearance="outline" color="accent" class="mat-form-field">
       <mat-label> Name </mat-label>
       <input matInput type="text" placeholder="Name..." formControlName="name" />
@@ -37,29 +37,30 @@
       </mat-error>
     </mat-form-field>
     @if (data.defaultCurrency.uuid !== data.currency.uuid) {
-    <mat-form-field appearance="outline" color="accent" class="mat-form-field">
-      <mat-label> Exchange Rate </mat-label>
-      <input
-        matInput
-        type="text"
-        placeholder="Exchange Rate..."
-        formControlName="exchangeRate"
-        currencyFormatter
-      />
-      <mat-icon matPrefix svgIcon="swap-horizontal"> </mat-icon>
-      <mat-error class="mat-error" *ngIf="form.get('exchangeRate')?.hasError('required')">
-        Exchange Rate is required
-      </mat-error>
-      <mat-error class="mat-error" *ngIf="form.get('exchangeRate')?.hasError('min')">
-        Exchange Rate must be at least 0.0001
-      </mat-error>
-      <mat-hint>
-        1 {{ data.defaultCurrency.code }} is equal to @if (form.get('code')?.value &&
-        form.get('exchangeRate')?.value) { {{ form.get('exchangeRate')?.value }}
-        {{ form.get('code')?.value }}
-        }
-      </mat-hint>
-    </mat-form-field>
+      <mat-form-field appearance="outline" color="accent" class="mat-form-field">
+        <mat-label> Exchange Rate </mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Exchange Rate..."
+          formControlName="exchangeRate"
+          currencyFormatter
+        />
+        <mat-icon matPrefix svgIcon="swap-horizontal"> </mat-icon>
+        <mat-error class="mat-error" *ngIf="form.get('exchangeRate')?.hasError('required')">
+          Exchange Rate is required
+        </mat-error>
+        <mat-error class="mat-error" *ngIf="form.get('exchangeRate')?.hasError('min')">
+          Exchange Rate must be at least 0.0001
+        </mat-error>
+        <mat-hint>
+          1 {{ data.defaultCurrency.code }} is equal to
+          @if (form.get('code')?.value && form.get('exchangeRate')?.value) {
+            {{ form.get('exchangeRate')?.value }}
+            {{ form.get('code')?.value }}
+          }
+        </mat-hint>
+      </mat-form-field>
     }
   </form>
 </mat-dialog-content>

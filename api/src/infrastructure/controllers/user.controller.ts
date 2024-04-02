@@ -1,14 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Req,
-  Res,
-  UseGuards
-} from '@nestjs/common'
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Res, UseGuards } from '@nestjs/common'
 import { CreateUserDto } from '../dto/users/create-user.dto'
 import { UserService } from '../../app/services/user.service'
 import { UuidService } from '../services/uuid.service'
@@ -18,9 +8,10 @@ import { ApiCookieAuth, ApiTags } from '@nestjs/swagger'
 import { VerifyUserCredentialsDto } from '../dto/users/verify-credentials.dto'
 import { User } from '../../domain/entities/user.entity'
 import { JwtService } from '@nestjs/jwt'
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { AuthGuard } from '../guards/auth.guard'
 import { AuthUserDto } from '../dto/users/auth.dto'
+import { AuthUser } from '../decorators/auth-user.decorator'
 
 @Controller('api/users')
 export class UserController {
@@ -45,8 +36,8 @@ export class UserController {
   @ApiTags('Authentication')
   @UseGuards(AuthGuard)
   @ApiCookieAuth('auth')
-  public async getAuthUser(@Req() req: Request & { auth: AuthUserDto }): Promise<AuthUserDto> {
-    return req.auth
+  public async getAuthUser(@AuthUser() auth: AuthUserDto): Promise<AuthUserDto> {
+    return auth
   }
 
   @HttpCode(HttpStatus.OK)

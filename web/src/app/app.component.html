@@ -1,11 +1,11 @@
 @if (displayMainNavigation) {
-<navbar-components-navbar (sidenavToggled)="toggleSidenav()"></navbar-components-navbar>
+  <components-navbar (sidenavToggled)="toggleSidenav()"></components-navbar>
 }
 <mat-sidenav-container>
   @if (displayMainNavigation) {
-  <mat-sidenav [mode]="sidenavProperties.mode" [(opened)]="sidenavProperties.opened">
-    <navbar-components-sidenav (close)="closeSidenav()"></navbar-components-sidenav>
-  </mat-sidenav>
+    <mat-sidenav [mode]="sidenavProperties.mode" [(opened)]="sidenavProperties.opened">
+      <components-sidenav (close)="closeSidenav()"></components-sidenav>
+    </mat-sidenav>
   }
   <mat-sidenav-content class="pa-3">
     <router-outlet></router-outlet>

@@ -1,28 +1,25 @@
 @if (viewState !== 'ready') {
-<shared-components-loading-view
-  view="currencies"
-  [state]="viewState"
-></shared-components-loading-view>
+  <components-loading-view view="currencies" [state]="viewState"></components-loading-view>
 } @else {
-<main class="bottom-gap">
-  <h2 class="inline-flex-aligned mb-0">
-    <mat-icon svgIcon="cash-multiple" class="mr-2"></mat-icon>
-    Currencies
-  </h2>
-  <hr />
-  @if (currencies.length > 0 || defaultCurrency) {
-  <currencies-components-currencies-list
-    [currencies]="currencies"
-    [defaultCurrency]="defaultCurrency"
-    (delete)="openDeleteCurrencyDialog($event)"
-    (edit)="openEditCurrencyDialog($event)"
-    (swap)="openSwapDefaultCurrencyDialog()"
-  >
-  </currencies-components-currencies-list>
-  } @else {
-  <h3 class="text-center">There are no currencies created.</h3>
-  }
-</main>
+  <main class="bottom-gap">
+    <h2 class="inline-flex-aligned mb-0">
+      <mat-icon svgIcon="cash-multiple" class="mr-2"></mat-icon>
+      Currencies
+    </h2>
+    <hr />
+    @if (currencies.length > 0 || defaultCurrency) {
+      <components-currencies-list
+        [currencies]="currencies"
+        [defaultCurrency]="defaultCurrency"
+        (delete)="openDeleteCurrencyDialog($event)"
+        (edit)="openEditCurrencyDialog($event)"
+        (swap)="openSwapDefaultCurrencyDialog()"
+      >
+      </components-currencies-list>
+    } @else {
+      <h3 class="text-center">There are no currencies created.</h3>
+    }
+  </main>
 }
 
 <div class="bottom-actions">
@@ -31,6 +28,6 @@
   </button>
 </div>
 
-<shared-components-notification></shared-components-notification>
-<shared-components-error-dialog></shared-components-error-dialog>
-<shared-components-loading-dialog></shared-components-loading-dialog>
+<components-notification></components-notification>
+<components-error-dialog></components-error-dialog>
+<components-loading-dialog></components-loading-dialog>

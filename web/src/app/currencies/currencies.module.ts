@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { CurrenciesView } from './currencies.component'
+import { CurrenciesViewComponent } from './currencies.component'
 import { SharedModule } from '../shared/shared.module'
 import { CurrenciesRoutingModule } from './currencies-routing.module'
 import { CurrenciesListComponent } from './components/currencies-list/currencies-list.component'
@@ -13,7 +13,7 @@ import { CurrencyExchangeRatesListComponent } from './components/currency-exchan
 
 @NgModule({
   declarations: [
-    CurrenciesView,
+    CurrenciesViewComponent,
     CurrenciesListComponent,
     CreateCurrencyDialogComponent,
     EditCurrencyDialogComponent,

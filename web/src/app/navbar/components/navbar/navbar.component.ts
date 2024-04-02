@@ -7,7 +7,7 @@ import { LoadingDialogComponent } from '../../../shared/components/loading-dialo
 import { Router } from '@angular/router'
 
 @Component({
-  selector: 'navbar-components-navbar',
+  selector: 'components-navbar',
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })

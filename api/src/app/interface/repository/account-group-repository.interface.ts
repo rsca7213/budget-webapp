@@ -1,7 +1,6 @@
 import { AccountGroup } from '../../../domain/entities/account-group.entity'
-import { IRepository } from '../repository.interface'
 
-export interface IAccountGroupRepository extends IRepository<AccountGroup> {
+export interface IAccountGroupRepository {
   save(accountGroup: AccountGroup, userUuid: string): Promise<boolean>
 
   findAll(userUuid: string): Promise<AccountGroup[]>

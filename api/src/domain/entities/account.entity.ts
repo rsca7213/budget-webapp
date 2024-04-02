@@ -1,6 +1,6 @@
 import { Exception } from '../exception/exception'
 import { Entity } from '../interface/entity.abstract'
-import { AccountType, AccountTypes } from '../types/account.types'
+import { AccountType, accountTypes } from '../types/account.types'
 import { AccountGroup } from './account-group.entity'
 import { Currency } from './currency.entity'
 
@@ -14,6 +14,55 @@ export class Account extends Entity {
 
   private constructor() {
     super()
+  }
+
+  public static restore(
+    uuid: string,
+    name: string,
+    type: AccountType,
+    currency: Currency,
+    balance: number,
+    accountGroup: AccountGroup,
+    exchangeRate: number,
+    createdAt: Date,
+    updatedAt: Date
+  ): Account {
+    const account = new Account()
+
+    account.setUuid(uuid)
+    account.setName(name)
+    account.setType(type)
+    account.setCurrency(currency)
+    account.setBalance(balance)
+    account.setAccountGroup(accountGroup)
+    account.setExchangeRate(exchangeRate)
+    account.setCreatedAt(createdAt)
+    account.setUpdatedAt(updatedAt)
+
+    return account
+  }
+
+  public static create(
+    uuid: string,
+    name: string,
+    type: AccountType,
+    currency: Currency,
+    accountGroup: AccountGroup,
+    exchangeRate: number
+  ): Account {
+    const account = new Account()
+
+    account.setUuid(uuid)
+    account.setName(name)
+    account.setType(type)
+    account.setCurrency(currency)
+    account.setBalance(0)
+    account.setAccountGroup(accountGroup)
+    account.setExchangeRate(exchangeRate)
+    account.setCreatedAt(new Date())
+    account.setUpdatedAt(new Date())
+
+    return account
   }
 
   public getName(): string {
@@ -65,7 +114,7 @@ export class Account extends Entity {
   public setType(type: AccountType): void {
     this.validatorService.fixedValueValidator.validateRequired(type) ||
       Exception.throw('Type is required', 'DomainEntity.Account.type', 'Validation')
-    this.validatorService.fixedValueValidator.validateExists(type, AccountTypes) ||
+    this.validatorService.fixedValueValidator.validateExists(type, accountTypes) ||
       Exception.throw('Type is invalid', 'DomainEntity.Account.type', 'Validation')
 
     this.type = type
@@ -110,54 +159,5 @@ export class Account extends Entity {
 
     this.exchangeRate = exchangeRate
     this.setUpdatedAt(new Date())
-  }
-
-  public static restore(
-    uuid: string,
-    name: string,
-    type: AccountType,
-    currency: Currency,
-    balance: number,
-    accountGroup: AccountGroup,
-    exchangeRate: number,
-    createdAt: Date,
-    updatedAt: Date
-  ): Account {
-    const account = new Account()
-
-    account.setUuid(uuid)
-    account.setName(name)
-    account.setType(type)
-    account.setCurrency(currency)
-    account.setBalance(balance)
-    account.setAccountGroup(accountGroup)
-    account.setExchangeRate(exchangeRate)
-    account.setCreatedAt(createdAt)
-    account.setUpdatedAt(updatedAt)
-
-    return account
-  }
-
-  public static create(
-    uuid: string,
-    name: string,
-    type: AccountType,
-    currency: Currency,
-    accountGroup: AccountGroup,
-    exchangeRate: number
-  ): Account {
-    const account = new Account()
-
-    account.setUuid(uuid)
-    account.setName(name)
-    account.setType(type)
-    account.setCurrency(currency)
-    account.setBalance(0)
-    account.setAccountGroup(accountGroup)
-    account.setExchangeRate(exchangeRate)
-    account.setCreatedAt(new Date())
-    account.setUpdatedAt(new Date())
-
-    return account
   }
 }

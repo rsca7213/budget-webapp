@@ -11,7 +11,10 @@ import { APP_PROPERTIES } from '../../../properties'
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  public intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(catchError(this.handleError))
   }
 

@@ -10,7 +10,8 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+    "lint:fix": "eslint --fix \"{src,apps,libs,test}/**/*.ts\"",
     "test": "jest --config ./test/jest-all.json",
     "test:unit": "jest --config ./test/jest-unit.json",
     "test:int": "jest --config ./test/jest-int.json",
@@ -58,7 +59,7 @@
     "ts-loader": "9.5.1",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
-    "typescript": "5.4.2"
+    "typescript": "5.3.3"
   },
   "jest": {
     "moduleFileExtensions": [

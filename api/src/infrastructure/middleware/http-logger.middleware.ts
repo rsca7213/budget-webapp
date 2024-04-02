@@ -8,6 +8,21 @@ import { AuthUserDto } from '../dto/users/auth.dto'
 export class HttpLoggerMiddleware implements NestMiddleware {
   public constructor(private readonly jwtService: JwtService) {}
 
+  public use(req: Request, res: Response, next: NextFunction): void {
+    const http = bold.blueBright('[HTTP]')
+    const startTime = process.hrtime()
+
+    res.on('finish', () => {
+      const duration = (process.hrtime(startTime)[1] / 1000000).toFixed(0)
+
+      console.log(
+        `${http} ${this.getDate()} - ${this.getMethod(req.method)}${this.getStatus(res.statusCode)} ${this.getUrl(req.originalUrl)} - ${this.getUser(req)} [${duration}ms]`
+      )
+    })
+
+    next()
+  }
+
   private getDate(): string {
     return white(
       new Date().toLocaleString('en-US', {
@@ -67,20 +82,5 @@ export class HttpLoggerMiddleware implements NestMiddleware {
     if (status >= 500) return redBright('\\' + status.toString())
 
     return white('\\' + status.toString())
-  }
-
-  public use(req: Request, res: Response, next: NextFunction) {
-    const http = bold.blueBright('[HTTP]')
-    const startTime = process.hrtime()
-
-    res.on('finish', () => {
-      const duration = (process.hrtime(startTime)[1] / 1000000).toFixed(0)
-
-      console.log(
-        `${http} ${this.getDate()} - ${this.getMethod(req.method)}${this.getStatus(res.statusCode)} ${this.getUrl(req.originalUrl)} - ${this.getUser(req)} [${duration}ms]`
-      )
-    })
-
-    next()
   }
 }

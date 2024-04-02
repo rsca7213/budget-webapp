@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 
 @Component({
-  selector: 'shared-components-error-dialog-content',
+  selector: 'components-error-dialog-content',
   templateUrl: './error-dialog-content.component.html',
   styleUrl: './error-dialog-content.component.scss'
 })

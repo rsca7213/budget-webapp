@@ -34,39 +34,40 @@ export class UserService {
     return user
   }
 
-  public async verifyCredentials(email: string, password: string): Promise<User | void> {
+  public async verifyCredentials(email: string, password: string): Promise<User | undefined> {
     const user = await this.userRepository.findByEmail(email)
 
     email = email.toLowerCase()
 
-    if (!user)
-      return Exception.throw(
+    if (!user) {
+      Exception.throw(
         'User not found',
         'ApplicationService.UserService.verifyCredentials',
         'NotFound'
       )
+      return
+    }
 
     const isPasswordValid = await this.hashService.compare(password, user.getHash())
 
-    if (!isPasswordValid)
+    if (!isPasswordValid) {
       Exception.throw(
         'Password is incorrect',
         'ApplicationService.UserService.verifyCredentials',
         'Verification'
       )
+      return
+    }
 
     return user
   }
 
-  public async find(uuid: string): Promise<User | void> {
+  public async find(uuid: string): Promise<User | undefined> {
     const user = await this.userRepository.find(uuid)
 
-    if (!user)
-      return Exception.throw(
-        'User was not found',
-        'ApplicationService.UserService.find',
-        'NotFound'
-      )
-    else return user
+    if (!user) {
+      Exception.throw('User was not found', 'ApplicationService.UserService.find', 'NotFound')
+      return
+    } else return user
   }
 }

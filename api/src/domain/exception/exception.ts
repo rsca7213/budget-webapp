@@ -1,4 +1,4 @@
-import { ExceptionReason, ExceptionReasons } from '../types/exception-reason.types'
+import { ExceptionReason, exceptionReasons } from '../types/exception-reason.types'
 
 export class Exception {
   private message: string
@@ -11,20 +11,8 @@ export class Exception {
     this.origin = origin
   }
 
-  public getMessage(): string {
-    return this.message
-  }
-
-  public getDetails(): string {
-    return `[${this.reason} / ${this.origin}] ${this.message}`
-  }
-
-  public getReason(): ExceptionReason {
-    return this.reason
-  }
-
   public static throw(message: string, origin: string, reason: ExceptionReason): void {
-    const reasons = ExceptionReasons
+    const reasons = exceptionReasons
 
     if (!message) {
       throw new Error('Exception was not created succesfully, message is required')
@@ -39,5 +27,17 @@ export class Exception {
     }
 
     throw new Exception(message, reason, origin)
+  }
+
+  public getMessage(): string {
+    return this.message
+  }
+
+  public getDetails(): string {
+    return `[${this.reason} / ${this.origin}] ${this.message}`
+  }
+
+  public getReason(): ExceptionReason {
+    return this.reason
   }
 }

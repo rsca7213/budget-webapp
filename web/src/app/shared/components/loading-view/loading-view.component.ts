@@ -4,7 +4,7 @@ import { Router } from '@angular/router'
 import { APP_PROPERTIES } from '../../../../properties'
 
 @Component({
-  selector: 'shared-components-loading-view',
+  selector: 'components-loading-view',
   templateUrl: './loading-view.component.html',
   styleUrl: './loading-view.component.scss'
 })

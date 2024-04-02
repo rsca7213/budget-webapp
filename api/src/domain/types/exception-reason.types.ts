@@ -6,7 +6,7 @@ export type ExceptionReason =
   | 'Privilege'
   | 'Repository'
   | 'Generic'
-export const ExceptionReasons: ExceptionReason[] = [
+export const exceptionReasons: ExceptionReason[] = [
   'Validation',
   'Verification',
   'NotFound',

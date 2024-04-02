@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { CurrenciesView } from './currencies.component'
+import { CurrenciesViewComponent } from './currencies.component'
 
 const routes: Routes = [
   {
     path: '',
-    component: CurrenciesView
+    component: CurrenciesViewComponent
   }
 ]
 

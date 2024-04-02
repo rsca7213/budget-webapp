@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { RegisterView } from './register.component'
+import { RegisterViewComponent } from './register.component'
 
 const routes: Routes = [
   {
     path: '',
-    component: RegisterView
+    component: RegisterViewComponent
   }
 ]
 

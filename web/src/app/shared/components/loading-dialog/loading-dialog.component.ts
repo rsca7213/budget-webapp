@@ -4,7 +4,7 @@ import { LoadingDialogContentComponent } from './content/loading-dialog-content.
 import { APP_DIALOG_SIZES } from '../../constants/dialog-sizes.constant'
 
 @Component({
-  selector: 'shared-components-loading-dialog',
+  selector: 'components-loading-dialog',
   templateUrl: './loading-dialog.component.html',
   styleUrl: './loading-dialog.component.scss'
 })

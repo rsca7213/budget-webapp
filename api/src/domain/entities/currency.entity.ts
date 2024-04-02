@@ -11,6 +11,48 @@ export class Currency extends Entity {
     super()
   }
 
+  public static restore(
+    uuid: string,
+    name: string,
+    code: string,
+    exchangeRate: number,
+    isDefault: boolean,
+    createdAt: Date,
+    updatedAt: Date
+  ): Currency {
+    const currency = new Currency()
+
+    currency.setUuid(uuid)
+    currency.setName(name)
+    currency.setCode(code)
+    currency.setExchangeRate(exchangeRate)
+    currency.setIsDefault(isDefault)
+    currency.setCreatedAt(createdAt)
+    currency.setUpdatedAt(updatedAt)
+
+    return currency
+  }
+
+  public static create(
+    uuid: string,
+    name: string,
+    code: string,
+    exchangeRate: number,
+    isDefault: boolean
+  ): Currency {
+    const currency = new Currency()
+
+    currency.setUuid(uuid)
+    currency.setName(name)
+    currency.setCode(code)
+    currency.setExchangeRate(exchangeRate)
+    currency.setIsDefault(isDefault)
+    currency.setCreatedAt(new Date())
+    currency.setUpdatedAt(new Date())
+
+    return currency
+  }
+
   public getName(): string {
     return this.name
   }
@@ -103,47 +145,5 @@ export class Currency extends Entity {
 
     this.isDefault = isDefault
     this.setUpdatedAt(new Date())
-  }
-
-  public static restore(
-    uuid: string,
-    name: string,
-    code: string,
-    exchangeRate: number,
-    isDefault: boolean,
-    createdAt: Date,
-    updatedAt: Date
-  ): Currency {
-    const currency = new Currency()
-
-    currency.setUuid(uuid)
-    currency.setName(name)
-    currency.setCode(code)
-    currency.setExchangeRate(exchangeRate)
-    currency.setIsDefault(isDefault)
-    currency.setCreatedAt(createdAt)
-    currency.setUpdatedAt(updatedAt)
-
-    return currency
-  }
-
-  public static create(
-    uuid: string,
-    name: string,
-    code: string,
-    exchangeRate: number,
-    isDefault: boolean
-  ): Currency {
-    const currency = new Currency()
-
-    currency.setUuid(uuid)
-    currency.setName(name)
-    currency.setCode(code)
-    currency.setExchangeRate(exchangeRate)
-    currency.setIsDefault(isDefault)
-    currency.setCreatedAt(new Date())
-    currency.setUpdatedAt(new Date())
-
-    return currency
   }
 }

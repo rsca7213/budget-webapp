@@ -1,6 +1,6 @@
 import { Exception } from '../exception/exception'
 import { Entity } from '../interface/entity.abstract'
-import { AccountType, AccountTypes } from '../types/account.types'
+import { AccountType, accountTypes } from '../types/account.types'
 import { Account } from './account.entity'
 
 export class AccountGroup extends Entity {
@@ -10,6 +10,39 @@ export class AccountGroup extends Entity {
 
   private constructor() {
     super()
+  }
+
+  public static restore(
+    uuid: string,
+    name: string,
+    type: AccountType,
+    createdAt: Date,
+    updatedAt: Date,
+    accounts: Account[]
+  ): AccountGroup {
+    const accountGroup = new AccountGroup()
+
+    accountGroup.setUuid(uuid)
+    accountGroup.setName(name)
+    accountGroup.setType(type)
+    accountGroup.setCreatedAt(createdAt)
+    accountGroup.setUpdatedAt(updatedAt)
+    accountGroup.accounts = accounts
+
+    return accountGroup
+  }
+
+  public static create(uuid: string, name: string, type: AccountType): AccountGroup {
+    const accountGroup = new AccountGroup()
+
+    accountGroup.setUuid(uuid)
+    accountGroup.setName(name)
+    accountGroup.setType(type)
+    accountGroup.setCreatedAt(new Date())
+    accountGroup.setUpdatedAt(new Date())
+    accountGroup.accounts = []
+
+    return accountGroup
   }
 
   public getName(): string {
@@ -49,7 +82,7 @@ export class AccountGroup extends Entity {
   public setType(type: AccountType): void {
     this.validatorService.fixedValueValidator.validateRequired(type) ||
       Exception.throw('Type is required', 'DomainEntity.AccountGroup.type', 'Validation')
-    this.validatorService.fixedValueValidator.validateExists(type, AccountTypes) ||
+    this.validatorService.fixedValueValidator.validateExists(type, accountTypes) ||
       Exception.throw('Type is invalid', 'DomainEntity.AccountGroup.type', 'Validation')
 
     this.type = type
@@ -64,38 +97,5 @@ export class AccountGroup extends Entity {
   public removeAccount(account: Account): void {
     this.accounts = this.accounts.filter(a => a.getUuid() !== account.getUuid())
     this.setUpdatedAt(new Date())
-  }
-
-  public static restore(
-    uuid: string,
-    name: string,
-    type: AccountType,
-    createdAt: Date,
-    updatedAt: Date,
-    accounts: Account[]
-  ): AccountGroup {
-    const accountGroup = new AccountGroup()
-
-    accountGroup.setUuid(uuid)
-    accountGroup.setName(name)
-    accountGroup.setType(type)
-    accountGroup.setCreatedAt(createdAt)
-    accountGroup.setUpdatedAt(updatedAt)
-    accountGroup.accounts = accounts
-
-    return accountGroup
-  }
-
-  public static create(uuid: string, name: string, type: AccountType): AccountGroup {
-    const accountGroup = new AccountGroup()
-
-    accountGroup.setUuid(uuid)
-    accountGroup.setName(name)
-    accountGroup.setType(type)
-    accountGroup.setCreatedAt(new Date())
-    accountGroup.setUpdatedAt(new Date())
-    accountGroup.accounts = []
-
-    return accountGroup
   }
 }

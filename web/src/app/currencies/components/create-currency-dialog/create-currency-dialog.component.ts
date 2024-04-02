@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { Currency } from '../../../shared/models/currency.model'
 
 @Component({
-  selector: 'currencies-components-create-currency-dialog',
+  selector: 'components-create-currency-dialog',
   templateUrl: './create-currency-dialog.component.html',
   styleUrl: './create-currency-dialog.component.scss'
 })

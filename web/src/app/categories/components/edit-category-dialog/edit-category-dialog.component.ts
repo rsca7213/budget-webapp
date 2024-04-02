@@ -1,22 +1,29 @@
-import { Component, Inject } from '@angular/core'
+import { Component, Inject, OnInit } from '@angular/core'
 import { CategoryType, CategoryTypes } from '../../../shared/types/category.types'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { CustomValidators } from '../../../shared/validators/validations.class'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 
 @Component({
-  selector: 'categories-components-edit-category-dialog',
+  selector: 'components-edit-category-dialog',
   templateUrl: './edit-category-dialog.component.html',
   styleUrl: './edit-category-dialog.component.scss'
 })
-export class EditCategoryDialogComponent {
+export class EditCategoryDialogComponent implements OnInit {
   public options = {
     type: CategoryTypes
   }
 
   public form: FormGroup = new FormGroup({
-    name: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
-    type: new FormControl<CategoryType>('Income', [Validators.required, CustomValidators.categoryType()])
+    name: new FormControl<string>('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(50)
+    ]),
+    type: new FormControl<CategoryType>('Income', [
+      Validators.required,
+      CustomValidators.categoryType()
+    ])
   })
 
   public constructor(

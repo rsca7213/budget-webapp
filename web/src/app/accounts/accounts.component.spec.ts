@@ -2,19 +2,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { SharedModule } from '../shared/shared.module'
-import { AccountsView } from './accounts.component'
+import { AccountsViewComponent } from './accounts.component'
 
-describe('Accounts/AccountsView', () => {
-  let component: AccountsView
-  let fixture: ComponentFixture<AccountsView>
+describe('Accounts/AccountsViewComponent', () => {
+  let component: AccountsViewComponent
+  let fixture: ComponentFixture<AccountsViewComponent>
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AccountsView],
+      declarations: [AccountsViewComponent],
       imports: [HttpClientTestingModule, RouterTestingModule, SharedModule]
     })
 
-    fixture = TestBed.createComponent(AccountsView)
+    fixture = TestBed.createComponent(AccountsViewComponent)
     component = fixture.componentInstance
   })
 

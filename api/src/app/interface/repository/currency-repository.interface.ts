@@ -1,7 +1,5 @@
 import { Currency } from '../../../domain/entities/currency.entity'
-import { IRepository } from '../repository.interface'
-
-export interface ICurrencyRepository extends IRepository<Currency> {
+export interface ICurrencyRepository {
   save(entity: Currency, userUuid: string): Promise<boolean>
 
   saveAll(entities: Currency[], userUuid: string): Promise<boolean>

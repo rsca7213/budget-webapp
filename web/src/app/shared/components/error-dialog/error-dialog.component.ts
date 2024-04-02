@@ -4,7 +4,7 @@ import { ErrorDialogContentComponent } from './content/error-dialog-content.comp
 import { APP_DIALOG_SIZES } from '../../constants/dialog-sizes.constant'
 
 @Component({
-  selector: 'shared-components-error-dialog',
+  selector: 'components-error-dialog',
   templateUrl: './error-dialog.component.html',
   styleUrl: './error-dialog.component.scss'
 })

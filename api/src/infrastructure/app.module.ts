@@ -19,6 +19,7 @@ import { HttpLoggerMiddleware } from './middleware/http-logger.middleware'
 import { AccountGroupDatabaseEntity } from './database/models/account-group.orm.entity'
 import { AccountGroupController } from './controllers/account-group.controller'
 import { AccountGroupRepository } from './database/account-group.repository'
+import { HealthController } from './controllers/health.controller'
 
 @Module({
   imports: [
@@ -46,7 +47,13 @@ import { AccountGroupRepository } from './database/account-group.repository'
       AccountGroupDatabaseEntity
     ])
   ],
-  controllers: [UserController, CategoryController, CurrencyController, AccountGroupController],
+  controllers: [
+    UserController,
+    CategoryController,
+    CurrencyController,
+    AccountGroupController,
+    HealthController
+  ],
   providers: [
     // Common services
     UuidService,
@@ -64,7 +71,7 @@ import { AccountGroupRepository } from './database/account-group.repository'
   ]
 })
 export class AppModule {
-  public configure(consumer: MiddlewareConsumer) {
+  public configure(consumer: MiddlewareConsumer): void {
     consumer.apply(HttpLoggerMiddleware).forRoutes('*')
   }
 }

@@ -1,7 +1,6 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common'
 import { HttpAdapterHost } from '@nestjs/core'
 import { Exception } from '../../domain/exception/exception'
-import { Repository } from 'typeorm'
 
 @Catch()
 export class CatchExceptionsService implements ExceptionFilter {
@@ -16,6 +15,16 @@ export class CatchExceptionsService implements ExceptionFilter {
   }
 
   public constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
+
+  public catch(exception: unknown, host: ArgumentsHost): void {
+    const { httpAdapter } = this.httpAdapterHost
+
+    const ctx = host.switchToHttp()
+
+    const httpException = this.map(exception as Exception | Error)
+
+    httpAdapter.reply(ctx.getResponse(), httpException.getResponse(), httpException.getStatus())
+  }
 
   private map(error: Exception | Error): HttpException {
     if (error instanceof Exception) {
@@ -44,15 +53,5 @@ export class CatchExceptionsService implements ExceptionFilter {
           )
       }
     }
-  }
-
-  public catch(exception: unknown, host: ArgumentsHost): void {
-    const { httpAdapter } = this.httpAdapterHost
-
-    const ctx = host.switchToHttp()
-
-    const httpException = this.map(exception as Exception | Error)
-
-    httpAdapter.reply(ctx.getResponse(), httpException.getResponse(), httpException.getStatus())
   }
 }
