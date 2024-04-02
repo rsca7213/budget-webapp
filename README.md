@@ -3,7 +3,9 @@
 ![CI/CD Actions](https://github.com/rsca7213/budget-webapp/actions/workflows/api.yml/badge.svg)
 ![CI/CD Actions](https://github.com/rsca7213/budget-webapp/actions/workflows/web.yml/badge.svg)
 
-This is a simple web application that allows users to track their expenses and incomes. The application is built Angular for the frontend and Nest.js for the backend.
+This is a simple web application that allows users to track their expenses and incomes. The application is built Angular for the frontend and Nest.js for the backend. 
+
+**NOTE**: This code is very much a WIP and is incomplete at the moment.
 
 ## 📚 Prerequisites - Before installing and running the app
 
