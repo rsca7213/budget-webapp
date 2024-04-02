@@ -57,3 +57,7 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # sqlite
 db.sqlite
+
+# SSL certificate files
+*.key
+*.pem
