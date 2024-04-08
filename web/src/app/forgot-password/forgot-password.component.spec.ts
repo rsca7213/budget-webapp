@@ -9,15 +9,15 @@ describe('ForgotPassword/ForgotPasswordViewComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ForgotPasswordViewComponent],
-      imports: [HttpClientTestingModule, SharedModule]
+      declarations: [ForgotPasswordViewComponent]
     })
 
     fixture = TestBed.createComponent(ForgotPasswordViewComponent)
     component = fixture.componentInstance
+    fixture.detectChanges()
   })
 
-  it('Should create the view', () => {
+  it('Should create the component', () => {
     expect(component).toBeTruthy()
   })
 })

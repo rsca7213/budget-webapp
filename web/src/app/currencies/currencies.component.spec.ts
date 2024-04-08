@@ -10,14 +10,15 @@ describe('Currencies/CurrenciesViewComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [CurrenciesViewComponent],
-      imports: [HttpClientTestingModule, SharedModule]
+      imports: [SharedModule, HttpClientTestingModule]
     })
 
     fixture = TestBed.createComponent(CurrenciesViewComponent)
     component = fixture.componentInstance
+    fixture.detectChanges()
   })
 
-  it('Should create the view', () => {
+  it('Should create the component', () => {
     expect(component).toBeTruthy()
   })
 })

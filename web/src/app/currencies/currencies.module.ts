@@ -7,7 +7,7 @@ import { CurrenciesListComponent } from './components/currencies-list/currencies
 import { CreateCurrencyDialogComponent } from './components/create-currency-dialog/create-currency-dialog.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { EditCurrencyDialogComponent } from './components/edit-currency-dialog/edit-currency-dialog.component'
-import { DeleteCurrencyDialogComponent } from './components/delete-currency-dialog.component'
+import { DeleteCurrencyDialogComponent } from './components/delete-currency-dialog/delete-currency-dialog.component'
 import { SwapDefaultCurrencyDialogComponent } from './components/swap-default-currency-dialog/swap-default-currency-dialog.component'
 import { CurrencyExchangeRatesListComponent } from './components/currency-exchange-rates-list/currency-exchange-rates-list.component'
 

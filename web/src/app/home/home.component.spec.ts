@@ -10,14 +10,15 @@ describe('Home/HomeViewComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [HomeViewComponent],
-      imports: [HttpClientTestingModule, SharedModule]
+      imports: [SharedModule, HttpClientTestingModule]
     })
 
     fixture = TestBed.createComponent(HomeViewComponent)
     component = fixture.componentInstance
+    fixture.detectChanges()
   })
 
-  it('Should create the view', () => {
+  it('Should create the component', () => {
     expect(component).toBeTruthy()
   })
 })

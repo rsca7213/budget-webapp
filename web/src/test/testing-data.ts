@@ -6,6 +6,7 @@ import { GetCurrencyResponseDto } from '../app/shared/dto/currencies/responses/g
 import { CreateUserRequestDto } from '../app/shared/dto/users/requests/create-user.dto'
 import { LoginRequestDto } from '../app/shared/dto/users/requests/login.dto'
 import { AuthUserResponseDto } from '../app/shared/dto/users/responses/auth-user.dto'
+import { Category } from '../app/shared/models/category.model'
 import { Currency } from '../app/shared/models/currency.model'
 
 const requests = {
@@ -63,6 +64,22 @@ const responses = {
 }
 
 const models = {
+  categories: [
+    {
+      uuid: '60c45555-10cb-400e-b564-2794395b877d',
+      name: 'Food',
+      type: 'Expense',
+      createdAt: new Date('2021-06-12T12:00:00.000Z'),
+      updatedAt: new Date('2021-06-12T12:00:00.000Z')
+    },
+    {
+      uuid: '715177b4-514f-425b-a1a9-34d4808a3397',
+      name: 'Salary',
+      type: 'Income',
+      createdAt: new Date('2021-06-12T12:00:00.000Z'),
+      updatedAt: new Date('2021-06-12T12:00:00.000Z')
+    }
+  ] as Category[],
   currencies: [
     {
       uuid: '60c45555-10cb-400e-b564-2794395b877d',

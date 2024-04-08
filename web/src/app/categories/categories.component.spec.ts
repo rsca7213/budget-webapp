@@ -10,14 +10,15 @@ describe('Categories/CategoriesViewComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [CategoriesViewComponent],
-      imports: [HttpClientTestingModule, SharedModule]
+      imports: [SharedModule, HttpClientTestingModule]
     })
 
     fixture = TestBed.createComponent(CategoriesViewComponent)
     component = fixture.componentInstance
+    fixture.detectChanges()
   })
 
-  it('Should create the view', () => {
+  it('Should create the component', () => {
     expect(component).toBeTruthy()
   })
 })

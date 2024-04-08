@@ -11,7 +11,7 @@ import { LoadingDialogComponent } from '../shared/components/loading-dialog/load
 import { CreateCurrencyRequestDto } from '../shared/dto/currencies/requests/create-currency.dto'
 import { EditCurrencyDialogComponent } from './components/edit-currency-dialog/edit-currency-dialog.component'
 import { UpdateCurrencyRequestDto } from '../shared/dto/currencies/requests/update-currency.dto'
-import { DeleteCurrencyDialogComponent } from './components/delete-currency-dialog.component'
+import { DeleteCurrencyDialogComponent } from './components/delete-currency-dialog/delete-currency-dialog.component'
 import { SwapDefaultCurrencyDialogComponent } from './components/swap-default-currency-dialog/swap-default-currency-dialog.component'
 import { finalize } from 'rxjs'
 
