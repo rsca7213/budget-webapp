@@ -7,8 +7,8 @@ import { Currency } from '../../../shared/models/currency.model'
   styleUrl: './currencies-list.component.scss'
 })
 export class CurrenciesListComponent {
-  @Input() currencies: Currency[] = []
-  @Input() defaultCurrency: Currency | undefined
+  @Input({ required: true }) currencies: Currency[] = []
+  @Input({ required: true }) defaultCurrency: Currency | undefined
   @Output() edit = new EventEmitter<Currency>()
   @Output() delete = new EventEmitter<Currency>()
   @Output() swap = new EventEmitter<void>()
