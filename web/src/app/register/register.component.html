@@ -17,29 +17,25 @@
             <mat-label> Name </mat-label>
             <input matInput type="text" placeholder="Name..." formControlName="name" />
             <mat-icon matPrefix svgIcon="account"> </mat-icon>
-            <mat-error class="mat-error" *ngIf="form.get('name')?.hasError('required')">
-              Name is required
-            </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('name')?.hasError('minlength')">
-              Name must be at least 3 characters long
-            </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('name')?.hasError('maxlength')">
-              Name must be at most 100 characters long
-            </mat-error>
+            @if (form.get('name')?.hasError('required')) {
+            <mat-error class="mat-error"> Name is required </mat-error>
+            } @if (form.get('name')?.hasError('minlength')) {
+            <mat-error class="mat-error"> Name must be at least 3 characters long </mat-error>
+            } @if (form.get('name')?.hasError('maxlength')) {
+            <mat-error class="mat-error"> Name must be at most 100 characters long </mat-error>
+            }
           </mat-form-field>
           <mat-form-field appearance="outline" color="accent" class="mat-form-field">
             <mat-label> Email </mat-label>
             <input matInput type="text" placeholder="Email..." formControlName="email" />
             <mat-icon matPrefix svgIcon="email"> </mat-icon>
-            <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('required')">
-              Email is required
-            </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('email')">
-              Email is invalid
-            </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('maxLength')">
-              Email must be at most 320 characters long
-            </mat-error>
+            @if (form.get('email')?.hasError('required')) {
+            <mat-error class="mat-error"> Email is required </mat-error>
+            } @if (form.get('email')?.hasError('email')) {
+            <mat-error class="mat-error"> Email is invalid </mat-error>
+            } @if (form.get('email')?.hasError('maxLength')) {
+            <mat-error class="mat-error"> Email must be at most 320 characters long </mat-error>
+            }
           </mat-form-field>
           <mat-form-field appearance="outline" color="accent" class="mat-form-field password-field">
             <mat-label> Password </mat-label>
@@ -68,11 +64,10 @@
               class="flex-aligned my-0 py-0 ml-1"
             >
               @if (form.get('password')!.value && !form.get('password')!.hasError('minlength')) {
-                <mat-icon svgIcon="check"> </mat-icon>
+              <mat-icon svgIcon="check"> </mat-icon>
               } @else {
-                <mat-icon svgIcon="minus"> </mat-icon>
-              }
-              At least 10 characters
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } At least 10 characters
             </p>
             <p
               [class.text-accent]="
@@ -81,11 +76,10 @@
               class="flex-aligned my-0 py-0 ml-1"
             >
               @if (form.get('password')!.value && !form.get('password')!.hasError('hasNumber')) {
-                <mat-icon svgIcon="check"> </mat-icon>
+              <mat-icon svgIcon="check"> </mat-icon>
               } @else {
-                <mat-icon svgIcon="minus"> </mat-icon>
-              }
-              At least one number
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } At least one number
             </p>
             <p
               [class.text-accent]="
@@ -94,11 +88,10 @@
               class="flex-aligned my-0 py-0 ml-1"
             >
               @if (form.get('password')!.value && !form.get('password')!.hasError('hasUppercase')) {
-                <mat-icon svgIcon="check"> </mat-icon>
+              <mat-icon svgIcon="check"> </mat-icon>
               } @else {
-                <mat-icon svgIcon="minus"> </mat-icon>
-              }
-              At least one uppercase letter
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } At least one uppercase letter
             </p>
             <p
               [class.text-accent]="
@@ -107,11 +100,10 @@
               class="flex-aligned my-0 py-0 ml-1"
             >
               @if (form.get('password')!.value && !form.get('password')!.hasError('hasLowercase')) {
-                <mat-icon svgIcon="check"> </mat-icon>
+              <mat-icon svgIcon="check"> </mat-icon>
               } @else {
-                <mat-icon svgIcon="minus"> </mat-icon>
-              }
-              At least one lowercase letter
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } At least one lowercase letter
             </p>
             <p
               [class.text-accent]="
@@ -120,15 +112,12 @@
               "
               class="flex-aligned my-0 py-0 ml-1"
             >
-              @if (
-                form.get('password')!.value &&
-                !form.get('password')!.hasError('hasSpecialCharacter')
-              ) {
-                <mat-icon svgIcon="check"> </mat-icon>
+              @if ( form.get('password')!.value &&
+              !form.get('password')!.hasError('hasSpecialCharacter') ) {
+              <mat-icon svgIcon="check"> </mat-icon>
               } @else {
-                <mat-icon svgIcon="minus"> </mat-icon>
-              }
-              At least one special character
+              <mat-icon svgIcon="minus"> </mat-icon>
+              } At least one special character
             </p>
           </div>
           <mat-form-field appearance="outline" color="accent" class="mat-form-field">
@@ -144,42 +133,33 @@
               <mat-icon [svgIcon]="passwordInputType === 'password' ? 'eye' : 'eye-off'">
               </mat-icon>
             </button>
-            <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('required')">
-              Confirmation is required
-            </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('minlength')">
+            @if (form.get('confirmPassword')?.hasError('required')) {
+            <mat-error class="mat-error"> Confirmation is required </mat-error>
+            } @if (form.get('confirmPassword')?.hasError('minlength')) {
+            <mat-error class="mat-error">
               Confirmation must be at least 10 characters long
             </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('maxlength')">
+            } @if (form.get('confirmPassword')?.hasError('maxlength')) {
+            <mat-error class="mat-error">
               Confirmation must be at most 100 characters long
             </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('confirmPassword')?.hasError('hasNumber')">
-              Confirmation must contain at least one number
-            </mat-error>
-            <mat-error
-              class="mat-error"
-              *ngIf="form.get('confirmPassword')?.hasError('hasUppercase')"
-            >
+            } @if (form.get('confirmPassword')?.hasError('hasNumber')) {
+            <mat-error class="mat-error"> Confirmation must contain at least one number </mat-error>
+            } @if (form.get('confirmPassword')?.hasError('hasUppercase')) {
+            <mat-error class="mat-error">
               Confirmation must contain at least one uppercase letter
             </mat-error>
-            <mat-error
-              class="mat-error"
-              *ngIf="form.get('confirmPassword')?.hasError('hasLowercase')"
-            >
+            } @if (form.get('confirmPassword')?.hasError('hasLowercase')) {
+            <mat-error class="mat-error">
               Confirmation must contain at least one lowercase letter
             </mat-error>
-            <mat-error
-              class="mat-error"
-              *ngIf="form.get('confirmPassword')?.hasError('hasSpecialCharacter')"
-            >
+            } @if (form.get('confirmPassword')?.hasError('hasSpecialCharacter')) {
+            <mat-error class="mat-error">
               Confirmation must contain at least one special character
             </mat-error>
-            <mat-error
-              class="mat-error"
-              *ngIf="form.get('confirmPassword')?.hasError('passwordMatch')"
-            >
-              Confirmation must match password
-            </mat-error>
+            } @if (form.get('confirmPassword')?.hasError('passwordMatch')) {
+            <mat-error class="mat-error"> Confirmation must match password </mat-error>
+            }
           </mat-form-field>
         </form>
       </mat-card-content>
