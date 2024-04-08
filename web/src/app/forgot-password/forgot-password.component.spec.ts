@@ -1,6 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { SharedModule } from '../shared/shared.module'
 import { ForgotPasswordViewComponent } from './forgot-password.component'
 
 describe('ForgotPassword/ForgotPasswordViewComponent', () => {
