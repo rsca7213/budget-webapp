@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing'
 import { testData } from '../../../test/testing-data'
 import { CategoriesService } from './categories.service'
 
-describe('Services/CategoriesService', () => {
+describe('Shared/CategoriesService', () => {
   let service: CategoriesService
   let httpTestingController: HttpTestingController
 

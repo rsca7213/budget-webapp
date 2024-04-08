@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { testData } from '../../../test/testing-data'
 import { ExchangeRate } from '../types/exchange-rate.interface'
 
-describe('Services/Currencies1Service', () => {
+describe('Shared/Currencies1Service', () => {
   let service: CurrenciesService
   let httpTestingController: HttpTestingController
 

@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing'
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { ErrorInterceptor } from './error.interceptor'
 
-describe('Interceptors/ErrorInterceptor', () => {
+describe('Shared/ErrorInterceptor', () => {
   let httpClient: HttpClient
   let httpTestingController: HttpTestingController
 

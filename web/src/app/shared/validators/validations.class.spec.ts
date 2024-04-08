@@ -1,7 +1,7 @@
 import { AbstractControl } from '@angular/forms'
 import { CustomValidators } from './validations.class'
 
-describe('Validations/ValidatorFns', () => {
+describe('Shared/ValidatorFns', () => {
   describe('categoryType', () => {
     it('Should return null when the value is correct', () => {
       expect(CustomValidators.categoryType()({ value: 'Income' } as AbstractControl)).toBe(null)

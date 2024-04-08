@@ -5,7 +5,7 @@ import { AuthUserResponseDto } from '../dto/users/responses/auth-user.dto'
 import { HttpStatusCode } from '@angular/common/http'
 import { testData } from '../../../test/testing-data'
 
-describe('Services/AuthService', () => {
+describe('Shared/AuthService', () => {
   let service: AuthService
   let httpTestingController: HttpTestingController
 

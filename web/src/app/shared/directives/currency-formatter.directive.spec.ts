@@ -15,7 +15,7 @@ class TestComponent {
   })
 }
 
-describe('Directives/CurrencyFormatterDirective', () => {
+describe('Shared/CurrencyFormatterDirective', () => {
   let fixture: ComponentFixture<TestComponent>
   let input: DebugElement
 

@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { testData } from '../../../test/testing-data'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 
-describe('Guards/AuthGuard', () => {
+describe('Shared/AuthGuard', () => {
   let authService: AuthService
   let router: Router
   const activatedRouteSnapshot = {} as ActivatedRouteSnapshot

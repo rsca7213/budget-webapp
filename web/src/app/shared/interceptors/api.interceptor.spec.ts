@@ -4,7 +4,7 @@ import { ApiInterceptor } from './api.interceptor'
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { APP_PROPERTIES } from '../../../properties'
 
-describe('Interceptors/ApiInterceptor', () => {
+describe('Shared/ApiInterceptor', () => {
   let httpClient: HttpClient
   let httpTestingController: HttpTestingController
 
