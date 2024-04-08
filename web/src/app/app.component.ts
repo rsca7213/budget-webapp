@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core'
+import { Component, effect, HostListener, OnInit, ViewChild } from '@angular/core'
 import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav'
 import { APP_ROUTES } from './app-routing.module'
 import { NavigationStart, Router } from '@angular/router'
@@ -25,8 +25,10 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        this.authService.serviceLoadedObservable.subscribe(loaded => {
-          if (!loaded) return
+        effect(() => {
+          const isLoaded = this.authService.serviceLoaded()
+
+          if (!isLoaded) return
 
           if (!this.authService.isAuthenticated()) {
             this.displayMainNavigation = false
