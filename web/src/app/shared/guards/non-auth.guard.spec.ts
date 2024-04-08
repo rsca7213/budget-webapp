@@ -6,7 +6,7 @@ import { testData } from '../../../test/testing-data'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { nonAuthGuard } from './non-auth.guard'
 
-describe('Guards/AuthGuard', () => {
+describe('Guards/NonAuthGuard', () => {
   let authService: AuthService
   let router: Router
   const activatedRouteSnapshot = {} as ActivatedRouteSnapshot
