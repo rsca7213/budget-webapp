@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { LoginDto } from '../dto/users/login.dto'
-import { CreateUserDto } from '../dto/users/create-user.dto'
+import { LoginRequestDto } from '../dto/users/requests/login.dto'
+import { CreateUserRequestDto } from '../dto/users/requests/create-user.dto'
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +10,11 @@ import { CreateUserDto } from '../dto/users/create-user.dto'
 export class UserService {
   public constructor(private readonly httpClient: HttpClient) {}
 
-  public login(data: LoginDto): Observable<void> {
+  public login(data: LoginRequestDto): Observable<void> {
     return this.httpClient.post<void>('/users/login', data)
   }
 
-  public register(data: CreateUserDto): Observable<void> {
+  public register(data: CreateUserRequestDto): Observable<void> {
     return this.httpClient.post<void>('/users', data)
   }
 

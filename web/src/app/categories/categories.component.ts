@@ -4,13 +4,13 @@ import { CategoriesService } from '../shared/services/categories.service'
 import { MatDialog } from '@angular/material/dialog'
 import { CreateCategoryDialogComponent } from './components/create-category-dialog/create-category-dialog.component'
 import { APP_DIALOG_SIZES } from '../shared/constants/dialog-sizes.constant'
-import { CreateCategoryDto } from '../shared/dto/categories/create-category.dto'
+import { CreateCategoryRequestDto } from '../shared/dto/categories/requests/create-category.dto'
 import { LoadingState } from '../shared/types/loading-state.types'
 import { NotificationComponent } from '../shared/components/notification/notification.component'
 import { ErrorDialogComponent } from '../shared/components/error-dialog/error-dialog.component'
 import { LoadingDialogComponent } from '../shared/components/loading-dialog/loading-dialog.component'
 import { EditCategoryDialogComponent } from './components/edit-category-dialog/edit-category-dialog.component'
-import { UpdateCategoryDto } from '../shared/dto/categories/update-category.dto'
+import { UpdateCategoryRequestDto } from '../shared/dto/categories/requests/update-category.dto'
 import { DeleteCategoryDialogComponent } from './components/delete-category-dialog/delete-category-dialog.component'
 import { finalize } from 'rxjs'
 
@@ -62,7 +62,7 @@ export class CategoriesViewComponent implements OnInit {
       }
     })
 
-    ref.afterClosed().subscribe((data: UpdateCategoryDto) => {
+    ref.afterClosed().subscribe((data: UpdateCategoryRequestDto) => {
       if (!data) return
 
       this.loadingDialog.open()
@@ -118,7 +118,7 @@ export class CategoriesViewComponent implements OnInit {
       width: APP_DIALOG_SIZES.md
     })
 
-    ref.afterClosed().subscribe((data: CreateCategoryDto) => {
+    ref.afterClosed().subscribe((data: CreateCategoryRequestDto) => {
       if (!data) return
 
       this.loadingDialog.open()

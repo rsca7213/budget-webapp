@@ -8,9 +8,9 @@ import { APP_DIALOG_SIZES } from '../shared/constants/dialog-sizes.constant'
 import { ErrorDialogComponent } from '../shared/components/error-dialog/error-dialog.component'
 import { NotificationComponent } from '../shared/components/notification/notification.component'
 import { LoadingDialogComponent } from '../shared/components/loading-dialog/loading-dialog.component'
-import { CreateCurrencyDto } from '../shared/dto/currencies/create-currency.dto'
+import { CreateCurrencyRequestDto } from '../shared/dto/currencies/requests/create-currency.dto'
 import { EditCurrencyDialogComponent } from './components/edit-currency-dialog/edit-currency-dialog.component'
-import { UpdateCurrencyDto } from '../shared/dto/currencies/update-currency.dto'
+import { UpdateCurrencyRequestDto } from '../shared/dto/currencies/requests/update-currency.dto'
 import { DeleteCurrencyDialogComponent } from './components/delete-currency-dialog.component'
 import { SwapDefaultCurrencyDialogComponent } from './components/swap-default-currency-dialog/swap-default-currency-dialog.component'
 import { finalize } from 'rxjs'
@@ -59,7 +59,7 @@ export class CurrenciesViewComponent implements OnInit {
       data: this.defaultCurrency
     })
 
-    ref.afterClosed().subscribe((data: CreateCurrencyDto) => {
+    ref.afterClosed().subscribe((data: CreateCurrencyRequestDto) => {
       if (!data) return
 
       this.loadingDialog.open()
@@ -91,7 +91,7 @@ export class CurrenciesViewComponent implements OnInit {
       }
     })
 
-    ref.afterClosed().subscribe((data: UpdateCurrencyDto) => {
+    ref.afterClosed().subscribe((data: UpdateCurrencyRequestDto) => {
       if (!data) return
 
       this.loadingDialog.open()

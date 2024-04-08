@@ -1,4 +1,4 @@
-export interface GetCurrencyDto {
+export interface GetCurrencyResponseDto {
   uuid: string
   name: string
   code: string
