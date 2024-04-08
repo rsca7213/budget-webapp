@@ -56,6 +56,11 @@ describe('Interceptors/ErrorInterceptor', () => {
   })
 
   it('Should redirect to the login page if the response status is 401', () => {
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: { href: '' }
+    })
+
     httpClient.get<void>('/test').subscribe({
       error: () => {
         expect(window.location.href).toEqual('/login')
