@@ -26,12 +26,9 @@ export class ErrorInterceptor implements HttpInterceptor {
         window.location.href = '/login'
       }
       if (APP_PROPERTIES.debug)
-        console.log(
-          'ErrorInterceptor',
-          'message:',
-          error.error.message,
-          'details:',
-          error.error.details
+        console.info(
+          `%cErrorInterceptor: message: ${error.error.message}, details: ${error.error.details}`,
+          'color: coral'
         )
       return throwError(() => new Error(error.error.message))
     }

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { RouterTestingModule } from '@angular/router/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { SharedModule } from '../shared/shared.module'
 import { CategoriesViewComponent } from './categories.component'
@@ -11,7 +10,7 @@ describe('Categories/CategoriesViewComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [CategoriesViewComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule, SharedModule]
+      imports: [HttpClientTestingModule, SharedModule]
     })
 
     fixture = TestBed.createComponent(CategoriesViewComponent)

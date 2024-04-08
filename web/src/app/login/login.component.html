@@ -17,15 +17,13 @@
             <mat-label> Email </mat-label>
             <input matInput type="text" placeholder="Email..." formControlName="email" />
             <mat-icon matPrefix svgIcon="email"> </mat-icon>
-            <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('required')">
-              Email is required
-            </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('email')">
-              Email is invalid
-            </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('email')?.hasError('maxLength')">
-              Email must be at most 320 characters long
-            </mat-error>
+            @if (form.get('email')?.hasError('required')) {
+            <mat-error class="mat-error"> Email is required </mat-error>
+            } @if (form.get('email')?.hasError('email')) {
+            <mat-error class="mat-error"> Email is invalid </mat-error>
+            } @if (form.get('email')?.hasError('maxLength')) {
+            <mat-error class="mat-error"> Email must be at most 320 characters long </mat-error>
+            }
           </mat-form-field>
           <mat-form-field appearance="outline" color="accent" class="mat-form-field">
             <mat-label> Password </mat-label>
@@ -40,30 +38,27 @@
               <mat-icon [svgIcon]="passwordInputType === 'password' ? 'eye' : 'eye-off'">
               </mat-icon>
             </button>
-            <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('required')">
-              Password is required
-            </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('minlength')">
-              Password must be at least 10 characters long
-            </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('maxlength')">
-              Password must be at most 100 characters long
-            </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasNumber')">
-              Password must contain at least one number
-            </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasUppercase')">
+            @if (form.get('password')?.hasError('required')) {
+            <mat-error class="mat-error"> Password is required </mat-error>
+            } @if (form.get('password')?.hasError('minlength')) {
+            <mat-error class="mat-error"> Password must be at least 10 characters long </mat-error>
+            } @if (form.get('password')?.hasError('maxlength')) {
+            <mat-error class="mat-error"> Password must be at most 100 characters long </mat-error>
+            } @if (form.get('password')?.hasError('hasNumber')) {
+            <mat-error class="mat-error"> Password must contain at least one number </mat-error>
+            } @if (form.get('password')?.hasError('hasUppercase')) {
+            <mat-error class="mat-error">
               Password must contain at least one uppercase letter
             </mat-error>
-            <mat-error class="mat-error" *ngIf="form.get('password')?.hasError('hasLowercase')">
+            } @if (form.get('password')?.hasError('hasLowercase')) {
+            <mat-error class="mat-error">
               Password must contain at least one lowercase letter
             </mat-error>
-            <mat-error
-              class="mat-error"
-              *ngIf="form.get('password')?.hasError('hasSpecialCharacter')"
-            >
+            } @if (form.get('password')?.hasError('hasSpecialCharacter')) {
+            <mat-error class="mat-error">
               Password must contain at least one special character
             </mat-error>
+            }
           </mat-form-field>
         </form>
       </mat-card-content>

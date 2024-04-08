@@ -19,13 +19,13 @@
       <mat-label> Currency </mat-label>
       <mat-select formControlName="currency">
         @for (currency of data.currencies; track currency) {
-          <mat-option [value]="currency"> {{ currency.code }} - {{ currency.name }} </mat-option>
+        <mat-option [value]="currency"> {{ currency.code }} - {{ currency.name }} </mat-option>
         }
       </mat-select>
       <mat-icon matPrefix svgIcon="list-box-outline"> </mat-icon>
-      <mat-error class="mat-error" *ngIf="form.get('currency')?.hasError('required')">
-        Currency is required
-      </mat-error>
+      @if (form.get('currency')?.hasError('required')) {
+      <mat-error class="mat-error"> Currency is required </mat-error>
+      }
     </mat-form-field>
   </form>
   <p class="text-center text-accent mb-0">Notice</p>

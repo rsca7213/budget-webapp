@@ -1,37 +1,35 @@
-import { Injectable } from '@angular/core'
-import { AuthUserDto } from '../dto/users/auth-user.dto'
+import { Injectable, signal } from '@angular/core'
+import { AuthUserResponseDto } from '../dto/users/responses/auth-user.dto'
 import { HttpClient } from '@angular/common/http'
-import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs'
+import { lastValueFrom } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private user: AuthUserDto | null = null
+  private user: AuthUserResponseDto | null = null
 
-  private serviceLoaded = new BehaviorSubject<boolean>(false)
-  public serviceLoadedObservable: Observable<boolean> = this.serviceLoaded.asObservable()
+  public isUserAuthenticated = signal<boolean>(false)
 
   public constructor(private readonly httpClient: HttpClient) {}
 
-  public async getAuthUser(): Promise<AuthUserDto | null> {
+  public async getAuthUser(): Promise<AuthUserResponseDto | null> {
     if (!this.user) {
       this.user = await this.getUser()
-      this.serviceLoaded.next(true)
     }
-    return this.user
-  }
 
-  public isAuthenticated(): boolean {
-    return !!this.user
+    this.refreshUserStatus()
+
+    return this.user
   }
 
   public removeAuthUser(): void {
     this.user = null
+    this.refreshUserStatus()
   }
 
-  private async getUser(): Promise<AuthUserDto | null> {
-    const request = this.httpClient.get<AuthUserDto>('/users/login')
+  private async getUser(): Promise<AuthUserResponseDto | null> {
+    const request = this.httpClient.get<AuthUserResponseDto>('/users/login')
 
     return await lastValueFrom(request)
       .then(user => {
@@ -44,5 +42,9 @@ export class AuthService {
       .catch(() => {
         return null
       })
+  }
+
+  private refreshUserStatus(): void {
+    this.isUserAuthenticated.set(!!this.user)
   }
 }

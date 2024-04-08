@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Currency } from '../models/currency.model'
 import { HttpClient } from '@angular/common/http'
-import { GetCurrencyDto } from '../dto/currencies/get-currency.dto'
-import { CreateCurrencyDto } from '../dto/currencies/create-currency.dto'
-import { UpdateCurrencyDto } from '../dto/currencies/update-currency.dto'
+import { GetCurrencyResponseDto } from '../dto/currencies/responses/get-currency.dto'
+import { CreateCurrencyRequestDto } from '../dto/currencies/requests/create-currency.dto'
+import { UpdateCurrencyRequestDto } from '../dto/currencies/requests/update-currency.dto'
 import { ExchangeRate } from '../types/exchange-rate.interface'
 
 @Injectable({
@@ -14,15 +14,15 @@ export class CurrenciesService {
   public constructor(private readonly httpClient: HttpClient) {}
 
   public getAll(): Observable<Currency[]> {
-    return this.httpClient.get<GetCurrencyDto[]>('/currencies')
+    return this.httpClient.get<GetCurrencyResponseDto[]>('/currencies')
   }
 
-  public create(createCurrencyDto: CreateCurrencyDto): Observable<Currency> {
-    return this.httpClient.post<GetCurrencyDto>('/currencies', createCurrencyDto)
+  public create(createCurrencyDto: CreateCurrencyRequestDto): Observable<Currency> {
+    return this.httpClient.post<GetCurrencyResponseDto>('/currencies', createCurrencyDto)
   }
 
-  public update(data: UpdateCurrencyDto, uuid: string): Observable<Currency> {
-    return this.httpClient.put<GetCurrencyDto>(`/currencies/${uuid}`, data)
+  public update(data: UpdateCurrencyRequestDto, uuid: string): Observable<Currency> {
+    return this.httpClient.put<GetCurrencyResponseDto>(`/currencies/${uuid}`, data)
   }
 
   public delete(uuid: string): Observable<void> {
@@ -30,7 +30,7 @@ export class CurrenciesService {
   }
 
   public swapDefault(uuid: string): Observable<Currency[]> {
-    return this.httpClient.patch<GetCurrencyDto[]>(`/currencies/swap-default/${uuid}`, {})
+    return this.httpClient.patch<GetCurrencyResponseDto[]>(`/currencies/swap-default/${uuid}`, {})
   }
 
   public calculateSwappedExchangeRates(

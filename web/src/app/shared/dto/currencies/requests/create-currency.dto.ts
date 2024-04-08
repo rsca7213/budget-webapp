@@ -1,4 +1,4 @@
-export interface CreateCurrencyDto {
+export interface CreateCurrencyRequestDto {
   name: string
   code: string
   exchangeRate: number

@@ -7,7 +7,7 @@ import { Category } from '../../../shared/models/category.model'
   styleUrl: './category-card.component.scss'
 })
 export class CategoryCardComponent implements OnInit {
-  @Input() category: Category
+  @Input({ required: true }) category: Category
   @Output() edit = new EventEmitter<Category>()
   @Output() delete = new EventEmitter<Category>()
 

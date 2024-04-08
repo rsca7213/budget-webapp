@@ -2,68 +2,61 @@ import { NgModule } from '@angular/core'
 import { Route, RouterModule } from '@angular/router'
 import { authGuard } from './shared/guards/auth.guard'
 import { nonAuthGuard } from './shared/guards/non-auth.guard'
-import { authResolver } from './shared/resolvers/auth.resolver'
+import { APP_PROPERTIES } from '../properties'
 
-export const APP_ROUTES: (Route & { title: string; icon: string; sidebar: boolean })[] = [
+export const APP_ROUTES: (Route & { title: string; icon: string; sidebarTitle?: string })[] = [
   {
     path: '',
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
-    title: 'Home',
+    title: `${APP_PROPERTIES.title} - Dashboard`,
+    sidebarTitle: 'Dashboard',
     icon: 'home',
-    sidebar: true,
-    canActivate: [authGuard],
-    resolve: { user: authResolver }
+    canActivate: [authGuard]
   },
   {
     path: 'categories',
     loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule),
-    title: 'Categories',
+    title: `${APP_PROPERTIES.title} - Categories`,
+    sidebarTitle: 'Categories',
     icon: 'shape',
-    sidebar: true,
-    canActivate: [authGuard],
-    resolve: { user: authResolver }
+    canActivate: [authGuard]
   },
   {
     path: 'accounts',
     loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule),
-    title: 'Accounts',
+    title: `${APP_PROPERTIES.title} - Accounts`,
+    sidebarTitle: 'Accounts',
     icon: 'bank',
-    sidebar: true,
-    canActivate: [authGuard],
-    resolve: { user: authResolver }
+    canActivate: [authGuard]
   },
   {
     path: 'currencies',
     loadChildren: () => import('./currencies/currencies.module').then(m => m.CurrenciesModule),
-    title: 'Currencies',
+    title: `${APP_PROPERTIES.title} - Currencies`,
+    sidebarTitle: 'Currencies',
     icon: 'currency-usd',
-    sidebar: true,
-    canActivate: [authGuard],
-    resolve: { user: authResolver }
+    canActivate: [authGuard]
   },
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
-    title: 'Login',
+    title: `${APP_PROPERTIES.title} - Login`,
     icon: 'login',
-    sidebar: false,
     canActivate: [nonAuthGuard]
   },
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then(m => m.RegisterModule),
-    title: 'Register',
+    title: `${APP_PROPERTIES.title} - Register`,
     icon: 'account-plus',
-    sidebar: false,
     canActivate: [nonAuthGuard]
   },
   {
     path: 'forgot-password',
     loadChildren: () =>
       import('./forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule),
-    title: 'Forgot Password',
+    title: `${APP_PROPERTIES.title} - Forgot Password`,
     icon: 'lock-question',
-    sidebar: false,
     canActivate: [nonAuthGuard]
   }
 ]

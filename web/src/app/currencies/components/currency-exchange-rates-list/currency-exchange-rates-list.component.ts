@@ -7,5 +7,5 @@ import { ExchangeRate } from '../../../shared/types/exchange-rate.interface'
   styleUrl: './currency-exchange-rates-list.component.scss'
 })
 export class CurrencyExchangeRatesListComponent {
-  @Input() exchangeRates: ExchangeRate[] = []
+  @Input({ required: true }) exchangeRates: ExchangeRate[] = []
 }

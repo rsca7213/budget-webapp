@@ -12,55 +12,50 @@
       <mat-label> Name </mat-label>
       <input matInput type="text" placeholder="Name..." formControlName="name" />
       <mat-icon matPrefix svgIcon="cash"> </mat-icon>
-      <mat-error class="mat-error" *ngIf="form.get('name')?.hasError('required')">
-        Name is required
-      </mat-error>
-      <mat-error class="mat-error" *ngIf="form.get('name')?.hasError('minlength')">
-        Name must be at least 3 characters long
-      </mat-error>
-      <mat-error class="mat-error" *ngIf="form.get('name')?.hasError('maxlength')">
-        Name must be at most 50 characters long
-      </mat-error>
+      @if (form.get('name')?.hasError('required')) {
+      <mat-error class="mat-error"> Name is required </mat-error>
+      } @if (form.get('name')?.hasError('minlength')) {
+      <mat-error class="mat-error"> Name must be at least 3 characters long </mat-error>
+      } @if (form.get('name')?.hasError('maxlength')) {
+      <mat-error class="mat-error"> Name must be at most 50 characters long </mat-error>
+      }
     </mat-form-field>
     <mat-form-field appearance="outline" color="accent" class="mat-form-field">
       <mat-label> Code </mat-label>
       <input matInput type="text" placeholder="Code..." formControlName="code" />
       <mat-icon matPrefix svgIcon="barcode"> </mat-icon>
-      <mat-error class="mat-error" *ngIf="form.get('code')?.hasError('required')">
-        Code is required
-      </mat-error>
-      <mat-error class="mat-error" *ngIf="form.get('code')?.hasError('minlength')">
-        Code must be at least 3 characters long
-      </mat-error>
-      <mat-error class="mat-error" *ngIf="form.get('code')?.hasError('maxlength')">
-        Code must be at most 3 characters long
-      </mat-error>
+      @if (form.get('code')?.hasError('required')) {
+      <mat-error class="mat-error"> Code is required </mat-error>
+      } @if (form.get('code')?.hasError('minlength')) {
+      <mat-error class="mat-error"> Code must be at least 3 characters long </mat-error>
+      } @if (form.get('code')?.hasError('maxlength')) {
+      <mat-error class="mat-error"> Code must be at most 3 characters long </mat-error>
+      }
     </mat-form-field>
     @if (data.defaultCurrency.uuid !== data.currency.uuid) {
-      <mat-form-field appearance="outline" color="accent" class="mat-form-field">
-        <mat-label> Exchange Rate </mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Exchange Rate..."
-          formControlName="exchangeRate"
-          currencyFormatter
-        />
-        <mat-icon matPrefix svgIcon="swap-horizontal"> </mat-icon>
-        <mat-error class="mat-error" *ngIf="form.get('exchangeRate')?.hasError('required')">
-          Exchange Rate is required
-        </mat-error>
-        <mat-error class="mat-error" *ngIf="form.get('exchangeRate')?.hasError('min')">
-          Exchange Rate must be at least 0.0001
-        </mat-error>
-        <mat-hint>
-          1 {{ data.defaultCurrency.code }} is equal to
-          @if (form.get('code')?.value && form.get('exchangeRate')?.value) {
-            {{ form.get('exchangeRate')?.value }}
-            {{ form.get('code')?.value }}
-          }
-        </mat-hint>
-      </mat-form-field>
+    <mat-form-field appearance="outline" color="accent" class="mat-form-field">
+      <mat-label> Exchange Rate </mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Exchange Rate..."
+        formControlName="exchangeRate"
+        currencyFormatter
+      />
+      <mat-icon matPrefix svgIcon="swap-horizontal"> </mat-icon>
+      @if (form.get('exchangeRate')?.hasError('required')) {
+      <mat-error class="mat-error"> Exchange Rate is required </mat-error>
+      } @if (form.get('exchangeRate')?.hasError('min')) {
+      <mat-error class="mat-error"> Exchange Rate must be at least 0.0001 </mat-error>
+      }
+      <mat-hint>
+        1 {{ data.defaultCurrency.code }} is equal to @if (form.get('code')?.value &&
+        form.get('exchangeRate')?.value) {
+        {{ form.get('exchangeRate')?.value }}
+        {{ form.get('code')?.value }}
+        }
+      </mat-hint>
+    </mat-form-field>
     }
   </form>
 </mat-dialog-content>

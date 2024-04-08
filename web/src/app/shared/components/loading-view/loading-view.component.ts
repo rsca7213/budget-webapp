@@ -9,8 +9,8 @@ import { APP_PROPERTIES } from '../../../../properties'
   styleUrl: './loading-view.component.scss'
 })
 export class LoadingViewComponent {
-  @Input() public view: string
-  @Input() public state: LoadingState
+  @Input({ required: true }) public view: string
+  @Input({ required: true }) public state: LoadingState
 
   public APP_PROPERTIES = APP_PROPERTIES
 
