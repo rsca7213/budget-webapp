@@ -9,5 +9,5 @@ import { APP_ROUTES } from '../../../app-routing.module'
 export class SidenavComponent {
   @Output() public closeSidenav = new EventEmitter<void>()
 
-  public routes = APP_ROUTES.filter(route => route.sidebar)
+  public routes = APP_ROUTES.filter(route => route.sidebarTitle)
 }

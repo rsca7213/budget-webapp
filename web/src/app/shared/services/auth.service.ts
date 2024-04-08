@@ -9,24 +9,23 @@ import { lastValueFrom } from 'rxjs'
 export class AuthService {
   private user: AuthUserDto | null = null
 
-  public serviceLoaded = signal<boolean>(false)
+  public isUserAuthenticated = signal<boolean>(false)
 
   public constructor(private readonly httpClient: HttpClient) {}
 
   public async getAuthUser(): Promise<AuthUserDto | null> {
     if (!this.user) {
       this.user = await this.getUser()
-      this.serviceLoaded.set(true)
     }
-    return this.user
-  }
 
-  public isAuthenticated(): boolean {
-    return !!this.user
+    this.refreshUserStatus()
+
+    return this.user
   }
 
   public removeAuthUser(): void {
     this.user = null
+    this.refreshUserStatus()
   }
 
   private async getUser(): Promise<AuthUserDto | null> {
@@ -43,5 +42,9 @@ export class AuthService {
       .catch(() => {
         return null
       })
+  }
+
+  public refreshUserStatus(): void {
+    this.isUserAuthenticated.set(!!this.user)
   }
 }
