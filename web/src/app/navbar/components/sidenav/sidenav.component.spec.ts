@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { AppComponent } from './app.component'
+import { SharedModule } from '../../../shared/shared.module'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { SharedModule } from './shared/shared.module'
+import { SidenavComponent } from './sidenav.component'
 import { RouterModule } from '@angular/router'
-import { APP_ROUTES } from './app-routing.module'
+import { APP_ROUTES } from '../../../app-routing.module'
 
-describe('App/AppComponent', () => {
-  let component: AppComponent
-  let fixture: ComponentFixture<AppComponent>
+describe('Shared/SidenavComponent', () => {
+  let component: SidenavComponent
+  let fixture: ComponentFixture<SidenavComponent>
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent],
+      declarations: [SidenavComponent],
       imports: [SharedModule, HttpClientTestingModule, RouterModule.forRoot(APP_ROUTES)]
     })
 
-    fixture = TestBed.createComponent(AppComponent)
+    fixture = TestBed.createComponent(SidenavComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })
