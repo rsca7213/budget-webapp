@@ -9,6 +9,7 @@ import { ErrorDialogContentComponent } from './components/error-dialog/content/e
 import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component'
 import { LoadingDialogContentComponent } from './components/loading-dialog/content/loading-dialog-content.component'
 import { CurrencyFormatterDirective } from './directives/currency-formatter.directive'
+import { MatIconLetterPipe } from './pipes/mat-icon-letter.pipe'
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CurrencyFormatterDirective } from './directives/currency-formatter.dire
     ErrorDialogContentComponent,
     LoadingDialogComponent,
     LoadingDialogContentComponent,
-    CurrencyFormatterDirective
+    CurrencyFormatterDirective,
+    MatIconLetterPipe
   ],
   imports: [CommonModule, AngularMaterialModule, RouterModule],
   exports: [
@@ -29,7 +31,8 @@ import { CurrencyFormatterDirective } from './directives/currency-formatter.dire
     ErrorDialogComponent,
     ErrorDialogContentComponent,
     CurrencyFormatterDirective,
-    AngularMaterialModule
+    AngularMaterialModule,
+    MatIconLetterPipe
   ]
 })
 export class SharedModule {}

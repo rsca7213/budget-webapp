@@ -9,7 +9,7 @@
     </a>
     <span class="flex-spacer"></span>
     <button mat-icon-button [mat-menu-trigger-for]="menu">
-      <mat-icon svgIcon="account-circle"> </mat-icon>
+      <mat-icon [svgIcon]="user?.name | matIconLetter"> </mat-icon>
     </button>
     <mat-menu #menu>
       <button mat-menu-item>
