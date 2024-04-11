@@ -4,7 +4,7 @@ import { UserService } from '../../app/services/user.service'
 import { UuidService } from '../services/uuid.service'
 import { UserRepository } from '../database/user.repository'
 import { HashService } from '../services/hash.service'
-import { ApiCookieAuth, ApiTags } from '@nestjs/swagger'
+import { ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { VerifyUserCredentialsDto } from '../dto/users/verify-credentials.dto'
 import { User } from '../../domain/entities/user.entity'
 import { JwtService } from '@nestjs/jwt'
@@ -14,6 +14,7 @@ import { AuthUserDto } from '../dto/users/auth.dto'
 import { AuthUser } from '../decorators/auth-user.decorator'
 
 @Controller('api/users')
+@ApiTags('Authentication')
 export class UserController {
   private readonly userService: UserService
 
@@ -27,31 +28,31 @@ export class UserController {
   }
 
   @Post('')
-  @ApiTags('Authentication')
+  @ApiOperation({ summary: 'Create a new user' })
   public async create(@Body() data: CreateUserDto): Promise<void> {
     await this.userService.create(data.name, data.email, data.password)
   }
 
   @Get('login')
-  @ApiTags('Authentication')
   @UseGuards(AuthGuard)
   @ApiCookieAuth('auth')
+  @ApiOperation({ summary: 'Get the authenticated user' })
   public async getAuthUser(@AuthUser() auth: AuthUserDto): Promise<AuthUserDto> {
     return auth
   }
 
   @HttpCode(HttpStatus.OK)
   @Post('logout')
-  @ApiTags('Authentication')
   @UseGuards(AuthGuard)
   @ApiCookieAuth('auth')
+  @ApiOperation({ summary: 'Logout the authenticated user' })
   public async logout(@Res({ passthrough: true }) response: Response): Promise<void> {
     response.clearCookie('auth')
   }
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  @ApiTags('Authentication')
+  @ApiOperation({ summary: 'Login user' })
   public async login(
     @Body() data: VerifyUserCredentialsDto,
     @Res({ passthrough: true }) response: Response

@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nes
 import { CategoryService } from '../../app/services/category.service'
 import { UuidService } from '../services/uuid.service'
 import { CategoryRepository } from '../database/category.repository'
-import { ApiCookieAuth, ApiTags } from '@nestjs/swagger'
+import { ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { GetCategoryDto } from '../dto/categories/get-category.dto'
 import { Category } from '../../domain/entities/category.entity'
 import { CreateCategoryDto } from '../dto/categories/create-category.dto'
@@ -14,6 +14,7 @@ import { AuthUser } from '../decorators/auth-user.decorator'
 @Controller('api/categories')
 @UseGuards(AuthGuard)
 @ApiCookieAuth('auth')
+@ApiTags('Category')
 export class CategoryController {
   private readonly categoryService: CategoryService
 
@@ -25,7 +26,7 @@ export class CategoryController {
   }
 
   @Get()
-  @ApiTags('Category')
+  @ApiOperation({ summary: 'Get all categories for auth user' })
   public async findAll(@AuthUser() auth: AuthUserDto): Promise<GetCategoryDto[]> {
     const categories: Category[] = await this.categoryService.findAll(auth.uuid)
     return categories.map(category => {
@@ -40,7 +41,7 @@ export class CategoryController {
   }
 
   @Get(':uuid')
-  @ApiTags('Category')
+  @ApiOperation({ summary: 'Get a category for auth user' })
   public async find(
     @Param('uuid') uuid: string,
     @AuthUser() auth: AuthUserDto
@@ -57,7 +58,7 @@ export class CategoryController {
   }
 
   @Post('')
-  @ApiTags('Category')
+  @ApiOperation({ summary: 'Create a new category for auth user' })
   public async create(
     @Body() data: CreateCategoryDto,
     @AuthUser() auth: AuthUserDto
@@ -73,7 +74,7 @@ export class CategoryController {
   }
 
   @Put(':uuid')
-  @ApiTags('Category')
+  @ApiOperation({ summary: 'Update a category for auth user' })
   public async update(
     @Param('uuid') uuid: string,
     @Body() data: UpdateCategoryDto,
@@ -95,7 +96,7 @@ export class CategoryController {
   }
 
   @Delete(':uuid')
-  @ApiTags('Category')
+  @ApiOperation({ summary: 'Delete a category for auth user' })
   public async delete(@Param('uuid') uuid: string, @AuthUser() auth: AuthUserDto): Promise<void> {
     await this.categoryService.delete(uuid, auth.uuid)
   }

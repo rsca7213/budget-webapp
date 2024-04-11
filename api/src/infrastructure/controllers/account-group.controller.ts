@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '../guards/auth.guard'
-import { ApiCookieAuth, ApiTags } from '@nestjs/swagger'
+import { ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { AccountGroupService } from '../../app/services/account-group.service'
 import { UuidService } from '../services/uuid.service'
 import { AccountGroupRepository } from '../database/account-group.repository'
@@ -13,6 +13,7 @@ import { AuthUser } from '../decorators/auth-user.decorator'
 @Controller('api/account-groups')
 @UseGuards(AuthGuard)
 @ApiCookieAuth('auth')
+@ApiTags('Account Group')
 export class AccountGroupController {
   private readonly accountGroupService: AccountGroupService
 
@@ -24,7 +25,7 @@ export class AccountGroupController {
   }
 
   @Get()
-  @ApiTags('Account Group')
+  @ApiOperation({ summary: 'Get all account groups for auth user' })
   public async findAll(@AuthUser() auth: AuthUserDto): Promise<GetAccountGroupDto[]> {
     const accountGroups: AccountGroup[] = await this.accountGroupService.findAll(auth.uuid)
 
@@ -40,7 +41,7 @@ export class AccountGroupController {
   }
 
   @Post()
-  @ApiTags('Account Group')
+  @ApiOperation({ summary: 'Create a new account group for auth user' })
   public async create(
     @Body() data: CreateAccountGroupDto,
     @AuthUser() auth: AuthUserDto
