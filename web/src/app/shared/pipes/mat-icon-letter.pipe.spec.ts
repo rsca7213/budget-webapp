@@ -1,6 +1,6 @@
 import { MatIconLetterPipe } from './mat-icon-letter.pipe'
 
-describe('MatIconLetterPipe', () => {
+describe('Shared/MatIconLetterPipe', () => {
   let pipe: MatIconLetterPipe
 
   beforeEach(() => {

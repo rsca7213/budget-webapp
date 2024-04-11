@@ -1,5 +1,18 @@
 @if (viewState !== 'ready') {
-  <components-loading-view view="accounts" [state]="viewState"></components-loading-view>
+<components-loading-view view="accounts" [state]="viewState"></components-loading-view>
 } @else {
-  <main class="bottom-gap"></main>
+<main class="bottom-gap"></main>
 }
+
+<div class="bottom-actions">
+  <button mat-fab class="mr-3" color="primary" (click)="openCreateCurrencyDialog()">
+    <mat-icon svgIcon="list-box"> </mat-icon>
+  </button>
+  <button mat-fab class="mr-3" color="accent">
+    <mat-icon svgIcon="plus"> </mat-icon>
+  </button>
+</div>
+
+<components-notification></components-notification>
+<components-error-dialog></components-error-dialog>
+<components-loading-dialog></components-loading-dialog>

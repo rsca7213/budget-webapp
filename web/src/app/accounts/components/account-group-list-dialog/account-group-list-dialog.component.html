@@ -1,0 +1,71 @@
+<h2 mat-dialog-title class="mat-dialog-title">
+  <mat-icon svgIcon="list-box" class="mr-2"> </mat-icon>
+  Account Groups
+  <div class="flex-spacer"></div>
+  <button mat-icon-button (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+  </button>
+</h2>
+<mat-dialog-content>
+  <div class="w-100 flex-aligned justify-end">
+    <button mat-flat-button color="primary">
+      <mat-icon svgIcon="plus" class="mr-2"> </mat-icon>
+      Create
+    </button>
+  </div>
+  <mat-list>
+    <h3 matSubheader class="flex-aligned mb-0 text-accent">
+      <mat-icon svgIcon="trending-up" class="mr-2"> </mat-icon>
+      Income
+    </h3>
+    @for (accountGroup of incomeAccountGroups; track accountGroup.uuid) {
+    <mat-list-item class="pl-0">
+      <span matListItemTitle class="ml-5 pl-2">
+        {{ accountGroup.name }}
+      </span>
+      <div matListItemMeta class="mr-0">
+        <button mat-icon-button>
+          <mat-icon svgIcon="pencil"> </mat-icon>
+        </button>
+        <button mat-icon-button>
+          <mat-icon svgIcon="delete"> </mat-icon>
+        </button>
+      </div>
+    </mat-list-item>
+    } @empty {
+    <mat-list-item class="pl-0">
+      <span matListItemTitle> No income account groups created. </span>
+    </mat-list-item>
+    }
+    <hr />
+    <h3 matSubheader class="flex-aligned mb-0 text-warn">
+      <mat-icon svgIcon="trending-down" class="mr-2"> </mat-icon>
+      Expense
+    </h3>
+    @for (accountGroup of expenseAccountGroups; track accountGroup.uuid) {
+    <mat-list-item class="pl-0">
+      <span matListItemTitle class="ml-5 pl-2">
+        {{ accountGroup.name }}
+      </span>
+      <div matListItemMeta class="mr-0">
+        <button mat-icon-button>
+          <mat-icon svgIcon="pencil"> </mat-icon>
+        </button>
+        <button mat-icon-button>
+          <mat-icon svgIcon="delete"> </mat-icon>
+        </button>
+      </div>
+    </mat-list-item>
+    } @empty {
+    <mat-list-item class="pl-0">
+      <span matListItemTitle> No expense account groups created. </span>
+    </mat-list-item>
+    }
+  </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions">
+  <button mat-button color="basic" (click)="closeDialog()">
+    <mat-icon svgIcon="close"> </mat-icon>
+    Close
+  </button>
+</mat-dialog-actions>
