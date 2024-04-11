@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { SharedModule } from '../../../../shared/shared.module'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ErrorDialogContentComponent } from './error-dialog-content.component'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
+import { TestingModule } from '../../../../../test/testing.module'
 
 describe('Shared/ErrorDialogContentComponent', () => {
   let component: ErrorDialogContentComponent
@@ -11,7 +10,7 @@ describe('Shared/ErrorDialogContentComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [ErrorDialogContentComponent],
-      imports: [SharedModule, HttpClientTestingModule],
+      imports: [TestingModule],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: {} }

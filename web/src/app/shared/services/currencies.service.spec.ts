@@ -1,8 +1,9 @@
 import { TestBed } from '@angular/core/testing'
 import { CurrenciesService } from './currencies.service'
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpTestingController } from '@angular/common/http/testing'
 import { testData } from '../../../test/testing-data'
 import { ExchangeRate } from '../types/exchange-rate.interface'
+import { TestingModule } from '../../../test/testing.module'
 
 describe('Shared/Currencies1Service', () => {
   let service: CurrenciesService
@@ -10,7 +11,7 @@ describe('Shared/Currencies1Service', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [TestingModule],
       providers: [CurrenciesService]
     })
 

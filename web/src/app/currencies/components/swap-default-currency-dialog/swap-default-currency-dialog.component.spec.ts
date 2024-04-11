@@ -1,11 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { SharedModule } from '../../../shared/shared.module'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { SwapDefaultCurrencyDialogComponent } from './swap-default-currency-dialog.component'
 import { CurrencyExchangeRatesListComponent } from '../currency-exchange-rates-list/currency-exchange-rates-list.component'
 import { testData } from '../../../../test/testing-data'
-import { ReactiveFormsModule } from '@angular/forms'
+import { TestingModule } from '../../../../test/testing.module'
 
 describe('Currencies/SwapDefaultCurrencyDialogComponent', () => {
   let component: SwapDefaultCurrencyDialogComponent
@@ -14,7 +12,7 @@ describe('Currencies/SwapDefaultCurrencyDialogComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [SwapDefaultCurrencyDialogComponent, CurrencyExchangeRatesListComponent],
-      imports: [SharedModule, HttpClientTestingModule, ReactiveFormsModule],
+      imports: [TestingModule],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: {} }

@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { SharedModule } from '../../../shared/shared.module'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { NavbarComponent } from './navbar.component'
+import { TestingModule } from '../../../../test/testing.module'
 
 describe('Shared/NavbarComponent', () => {
   let component: NavbarComponent
@@ -10,7 +9,7 @@ describe('Shared/NavbarComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [NavbarComponent],
-      imports: [SharedModule, HttpClientTestingModule]
+      imports: [TestingModule]
     })
 
     fixture = TestBed.createComponent(NavbarComponent)

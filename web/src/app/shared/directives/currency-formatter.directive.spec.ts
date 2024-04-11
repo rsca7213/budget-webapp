@@ -2,7 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { CurrencyFormatterDirective } from './currency-formatter.directive'
 import { Component, DebugElement } from '@angular/core'
 import { By } from '@angular/platform-browser'
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FormControl, FormGroup } from '@angular/forms'
+import { TestingModule } from '../../../test/testing.module'
 
 @Component({
   template: `<form [formGroup]="form">
@@ -21,7 +22,7 @@ describe('Shared/CurrencyFormatterDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, FormsModule],
+      imports: [TestingModule],
       declarations: [CurrencyFormatterDirective, TestComponent]
     })
 

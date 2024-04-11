@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { SharedModule } from '../../../shared/shared.module'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { LoadingDialogComponent } from './loading-dialog.component'
+import { TestingModule } from '../../../../test/testing.module'
 
 describe('Shared/LoadingDialogComponent', () => {
   let component: LoadingDialogComponent
@@ -10,7 +9,7 @@ describe('Shared/LoadingDialogComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [LoadingDialogComponent],
-      imports: [SharedModule, HttpClientTestingModule]
+      imports: [TestingModule]
     })
 
     fixture = TestBed.createComponent(LoadingDialogComponent)

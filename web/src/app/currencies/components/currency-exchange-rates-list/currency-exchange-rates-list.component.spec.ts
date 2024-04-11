@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { SharedModule } from '../../../shared/shared.module'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { CurrencyExchangeRatesListComponent } from './currency-exchange-rates-list.component'
+import { TestingModule } from '../../../../test/testing.module'
 
 describe('Currencies/CurrencyExchangeRatesListComponent', () => {
   let component: CurrencyExchangeRatesListComponent
@@ -10,7 +9,7 @@ describe('Currencies/CurrencyExchangeRatesListComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [CurrencyExchangeRatesListComponent],
-      imports: [SharedModule, HttpClientTestingModule]
+      imports: [TestingModule]
     })
 
     fixture = TestBed.createComponent(CurrencyExchangeRatesListComponent)

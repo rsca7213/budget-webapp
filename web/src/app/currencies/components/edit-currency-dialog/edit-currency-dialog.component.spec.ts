@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { SharedModule } from '../../../shared/shared.module'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { ReactiveFormsModule } from '@angular/forms'
 import { EditCurrencyDialogComponent } from './edit-currency-dialog.component'
 import { testData } from '../../../../test/testing-data'
+import { TestingModule } from '../../../../test/testing.module'
 
 describe('Currencies/EditCurrencyDialogComponent', () => {
   let component: EditCurrencyDialogComponent
@@ -13,7 +11,7 @@ describe('Currencies/EditCurrencyDialogComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [EditCurrencyDialogComponent],
-      imports: [SharedModule, HttpClientTestingModule, ReactiveFormsModule],
+      imports: [TestingModule],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: {} }

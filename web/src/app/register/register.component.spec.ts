@@ -1,8 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { RegisterViewComponent } from './register.component'
-import { SharedModule } from '../shared/shared.module'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { ReactiveFormsModule } from '@angular/forms'
+import { TestingModule } from '../../test/testing.module'
 
 describe('Register/RegisterViewComponent', () => {
   let component: RegisterViewComponent
@@ -11,7 +9,7 @@ describe('Register/RegisterViewComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [RegisterViewComponent],
-      imports: [SharedModule, HttpClientTestingModule, ReactiveFormsModule]
+      imports: [TestingModule]
     })
 
     fixture = TestBed.createComponent(RegisterViewComponent)

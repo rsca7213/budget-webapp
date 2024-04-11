@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { SharedModule } from '../../../../shared/shared.module'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { LoadingDialogContentComponent } from './loading-dialog-content.component'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
+import { TestingModule } from '../../../../../test/testing.module'
 
 describe('Shared/LoadingDialogContentComponent', () => {
   let component: LoadingDialogContentComponent
@@ -11,7 +10,7 @@ describe('Shared/LoadingDialogContentComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [LoadingDialogContentComponent],
-      imports: [SharedModule, HttpClientTestingModule],
+      imports: [TestingModule],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: {} }

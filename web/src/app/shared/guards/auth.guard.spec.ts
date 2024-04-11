@@ -3,7 +3,7 @@ import { AuthService } from '../services/auth.service'
 import { authGuard } from './auth.guard'
 import { TestBed } from '@angular/core/testing'
 import { testData } from '../../../test/testing-data'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { TestingModule } from '../../../test/testing.module'
 
 describe('Shared/AuthGuard', () => {
   let authService: AuthService
@@ -13,7 +13,7 @@ describe('Shared/AuthGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [TestingModule],
       providers: [AuthService]
     })
 

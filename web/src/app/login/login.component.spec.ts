@@ -1,8 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { LoginViewComponent } from './login.component'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { SharedModule } from '../shared/shared.module'
-import { ReactiveFormsModule } from '@angular/forms'
+import { TestingModule } from '../../test/testing.module'
 
 describe('Login/LoginViewComponent', () => {
   let component: LoginViewComponent
@@ -11,7 +9,7 @@ describe('Login/LoginViewComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [LoginViewComponent],
-      imports: [SharedModule, HttpClientTestingModule, ReactiveFormsModule]
+      imports: [TestingModule]
     })
 
     fixture = TestBed.createComponent(LoginViewComponent)

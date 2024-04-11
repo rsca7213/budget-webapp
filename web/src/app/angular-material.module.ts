@@ -14,7 +14,6 @@ import { MatSelectModule } from '@angular/material/select'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { DomSanitizer } from '@angular/platform-browser'
 
 @NgModule({
@@ -32,8 +31,7 @@ import { DomSanitizer } from '@angular/platform-browser'
     MatSelectModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule,
-    BrowserAnimationsModule
+    MatProgressBarModule
   ]
 })
 export class AngularMaterialModule {

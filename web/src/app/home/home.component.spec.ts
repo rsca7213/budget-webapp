@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { SharedModule } from '../shared/shared.module'
 import { HomeViewComponent } from './home.component'
+import { TestingModule } from '../../test/testing.module'
 
 describe('Home/HomeViewComponent', () => {
   let component: HomeViewComponent
@@ -10,7 +9,7 @@ describe('Home/HomeViewComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [HomeViewComponent],
-      imports: [SharedModule, HttpClientTestingModule]
+      imports: [TestingModule]
     })
 
     fixture = TestBed.createComponent(HomeViewComponent)

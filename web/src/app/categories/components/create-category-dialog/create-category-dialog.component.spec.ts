@@ -1,9 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { SharedModule } from '../../../shared/shared.module'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { CreateCategoryDialogComponent } from './create-category-dialog.component'
 import { MatDialogRef } from '@angular/material/dialog'
-import { ReactiveFormsModule } from '@angular/forms'
+import { TestingModule } from '../../../../test/testing.module'
 
 describe('Categories/CreateCategoryDialogComponent', () => {
   let component: CreateCategoryDialogComponent
@@ -12,7 +10,7 @@ describe('Categories/CreateCategoryDialogComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [CreateCategoryDialogComponent],
-      imports: [SharedModule, HttpClientTestingModule, ReactiveFormsModule],
+      imports: [TestingModule],
       providers: [{ provide: MatDialogRef, useValue: {} }]
     })
 

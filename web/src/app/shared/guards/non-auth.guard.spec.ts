@@ -2,8 +2,8 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { AuthService } from '../services/auth.service'
 import { TestBed } from '@angular/core/testing'
 import { testData } from '../../../test/testing-data'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { nonAuthGuard } from './non-auth.guard'
+import { TestingModule } from '../../../test/testing.module'
 
 describe('Shared/NonAuthGuard', () => {
   let authService: AuthService
@@ -13,7 +13,7 @@ describe('Shared/NonAuthGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [TestingModule],
       providers: [AuthService]
     })
 

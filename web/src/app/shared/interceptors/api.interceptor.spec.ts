@@ -1,8 +1,9 @@
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http'
 import { TestBed } from '@angular/core/testing'
 import { ApiInterceptor } from './api.interceptor'
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpTestingController } from '@angular/common/http/testing'
 import { APP_PROPERTIES } from '../../../properties'
+import { TestingModule } from '../../../test/testing.module'
 
 describe('Shared/ApiInterceptor', () => {
   let httpClient: HttpClient
@@ -11,7 +12,7 @@ describe('Shared/ApiInterceptor', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true }],
-      imports: [HttpClientTestingModule]
+      imports: [TestingModule]
     })
 
     httpClient = TestBed.inject(HttpClient)

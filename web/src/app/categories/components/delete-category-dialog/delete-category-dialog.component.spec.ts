@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { SharedModule } from '../../../shared/shared.module'
 import { DeleteCategoryDialogComponent } from './delete-category-dialog.component'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { TestingModule } from '../../../../test/testing.module'
 
 describe('Categories/DeleteCategoryDialogComponent', () => {
   let component: DeleteCategoryDialogComponent
@@ -11,7 +10,7 @@ describe('Categories/DeleteCategoryDialogComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [DeleteCategoryDialogComponent],
-      imports: [SharedModule, HttpClientTestingModule],
+      imports: [TestingModule],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: {} }

@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing'
 import { AuthService } from './auth.service'
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpTestingController } from '@angular/common/http/testing'
 import { AuthUserResponseDto } from '../dto/users/responses/auth-user.dto'
 import { HttpStatusCode } from '@angular/common/http'
 import { testData } from '../../../test/testing-data'
+import { TestingModule } from '../../../test/testing.module'
 
 describe('Shared/AuthService', () => {
   let service: AuthService
@@ -11,7 +12,7 @@ describe('Shared/AuthService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [TestingModule],
       providers: [AuthService]
     })
 

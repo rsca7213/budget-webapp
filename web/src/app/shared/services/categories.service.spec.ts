@@ -1,7 +1,8 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpTestingController } from '@angular/common/http/testing'
 import { TestBed } from '@angular/core/testing'
 import { testData } from '../../../test/testing-data'
 import { CategoriesService } from './categories.service'
+import { TestingModule } from '../../../test/testing.module'
 
 describe('Shared/CategoriesService', () => {
   let service: CategoriesService
@@ -9,7 +10,7 @@ describe('Shared/CategoriesService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [TestingModule],
       providers: [CategoriesService]
     })
 

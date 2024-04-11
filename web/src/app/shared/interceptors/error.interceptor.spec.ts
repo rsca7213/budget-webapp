@@ -1,7 +1,8 @@
 import { HTTP_INTERCEPTORS, HttpClient, HttpStatusCode } from '@angular/common/http'
 import { TestBed } from '@angular/core/testing'
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpTestingController } from '@angular/common/http/testing'
 import { ErrorInterceptor } from './error.interceptor'
+import { TestingModule } from '../../../test/testing.module'
 
 describe('Shared/ErrorInterceptor', () => {
   let httpClient: HttpClient
@@ -12,7 +13,7 @@ describe('Shared/ErrorInterceptor', () => {
 
     TestBed.configureTestingModule({
       providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
-      imports: [HttpClientTestingModule]
+      imports: [TestingModule]
     })
 
     httpClient = TestBed.inject(HttpClient)

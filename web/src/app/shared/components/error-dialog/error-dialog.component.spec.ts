@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { SharedModule } from '../../../shared/shared.module'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ErrorDialogComponent } from './error-dialog.component'
+import { TestingModule } from '../../../../test/testing.module'
 
 describe('Shared/ErrorDialogComponent', () => {
   let component: ErrorDialogComponent
@@ -10,7 +9,7 @@ describe('Shared/ErrorDialogComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [ErrorDialogComponent],
-      imports: [SharedModule, HttpClientTestingModule]
+      imports: [TestingModule]
     })
 
     fixture = TestBed.createComponent(ErrorDialogComponent)

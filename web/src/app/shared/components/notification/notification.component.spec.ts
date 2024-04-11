@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { SharedModule } from '../../../shared/shared.module'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { NotificationComponent } from './notification.component'
+import { TestingModule } from '../../../../test/testing.module'
 
 describe('Shared/NotificationComponent', () => {
   let component: NotificationComponent
@@ -10,7 +9,7 @@ describe('Shared/NotificationComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [NotificationComponent],
-      imports: [SharedModule, HttpClientTestingModule]
+      imports: [TestingModule]
     })
 
     fixture = TestBed.createComponent(NotificationComponent)

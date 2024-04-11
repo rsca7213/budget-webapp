@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { CategoryCardComponent } from './category-card.component'
-import { SharedModule } from '../../../shared/shared.module'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { testData } from '../../../../test/testing-data'
+import { TestingModule } from '../../../../test/testing.module'
 
 describe('Categories/CategoryCardComponent', () => {
   let component: CategoryCardComponent
@@ -11,7 +10,7 @@ describe('Categories/CategoryCardComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [CategoryCardComponent],
-      imports: [SharedModule, HttpClientTestingModule]
+      imports: [TestingModule]
     })
 
     fixture = TestBed.createComponent(CategoryCardComponent)

@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { SharedModule } from '../../../shared/shared.module'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { LoadingViewComponent } from './loading-view.component'
+import { TestingModule } from '../../../../test/testing.module'
 
 describe('Shared/LoadingViewComponent', () => {
   let component: LoadingViewComponent
@@ -10,7 +9,7 @@ describe('Shared/LoadingViewComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [LoadingViewComponent],
-      imports: [SharedModule, HttpClientTestingModule]
+      imports: [TestingModule]
     })
 
     fixture = TestBed.createComponent(LoadingViewComponent)
